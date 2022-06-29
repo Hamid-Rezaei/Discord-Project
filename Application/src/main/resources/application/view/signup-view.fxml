@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="687.0" prefWidth="701.0" style="-fx-background-color: #74a7cc;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.SignUpMenuController">
+   <center>
+      <AnchorPane>
+         <children>
+            <VBox layoutX="172.0" layoutY="105.0" prefHeight="403.0" prefWidth="378.0" style="-fx-background-color: #3e3e40;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="62.0" prefWidth="378.0" text="Create an account" textFill="#eaebec">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane prefHeight="350.0" prefWidth="367.0">
+                     <children>
+                        <Label layoutX="54.0" layoutY="175.0" prefWidth="274.0" text="USERNAME" textFill="#fffdfd" />
+                        <Label layoutX="53.0" layoutY="96.0" prefHeight="18.0" prefWidth="273.0" text="PASSWORD" textFill="#fffdfd" />
+                        <Label layoutX="54.0" layoutY="22.0" prefHeight="18.0" prefWidth="272.0" text="EMAIL" textFill="#f7f7f7" />
+                        <TextField fx:id="passTF" layoutX="52.0" layoutY="121.0" onKeyReleased="#passTFHandler" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #25272e;" />
+                        <TextField fx:id="emailTF" layoutX="52.0" layoutY="48.0" onKeyReleased="#emailTFHandler" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #25272e;" />
+                        <TextField fx:id="usernameTF" layoutX="52.0" layoutY="201.0" onKeyReleased="#UsernameTFHandler" prefHeight="26.0" prefWidth="277.0" style="-fx-background-color: #25272e;" />
+                        <Button layoutX="53.0" layoutY="261.0" mnemonicParsing="false" onAction="#continueButton" prefHeight="38.0" prefWidth="279.0" style="-fx-background-color: #346ac7;" text="Continue" textFill="#f1f4f7" />
+                        <Label layoutX="54.0" layoutY="307.0" onMousePressed="#goToLogin" prefHeight="18.0" prefWidth="275.0" text="Already have an account?" textFill="#346ac7" />
+                        <Label fx:id="emailErr" layoutX="52.0" layoutY="74.0" prefHeight="18.0" prefWidth="277.0" textFill="#ef0101" />
+                        <Label fx:id="passErr" layoutX="52.0" layoutY="147.0" prefHeight="18.0" prefWidth="277.0" textFill="#ef0101" />
+                        <Label fx:id="nameErr" layoutX="53.0" layoutY="227.0" prefHeight="18.0" prefWidth="276.0" textFill="#ef0101" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

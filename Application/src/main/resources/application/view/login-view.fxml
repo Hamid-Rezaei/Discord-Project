@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="693.0" style="-fx-background-color: #74a7cc;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.LoginViewController">
+   <center>
+      <AnchorPane onKeyReleased="#passTFHandler" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="147.0" layoutY="145.0" prefHeight="356.0" prefWidth="400.0" style="-fx-background-color: #3e3e40;">
+               <children>
+                  <AnchorPane prefHeight="358.0" prefWidth="400.0">
+                     <children>
+                        <Label layoutX="1.0" layoutY="1.0" prefHeight="69.0" prefWidth="399.0" textFill="WHITE" />
+                        <Label alignment="BOTTOM_CENTER" layoutX="40.0" layoutY="11.0" prefHeight="60.0" prefWidth="314.0" text="Welcome back!" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="85.0" layoutY="71.0" prefHeight="18.0" prefWidth="230.0" text="We're so excited to see you again!" textFill="#847f7f">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="40.0" layoutY="137.0" prefHeight="18.0" prefWidth="305.0" text="EMAIL OR PHONE NUMBER OR USERNAME" textFill="#f4f4f4" />
+                        <Label layoutX="40.0" layoutY="214.0" prefHeight="18.0" prefWidth="305.0" text="PASSWORD" textFill="#f4f4f4" />
+                        <Label fx:id="emailPhoneErr" layoutX="41.0" layoutY="182.0" prefHeight="18.0" prefWidth="312.0" textFill="#ec0808" />
+                        <Label fx:id="passErr" layoutX="40.0" layoutY="260.0" prefHeight="18.0" prefWidth="305.0" textFill="#ec0808" />
+                        <TextField fx:id="emPhUserTF" layoutX="40.0" layoutY="156.0" onKeyReleased="#emPhUserTFHandler" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #25272e;" />
+                        <TextField fx:id="passTF" layoutX="40.0" layoutY="232.0" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #25272e;" />
+                        <Button layoutX="39.0" layoutY="282.0" mnemonicParsing="false" onAction="#onLoginButton" prefHeight="40.0" prefWidth="316.0" style="-fx-background-color: #346ac7;" text="Login" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
