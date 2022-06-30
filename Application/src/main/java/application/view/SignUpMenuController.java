@@ -8,9 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class SignUpMenuController {
@@ -26,6 +28,7 @@ public class SignUpMenuController {
     private Label passErr;
     @FXML
     private Label emailErr;
+
 
     private String email;
     private String password;
@@ -71,9 +74,9 @@ public class SignUpMenuController {
             canContinue = true;
         } else if (result.startsWith("EMAIL")) {
             emailErr.setText(result);
-        }else if (result.startsWith("PASSWORD")){
+        } else if (result.startsWith("PASSWORD")) {
             passErr.setText(result);
-        }else if(result.startsWith("USERNAME")){
+        } else if (result.startsWith("USERNAME")) {
             nameErr.setText(result);
         }
     }
@@ -82,7 +85,7 @@ public class SignUpMenuController {
     @FXML
     void continueButton(ActionEvent event) {
         checkValidation();
-        if(canContinue){
+        if (canContinue) {
             System.out.println("successfully sing up");
             //TODO: fffffffffff
         }
