@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="borderPane" fx:id="bPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="687.0" prefWidth="701.0" style="-fx-background-color: #5865f2;" styleClass="bodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.SignUpMenuController">
+<BorderPane id="borderPane" fx:id="bPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #5865f2;" styleClass="bodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.SignUpMenuController">
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="430.0" prefWidth="366.0" style="-fx-background-color: #353841;">
          <children>

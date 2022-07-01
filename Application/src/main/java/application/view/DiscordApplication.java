@@ -16,7 +16,7 @@ public class DiscordApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(DiscordApplication.class.getResource("signup-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 700, 700);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Discord");
         stage.getIcons().add(new Image("file:assets/discord_icon.png"));
         stage.setScene(scene);

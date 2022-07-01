@@ -1,18 +1,15 @@
 package application.view;
 
 import application.controller.Authentication;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class SignUpMenuController {
@@ -76,9 +73,7 @@ public class SignUpMenuController {
             emailErr.setText(result);
         } else if (result.startsWith("PASSWORD")) {
             passErr.setText(result);
-        } else if (result.startsWith("USERNAME")) {
-            nameErr.setText(result);
-        }
+        } else if (result.startsWith("USERNAME")) nameErr.setText(result);
     }
 
 

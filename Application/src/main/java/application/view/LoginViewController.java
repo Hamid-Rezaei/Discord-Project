@@ -67,7 +67,7 @@ public class LoginViewController {
         //TODO:dooooooooooooooo
 
         AccountViewController.setUsername(username);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("account-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         DiscordApplication.loadNewScene(loader, stage);
     }

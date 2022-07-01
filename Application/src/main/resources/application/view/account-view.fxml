@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="661.0" prefWidth="880.0" style="-fx-background-color: #353841;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.AccountViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #353841;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.AccountViewController">
    <left>
       <VBox prefHeight="616.0" prefWidth="201.0" style="-fx-background-color: #2f3035;" BorderPane.alignment="CENTER">
          <children>
@@ -87,7 +87,7 @@
                               </Button>
                            </children>
                         </AnchorPane>
-                        <Circle fx:id="status" fill="#1fff52" layoutX="97.0" layoutY="57.0" onMousePressed="#changeStatus" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fx:id="status" fill="#1fff52" layoutX="97.0" layoutY="57.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </AnchorPane>
                </children>
@@ -123,7 +123,7 @@
    <right>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="175.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane onMousePressed="#changeStatus" prefHeight="426.0" prefWidth="175.0">
+            <AnchorPane prefHeight="426.0" prefWidth="175.0">
                <children>
                   <Button contentDisplay="TOP" layoutX="40.0" layoutY="82.0" mnemonicParsing="false" onAction="#escButton" prefHeight="54.0" prefWidth="44.0" style="-fx-background-color: #353841;" text="ESC" textFill="#717579">
                      <graphic>

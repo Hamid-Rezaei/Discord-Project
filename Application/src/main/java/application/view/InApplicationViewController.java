@@ -1,17 +1,12 @@
 package application.view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -21,44 +16,52 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class AccountViewController {
+public class InApplicationViewController {
 
     @FXML
-    private Label emailLb;
-    @FXML
-    private Label phoneLb;
-    @FXML
-    private Label TitleNameLb;
-    @FXML
-    private Label usernameLb;
+    private Circle addServerIcon;
     @FXML
     private Circle avatar;
     @FXML
+    private Circle discordIcon;
+    @FXML
+    private Label findFrd;
+    @FXML
+    private Label findFrdErr;
+    @FXML
+    private Circle settingIcon;
+    @FXML
     private Circle status;
-
-    //User user;
-    private static String username;
-
-    public static void setUsername(String username) {
-        AccountViewController.username = username;
-    }
 
     @FXML
     public void initialize() {
         setAvatar();
+        setDiscordIcon();
+        setAddServerIcon();
+        setSettingIcon();
         status.setFill(StatusViewController.color);
-        TitleNameLb.setText(username);
-        usernameLb.setText(username);
     }
 
-    public void setAvatar() {
-        if (avatar != null) {
-            avatar.setStroke(Color.SEAGREEN);
-            avatar.setFill(new ImagePattern(new Image("file:assets/defaultAvatar.png", false)));
-        }
+    private void setDiscordIcon() {
+        discordIcon.setStroke(Color.GRAY);
+        discordIcon.setFill(new ImagePattern(new Image("file:assets/discord.png", false)));
     }
 
-/*    @FXML
+    private void setAvatar() {
+        avatar.setStroke(Color.SEAGREEN);
+        avatar.setFill(new ImagePattern(new Image("file:assets/defaultAvatar.png", false)));
+    }
+
+    private void setAddServerIcon() {
+        addServerIcon.setFill(new ImagePattern(new Image("file:assets/add_server_icon.png", false)));
+    }
+
+    private void setSettingIcon() {
+        settingIcon.setFill(new ImagePattern(new Image("file:assets/setting_icon.png", false)));
+    }
+
+
+    @FXML
     void changeStatus(MouseEvent event) {
         if (event.isSecondaryButtonDown()) {
             Stage popupStage = new Stage(StageStyle.TRANSPARENT);
@@ -74,44 +77,24 @@ public class AccountViewController {
             popupStage.show();
         }
         status.setFill(StatusViewController.color);
-    }*/
+    }
+
+    public static void setStatus() {
+
+    }
+
 
     @FXML
-    void changeAvatar(ActionEvent event) {
+    void addServer(MouseEvent event) {
 
     }
 
     @FXML
-    void changePass(ActionEvent event) {
-
-    }
-
-    @FXML
-    void editEmail(ActionEvent event) {
-
-    }
-
-    @FXML
-    void editPhone(ActionEvent event) {
-
-    }
-
-    @FXML
-    void editUsername(ActionEvent event) {
-
-    }
-
-    @FXML
-    void escButton(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
+    void setting(MouseEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("account-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         DiscordApplication.loadNewScene(loader, stage);
     }
 
-    @FXML
-    void logOut(ActionEvent event) {
-
-    }
 
 }
-
