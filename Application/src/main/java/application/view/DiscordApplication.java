@@ -13,6 +13,12 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class DiscordApplication extends Application {
+
+    //public static User user;
+    //public static AppController appController;
+
+    public InApplicationViewController inApplicationViewController;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(DiscordApplication.class.getResource("signup-view.fxml"));
@@ -21,8 +27,18 @@ public class DiscordApplication extends Application {
         stage.getIcons().add(new Image("file:assets/discord_icon.png"));
         stage.setScene(scene);
         stage.show();
+        // loadAllController();
     }
 
+    public void loadAllController(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
+            Parent root = loader.load();
+            inApplicationViewController = loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void loadNewScene(FXMLLoader loader, Stage stage) {
         try {

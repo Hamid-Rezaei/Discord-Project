@@ -79,8 +79,8 @@ public class InApplicationViewController {
         status.setFill(StatusViewController.color);
     }
 
-    public static void setStatus() {
-
+    public void setStatus() {
+        status.setFill(StatusViewController.color);
     }
 
 
@@ -96,5 +96,9 @@ public class InApplicationViewController {
         DiscordApplication.loadNewScene(loader, stage);
     }
 
+    @FXML
+    void newDirectChatMessage(MouseEvent event) {
+
+    }
 
 }

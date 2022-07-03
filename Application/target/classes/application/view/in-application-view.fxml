@@ -45,9 +45,9 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </VBox>
-            <Button layoutX="86.0" layoutY="8.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Friends" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button layoutX="86.0" layoutY="8.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Friends" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
-                  <Font name="System Bold" size="29.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Button>
             <AnchorPane layoutX="86.0" layoutY="586.0" prefHeight="68.0" prefWidth="242.0" style="-fx-background-color: #292b2f;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="1.0">
@@ -56,7 +56,7 @@
                   <Circle fx:id="avatar" fill="#36393f" layoutX="39.0" layoutY="34.0" onMousePressed="#changeStatus" radius="25.0" stroke="#36393f" strokeType="INSIDE" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="177.8" />
                   <Circle fx:id="status" fill="#36393f" layoutX="57.0" layoutY="54.0" onMousePressed="#changeStatus" radius="7.0" stroke="#36393f" strokeType="INSIDE" />
                </children></AnchorPane>
-            <Button layoutX="86.0" layoutY="58.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="DIRECT MESSAGES    +" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0">
+            <Button layoutX="86.0" layoutY="58.0" mnemonicParsing="false" onMouseClicked="#newDirectChatMessage" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="DIRECT MESSAGES    +" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -66,84 +66,88 @@
       </AnchorPane>
    </left>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab disable="true" text="Friends">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="Online">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-            <Tab text="All">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="Pendding">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="Blocked">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="Add Friend">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="654.0">
-                     <children>
-                        <AnchorPane layoutX="7.0" prefHeight="205.0" prefWidth="733.0" AnchorPane.bottomAnchor="407.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab disable="true" text="Friends">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="Online">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                  <Tab text="All">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Pendding">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Blocked">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Add Friend">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="654.0">
                            <children>
-                              <Label layoutX="45.0" layoutY="26.0" prefHeight="46.0" prefWidth="688.0" text="ADD FRIEND" textFill="#efeff0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="45.0" layoutY="64.0" prefHeight="32.0" prefWidth="688.0" text="You can add a friend with thier username" textFill="#7d8781" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="0.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField layoutX="45.0" layoutY="96.0" prefHeight="60.0" prefWidth="666.0" promptText="Enter a Username" style="-fx-background-color: #202225;" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="20.0" />
-                              <Button layoutX="507.0" layoutY="106.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="190.0" style="-fx-background-color: #5865f2;" text="Send Friend Request" textFill="WHITE" AnchorPane.rightAnchor="35.39999999999998">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Button>
-                              <Label fx:id="findFrd" layoutX="47.0" layoutY="156.0" prefHeight="24.0" prefWidth="666.0" text="Success, Your friend request was sent to him/her" textFill="#278e1e" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="20.0">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="findFrdErr" layoutX="45.0" layoutY="174.0" prefHeight="20.0" prefWidth="666.0" text="Hm, didn't work" textFill="#b41818" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="20.0">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </Label>
+                              <AnchorPane layoutX="7.0" prefHeight="205.0" prefWidth="733.0" AnchorPane.bottomAnchor="407.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label layoutX="45.0" layoutY="26.0" prefHeight="46.0" prefWidth="688.0" text="ADD FRIEND" textFill="#efeff0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="45.0" layoutY="64.0" prefHeight="32.0" prefWidth="688.0" text="You can add a friend with thier username" textFill="#7d8781" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="45.0" layoutY="96.0" prefHeight="60.0" prefWidth="666.0" promptText="Enter a Username" style="-fx-background-color: #202225;" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="20.0" />
+                                    <Button layoutX="507.0" layoutY="106.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="190.0" style="-fx-background-color: #5865f2;" text="Send Friend Request" textFill="WHITE" AnchorPane.rightAnchor="35.39999999999998">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Label fx:id="findFrd" layoutX="47.0" layoutY="156.0" prefHeight="24.0" prefWidth="666.0" text="Success, Your friend request was sent to him/her" textFill="#278e1e" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="20.0">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="findFrdErr" layoutX="45.0" layoutY="174.0" prefHeight="20.0" prefWidth="666.0" text="Hm, didn't work" textFill="#b41818" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="20.0">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <VBox alignment="CENTER" layoutY="194.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="194.0">
+                                 <children>
+                                    <ImageView fitHeight="419.0" fitWidth="551.0" pickOnBounds="true">
+                                       <image>
+                                          <Image url="@pngs/addfriendbg.png" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
-                        <VBox alignment="CENTER" layoutY="194.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="194.0">
-                           <children>
-                              <ImageView fitHeight="419.0" fitWidth="551.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@pngs/addfriendbg.png" />
-                                 </image>
-                                 <viewport>
-                                    <Rectangle2D />
-                                 </viewport>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-        </tabs>
-      </TabPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </VBox>
    </center>
 </BorderPane>
