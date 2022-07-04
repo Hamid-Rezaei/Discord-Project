@@ -88,16 +88,5 @@ public class Authentication {
         return emailHandler.handle(username, password, email);
     }
 
-    public static String checkWhichOne(String input) {
-        String usernameRegex = "^[A-Za-z0-9]{6,}$";
-        String emailRegex = "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\\.[a-zA-Z]+)*$";
-        if (Handler.matchedInput(usernameRegex, input)) {
-            return "USERNAME";
-        } else if (Handler.matchedInput(emailRegex, input)) {
-            return "EMAIL";
-        }
-        return "PHONE NUMBER";
-
-    }
 
 }

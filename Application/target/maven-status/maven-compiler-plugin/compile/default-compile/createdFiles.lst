@@ -22,6 +22,7 @@ com\discordapp\Controller\PasswordHandler.class
 com\discordapp\Model\GuildUser.class
 com\discordapp\Model\Message.class
 com\discordapp\Model\Role.class
+com\discordapp\View\FailFriendRequestController.class
 com\discordapp\View\LoginViewController.class
 com\discordapp\View\SignUpMenuController.class
 com\discordapp\Controller\AppController.class

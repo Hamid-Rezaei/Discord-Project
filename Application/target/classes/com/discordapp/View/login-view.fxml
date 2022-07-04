@@ -23,9 +23,9 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label layoutX="40.0" layoutY="137.0" prefHeight="18.0" prefWidth="305.0" text="EMAIL OR PHONE NUMBER OR USERNAME" textFill="#f4f4f4" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="47.200000000000045">
+            <Label layoutX="40.0" layoutY="137.0" prefHeight="18.0" prefWidth="305.0" text="USERNAME" textFill="#f4f4f4" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="47.200000000000045">
                <font>
-                  <Font name="System Bold" size="10.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <Label layoutX="40.0" layoutY="214.0" prefHeight="18.0" prefWidth="305.0" text="PASSWORD" textFill="#fafafa" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="55.19999999999999">
@@ -35,12 +35,12 @@
             </Label>
             <Label fx:id="emailPhoneErr" layoutX="41.0" layoutY="182.0" prefHeight="18.0" prefWidth="312.0" textFill="#ec0808" />
             <Label fx:id="passErr" layoutX="40.0" layoutY="260.0" prefHeight="18.0" prefWidth="305.0" textFill="#ec0808" />
-            <TextField fx:id="emPhUserTF" layoutX="40.0" layoutY="156.0" onKeyReleased="#emPhUserTFHandler" prefHeight="26.0" prefWidth="314.0" style="-fx-text-fill: white; -fx-background-color: #25272e#202125;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="46.400000000000034">
+            <TextField fx:id="userTF" layoutX="40.0" layoutY="156.0" onKeyReleased="#emPhUserTFHandler" prefHeight="26.0" prefWidth="314.0" style="-fx-text-fill: white; -fx-background-color: #202125;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="46.400000000000034">
                <effect>
                   <Blend />
                </effect></TextField>
-            <TextField fx:id="passTF" layoutX="40.0" layoutY="232.0" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #202125; -fx-text-fill: white;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="46.400000000000034" />
-            <Button layoutX="39.0" layoutY="282.0" mnemonicParsing="false" onAction="#onLoginButton" prefHeight="40.0" prefWidth="316.0" style="-fx-background-color: #5865f2;" text="Login" textFill="WHITE" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="45.80000000000001">
+            <TextField fx:id="passTF" layoutX="40.0" layoutY="232.0" onKeyReleased="#passTFHandler" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #202125; -fx-text-fill: white;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="46.400000000000034" />
+            <Button fx:id="loginBtn" layoutX="39.0" layoutY="282.0" mnemonicParsing="false" onAction="#onLoginButton" prefHeight="40.0" prefWidth="316.0" style="-fx-background-color: #5865f2;" text="Login" textFill="WHITE" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="45.80000000000001">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
