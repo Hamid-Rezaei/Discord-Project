@@ -71,7 +71,6 @@ public class LoginViewController {
         if (!(password == null || password.equals("")) && !(username == null || username.equals(""))) {
             user = DiscordApplication.appController.login(username, password);
             if (user != null) {
-                AccountViewController.setUser(user);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 DiscordApplication.loadNewScene(loader, stage);

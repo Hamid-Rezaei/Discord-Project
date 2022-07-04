@@ -45,9 +45,9 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </VBox>
-            <Button layoutX="86.0" layoutY="8.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Friends" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button layoutX="86.0" layoutY="8.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Friends" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
-                  <Font name="System Bold" size="29.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Button>
             <AnchorPane layoutX="86.0" layoutY="586.0" prefHeight="68.0" prefWidth="242.0" style="-fx-background-color: #292b2f;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="1.0">
@@ -56,7 +56,7 @@
                   <Circle fx:id="avatar" fill="#36393f" layoutX="39.0" layoutY="34.0" onMousePressed="#changeStatus" radius="25.0" stroke="#36393f" strokeType="INSIDE" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="177.8" />
                   <Circle fx:id="status" fill="#36393f" layoutX="57.0" layoutY="54.0" onMousePressed="#changeStatus" radius="7.0" stroke="#36393f" strokeType="INSIDE" />
                </children></AnchorPane>
-            <Button layoutX="86.0" layoutY="58.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="DIRECT MESSAGES    +" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0">
+            <Button layoutX="86.0" layoutY="58.0" mnemonicParsing="false" onMouseClicked="#newDirectChatMessage" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="DIRECT MESSAGES    +" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -66,7 +66,7 @@
       </AnchorPane>
    </left>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab disable="true" text="Friends">
             <content>
@@ -75,7 +75,7 @@
           </Tab>
           <Tab text="Online">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="486.0" />
             </content>
           </Tab>
             <Tab text="All">

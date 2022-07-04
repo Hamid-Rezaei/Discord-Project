@@ -27,24 +27,21 @@ public class AccountViewController {
     @FXML
     private Circle status;
 
-    static User user;
-    private static String username;
+    public static User user;
 
-    public static void setUsername(String username) {
-        AccountViewController.username = user.getUsername();
-    }
-    public static void setUser(User user){
+    public static void setUser(User user) {
         AccountViewController.user = user;
-        setUsername(user.getUsername());
     }
+
     @FXML
     public void initialize() {
         setAvatar();
+        setUser(DiscordApplication.user);
         status.setFill(StatusViewController.color);
-        TitleNameLb.setText(username);
-        usernameLb.setText(username);
+        TitleNameLb.setText(user.getUsername());
+        usernameLb.setText(user.getUsername());
         emailLb.setText(user.getEmail());
-        if(user.getPhoneNumber().length() > 1){
+        if (user.getPhoneNumber() != null && user.getPhoneNumber().length() > 1) {
             phoneLb.setText(user.getPhoneNumber());
         }
     }
