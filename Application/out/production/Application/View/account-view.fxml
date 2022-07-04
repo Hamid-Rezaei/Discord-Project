@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #353841;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AccountViewController">
+   <left>
+      <VBox prefHeight="616.0" prefWidth="201.0" style="-fx-background-color: #2f3035;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="361.0" prefWidth="202.0">
+               <children>
+                  <Label layoutX="44.0" layoutY="86.0" prefHeight="43.0" prefWidth="118.0" text="USER SETTING" textFill="#717579">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="44.0" layoutY="130.0" mouseTransparent="true" prefHeight="33.0" prefWidth="150.0" promptText="My account" style="-fx-background-color: #42464f;">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </opaqueInsets>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="513.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutX="33.0" layoutY="124.0" style="-fx-background-color: #272727;" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="-21.0">
+               <children>
+                  <AnchorPane layoutY="62.0" prefHeight="248.0" prefWidth="500.0" style="-fx-background-color: #202125;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Circle fx:id="avatar" fill="DODGERBLUE" layoutX="61.0" layoutY="22.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Label fx:id="TitleNameLb" layoutX="121.0" layoutY="14.0" prefHeight="32.0" prefWidth="229.0" text="Username" textFill="#dfe3e6" AnchorPane.leftAnchor="121.00000000000003" AnchorPane.rightAnchor="140.6">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="351.0" layoutY="12.0" mnemonicParsing="false" onAction="#changeAvatar" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #5963f1;" text="Change Avatar" textFill="#dfe3e6" AnchorPane.rightAnchor="6.599999999999994">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                        <AnchorPane layoutX="13.0" layoutY="69.0" prefHeight="158.0" prefWidth="465.0" style="-fx-background-color: #2f3035;" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="106.0" text="USERNAME" textFill="#959698" AnchorPane.leftAnchor="14.0" />
+                              <Label layoutX="14.0" layoutY="66.0" prefHeight="18.0" prefWidth="106.0" text="EMAIL" textFill="#959698" />
+                              <Label layoutX="14.0" layoutY="114.0" prefHeight="18.0" prefWidth="106.0" text="PHONE NUMBER" textFill="#959698" />
+                              <Label fx:id="usernameLb" layoutX="14.0" layoutY="32.0" prefHeight="30.0" prefWidth="374.0" text="Label" textFill="#dfe3e6">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="emailLb" layoutX="14.0" layoutY="84.0" prefHeight="30.0" prefWidth="374.0" text="Label" textFill="#dfe3e6">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="phoneLb" layoutX="14.0" layoutY="129.0" prefHeight="30.0" prefWidth="374.0" text="You haven't added a phone number yet." textFill="#dfe3e6">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="400.0" layoutY="23.0" mnemonicParsing="false" onAction="#editUsername" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #4f525b;" text="Edit" textFill="#dfe3e6" AnchorPane.rightAnchor="15.0">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="400.0" layoutY="70.0" mnemonicParsing="false" onAction="#editEmail" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #4f525b;" text="Edit" textFill="#dfe3e6" AnchorPane.rightAnchor="15.0">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="400.0" layoutY="115.0" mnemonicParsing="false" onAction="#editPhone" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #4f525b;" text="Edit" textFill="#dfe3e6" AnchorPane.rightAnchor="15.0">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <Circle fx:id="status" fill="#1fff52" layoutX="97.0" layoutY="57.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <Label layoutX="33.0" layoutY="79.0" prefHeight="46.0" prefWidth="119.0" text="My Account" textFill="#e5ecf0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="38.0" layoutY="524.0" prefHeight="54.0" prefWidth="162.0" text="Log Out" textFill="#bec2c1">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="38.0" layoutY="444.0" prefHeight="48.0" prefWidth="414.0" text="Password and Authentication" textFill="#bec2c1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="39.0" layoutY="492.0" mnemonicParsing="false" onAction="#changePass" prefHeight="37.0" prefWidth="159.0" style="-fx-background-color: #5966f4;" text="Change Password" textFill="#e5ecf0">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Button layoutX="41.0" layoutY="570.0" mnemonicParsing="false" onAction="#logOut" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: #da3b3f;" text="Log Out" textFill="#e5ecf0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+   <right>
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="175.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="426.0" prefWidth="175.0">
+               <children>
+                  <Button contentDisplay="TOP" layoutX="40.0" layoutY="82.0" mnemonicParsing="false" onAction="#escButton" prefHeight="54.0" prefWidth="44.0" style="-fx-background-color: #353841;" text="ESC" textFill="#717579">
+                     <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pngs/escIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
