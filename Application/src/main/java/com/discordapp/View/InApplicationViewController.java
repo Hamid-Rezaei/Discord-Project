@@ -1,8 +1,10 @@
 package com.discordapp.View;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -14,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 public class InApplicationViewController {
@@ -49,7 +52,7 @@ public class InApplicationViewController {
 
     private void setAvatar() {
         avatar.setStroke(Color.SEAGREEN);
-        avatar.setFill(new ImagePattern(new Image("file:assets/defaultAvatar.png", false)));
+        avatar.setFill(new ImagePattern(new Image(new ByteArrayInputStream(DiscordApplication.user.getAvatar()))));
     }
 
     private void setAddServerIcon() {
@@ -63,20 +66,24 @@ public class InApplicationViewController {
 
     @FXML
     void changeStatus(MouseEvent event) {
-        if (event.isSecondaryButtonDown()) {
+        try {
             Stage popupStage = new Stage(StageStyle.TRANSPARENT);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             popupStage.initOwner(stage);
             popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setY(event.getScreenY() - 270);
+            popupStage.setX(event.getScreenX() + 20);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("status-view.fxml"));
-            try {
-                popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Parent root = loader.load();
+            StatusViewController svc = loader.getController();
+            svc.initialize(status);
+            popupStage.setScene(new Scene(root, Color.TRANSPARENT));
             popupStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        status.setFill(StatusViewController.color);
+
+
     }
 
     public void setStatus() {

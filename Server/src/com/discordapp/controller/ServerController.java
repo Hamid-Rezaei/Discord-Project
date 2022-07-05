@@ -88,6 +88,7 @@ public class ServerController implements Runnable {
                 case "#setStatus" -> changeStatus();
                 case "#deleteGuild" -> deleteGuild();
                 case "#deleteTextChannel" -> deleteTextChannel();
+                case "#signUpNew" -> signUpNew();
             }
 
         } catch (IOException e) {
@@ -105,6 +106,26 @@ public class ServerController implements Runnable {
             } catch (IOException err) {
                 err.printStackTrace();
             }
+        }
+    }
+
+    private void signUpNew() {
+        try {
+            String[] parts = inputStream.readUTF().split(" ");
+            String username = parts[0];
+            String pass = parts[1];
+            String email = parts[2];
+            String phoneNum = null;
+            if (parts.length == 4)
+                phoneNum = parts[3];
+            String token = UUID.randomUUID().toString();
+            FileInputStream av = new FileInputStream("./assets/defaultAvatar.png");
+            byte[] avatar = av.readAllBytes();
+            int answer = Database.insertToDB(username, pass, email, phoneNum, token, avatar).getCode();
+            outputStream.writeInt(answer);
+            outputStream.flush();
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 

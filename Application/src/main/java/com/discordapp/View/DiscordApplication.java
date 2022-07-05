@@ -51,7 +51,6 @@ public class DiscordApplication extends Application {
     }
 
     public static void main(String[] args) {
-        appController = new AppController();
         launch();
     }
 }

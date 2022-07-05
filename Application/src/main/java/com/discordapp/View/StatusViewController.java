@@ -1,5 +1,7 @@
 package com.discordapp.View;
 
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.value.ObservableValueBase;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,9 +18,13 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class StatusViewController {
-
     public static Color color = Color.GREEN;
-
+    public Circle circle;
+    @FXML
+    public void initialize(Circle circle) {
+        this.circle = circle;
+        circle.setFill(color);
+    }
     @FXML
     void disturb(MouseEvent event) {
         color = Color.RED;
@@ -45,14 +51,7 @@ public class StatusViewController {
 
     @FXML
     public void closePopupStage(MouseEvent event) {
-/*        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
-            Parent root = loader.load();
-            InApplicationViewController inApplicationViewController = loader.getController();
-            inApplicationViewController.setStatus();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        circle.setFill(color);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

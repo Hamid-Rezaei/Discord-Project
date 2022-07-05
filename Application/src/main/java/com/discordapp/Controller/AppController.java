@@ -67,21 +67,33 @@ public class AppController {
      * Instantiates a new App controller.
      */
     public AppController() {
-        setupConnection();
+        connect();
     }
 
 
-    private void setupConnection() {
+    public void connect() {
         try {
-            socket = new Socket("localhost", 7777);
-            outputStream = new ObjectOutputStream(socket.getOutputStream());
-            inputStream = new ObjectInputStream(socket.getInputStream());
+            if (socket == null || !socket.isConnected()) {
+                socket = new Socket("localhost", 7777);
+                outputStream = new ObjectOutputStream(socket.getOutputStream());
+                inputStream = new ObjectInputStream(socket.getInputStream());
+            }
         } catch (IOException x) {
             System.out.println("SERVER CONNECTION FAILED.");
             System.exit(0);
         }
     }
 
+    public void disconnect() {
+        try {
+            if (socket.isConnected()) {
+                socket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Sign up.
@@ -104,6 +116,20 @@ public class AppController {
             outputStream.writeInt(img.length);
             outputStream.flush();
             outputStream.write(img, 0, img.length);
+            outputStream.reset();
+            return parseError(inputStream.readInt());
+        } catch (IOException x) {
+            x.printStackTrace();
+            return "IOException";
+        }
+    }
+    public String signUp(String username, String password, String email) {
+
+        try {
+            outputStream.writeUTF("#signUpNew");
+            outputStream.flush();
+            outputStream.writeUTF(username + " " + password + " " + email + " " + "");
+            outputStream.flush();
             outputStream.reset();
             return parseError(inputStream.readInt());
         } catch (IOException x) {

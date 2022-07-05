@@ -12,6 +12,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.io.ByteArrayInputStream;
+
 public class AccountViewController {
 
     @FXML
@@ -35,8 +37,8 @@ public class AccountViewController {
 
     @FXML
     public void initialize() {
-        setAvatar();
         setUser(DiscordApplication.user);
+        setAvatar();
         status.setFill(StatusViewController.color);
         TitleNameLb.setText(user.getUsername());
         usernameLb.setText(user.getUsername());
@@ -49,27 +51,10 @@ public class AccountViewController {
     public void setAvatar() {
         if (avatar != null) {
             avatar.setStroke(Color.SEAGREEN);
-            avatar.setFill(new ImagePattern(new Image("file:assets/defaultAvatar.png", false)));
+            avatar.setFill(new ImagePattern(new Image(new ByteArrayInputStream(user.getAvatar()))));
         }
     }
 
-/*    @FXML
-    void changeStatus(MouseEvent event) {
-        if (event.isSecondaryButtonDown()) {
-            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            popupStage.initOwner(stage);
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("status-view.fxml"));
-            try {
-                popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            popupStage.show();
-        }
-        status.setFill(StatusViewController.color);
-    }*/
 
     @FXML
     void changeAvatar(ActionEvent event) {
@@ -105,7 +90,10 @@ public class AccountViewController {
 
     @FXML
     void logOut(ActionEvent event) {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        DiscordApplication.appController.disconnect();
+        DiscordApplication.loadNewScene(loader,stage);
     }
 
 }

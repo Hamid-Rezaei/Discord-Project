@@ -1,5 +1,6 @@
 package com.discordapp.View;
 
+import com.discordapp.Controller.AppController;
 import com.discordapp.Controller.Authentication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,11 +80,13 @@ public class SignUpMenuController {
 
     @FXML
     void continueButton(ActionEvent event) {
-
+        if(DiscordApplication.appController == null)
+            DiscordApplication.appController = new AppController();
         checkValidation();
         if (canContinue) {
-            System.out.println("successfully sing up");
-            //TODO: fffffffffff
+            String result = DiscordApplication.appController.signUp(username,password,email);
+            System.out.println(result);
+            //TODO: sign up!
         }
     }
 

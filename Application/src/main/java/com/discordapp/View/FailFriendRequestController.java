@@ -1,4 +1,4 @@
-package application.view;
+package com.discordapp.View;
 
 public class FailFriendRequestController {
 

@@ -1,5 +1,6 @@
 package com.discordapp.View;
 
+import com.discordapp.Controller.AppController;
 import com.discordapp.Controller.Authentication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +14,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import static com.discordapp.View.DiscordApplication.user;
 
 public class LoginViewController {
 
@@ -60,6 +60,7 @@ public class LoginViewController {
                 loginBtn.fire();
             } else {
                 passErr.setText("THIS FIELD IS REQUIRED");
+
             }
         }
     }
@@ -68,9 +69,11 @@ public class LoginViewController {
     void onLoginButton(ActionEvent event) {
         username = userTF.getText();
         password = passTF.getText();
+        if(DiscordApplication.appController == null)
+            DiscordApplication.appController = new AppController();
         if (!(password == null || password.equals("")) && !(username == null || username.equals(""))) {
-            user = DiscordApplication.appController.login(username, password);
-            if (user != null) {
+            DiscordApplication.user = DiscordApplication.appController.login(username, password);
+            if (DiscordApplication.user != null) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 DiscordApplication.loadNewScene(loader, stage);
