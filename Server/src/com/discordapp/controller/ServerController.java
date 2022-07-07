@@ -302,9 +302,6 @@ public class ServerController implements Runnable {
         try {
             String username = inputStream.readUTF();
             HashSet<User> reqList = Database.viewFriendRequestList(username);
-            for(User user : reqList){
-                System.out.println(user.getUsername());
-            }
             outputStream.writeObject(reqList);
             outputStream.flush();
         } catch (Exception e) {

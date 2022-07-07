@@ -1,11 +1,8 @@
 package com.discordapp.View;
 
-import com.discordapp.Controller.AppController;
 import com.discordapp.Model.User;
-import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -35,28 +31,22 @@ public class InApplicationViewController {
 
     @FXML
     private Circle addServerIcon;
-
     @FXML
     private Circle avatar;
-
     @FXML
     private Circle discordIcon;
-
+    @FXML
+    private Circle paperclip;
     @FXML
     private TextField friendIDTF;
-
     @FXML
     private Button friendReqBtn;
-
     @FXML
     private Label frndReqResponse;
-
     @FXML
     private Circle settingIcon;
-
     @FXML
     private Circle status;
-
     @FXML
     private ListView<User> friendsList;
     @FXML
@@ -71,7 +61,12 @@ public class InApplicationViewController {
         setDiscordIcon();
         setAddServerIcon();
         setSettingIcon();
+        setPaperclipIcon();
         status.setFill(StatusViewController.color);
+    }
+
+    private void setPaperclipIcon(){
+        paperclip.setFill(new ImagePattern(new Image("file:assets/paperclip.jpg", false)));
     }
 
     private void setDiscordIcon() {
