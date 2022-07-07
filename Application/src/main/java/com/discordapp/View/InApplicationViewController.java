@@ -66,7 +66,7 @@ public class InApplicationViewController {
     }
 
     private void setPaperclipIcon(){
-        paperclip.setFill(new ImagePattern(new Image("file:assets/paperclip.jpg", false)));
+        paperclip.setFill(new ImagePattern(new Image("file:assets/plus.png", false)));
     }
 
     private void setDiscordIcon() {

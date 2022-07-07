@@ -164,7 +164,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Circle fill="#9ea3ac" layoutX="506.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="45.0" />
+            <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="506.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="45.0" />
          </children>
       </AnchorPane>
    </center>
