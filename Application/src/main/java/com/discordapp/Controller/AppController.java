@@ -475,11 +475,11 @@ public class AppController {
      *
      * @return the array list
      */
-    public ArrayList<Guild> listOfJoinedServers() {
+    public ArrayList<Guild> listOfJoinedServers(String username) {
         try {
             outputStream.writeUTF("#serverList");
             outputStream.flush();
-            outputStream.writeUTF(currentUser.getUsername());
+            outputStream.writeUTF(username);
             outputStream.flush();
             ArrayList<Guild> guilds = (ArrayList<Guild>) inputStream.readUnshared();
             return guilds;

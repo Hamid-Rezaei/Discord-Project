@@ -1,5 +1,6 @@
 package com.discordapp.View;
 
+import com.discordapp.Model.Guild;
 import com.discordapp.Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,6 +56,9 @@ public class InApplicationViewController {
     private ListView<User> blockList;
     @FXML
     private ListView<User> pendingList;
+    @FXML
+    private ListView<Guild> guildList;
+
 
     public void initialize() {
         setAvatar();
@@ -62,10 +66,11 @@ public class InApplicationViewController {
         setAddServerIcon();
         setSettingIcon();
         setPaperclipIcon();
+        setGuilds();
         status.setFill(StatusViewController.color);
     }
 
-    private void setPaperclipIcon(){
+    private void setPaperclipIcon() {
         paperclip.setFill(new ImagePattern(new Image("file:assets/plus.png", false)));
     }
 
@@ -136,6 +141,27 @@ public class InApplicationViewController {
 
     @FXML
     void addServer(MouseEvent event) {
+
+    }
+
+    private void setGuilds() {
+        ObservableList<Guild> guilds = FXCollections.observableArrayList(DiscordApplication.appController.listOfJoinedServers(DiscordApplication.user.getUsername()));
+        guildList.setItems(guilds);
+        guildList.setCellFactory(param -> new ListCell<>() {
+
+            @Override
+            public void updateItem(Guild guild, boolean empty) {
+                super.updateItem(guild, empty);
+                setText(null);
+                setGraphic(null);
+                if (guild != null && !empty) {
+                    setEditable(false);
+                    setText(guild.getName());
+
+                }
+                setStyle("-fx-background-color: #202225;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold;"+ "-fx-padding: 15px;");
+            }
+        });
 
     }
 
@@ -269,6 +295,7 @@ public class InApplicationViewController {
             User user;
             Button accept;
             Button reject;
+
             @Override
             public void updateItem(User usr, boolean empty) {
                 super.updateItem(user, empty);
@@ -307,7 +334,7 @@ public class InApplicationViewController {
                     line.setScaleY(3);
                     line.setScaleZ(2);
                     line.setSmooth(true);
-                    hBox.getChildren().addAll(circle, status, nameTF, line, pane,accept,reject);
+                    hBox.getChildren().addAll(circle, status, nameTF, line, pane, accept, reject);
                     pane.setStyle("-fx-background-color: #36393f;");
                     hBox.setHgrow(pane, Priority.ALWAYS);
                     hBox.setHgrow(line, Priority.ALWAYS);

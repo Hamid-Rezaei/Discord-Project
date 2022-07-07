@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InApplicationViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InApplicationViewController">
    <left>
       <AnchorPane prefHeight="736.0" prefWidth="329.0" style="-fx-background-color: #2f3136;">
          <children>
@@ -29,7 +29,7 @@
                      </VBox.margin>
                   </Circle>
                   <Line endX="-44.907127380371094" endY="1.2516975402832031E-5" fill="#4b4c4e" layoutX="127.0" layoutY="565.0" startX="-100.0" stroke="#4b4c4e" />
-                  <ListView maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="487.0" prefWidth="82.0" style="-fx-background-color: #202225;" VBox.vgrow="ALWAYS" />
+                  <ListView fx:id="guildList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="487.0" prefWidth="82.0" style="-fx-background-color: #202225;" VBox.vgrow="ALWAYS" />
                   <Line endX="-44.907127380371094" endY="1.2516975402832031E-5" fill="#4b4c4e" startX="-100.0" stroke="#4b4c4e">
                      <VBox.margin>
                         <Insets />
