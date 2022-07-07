@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.discordapp.View.ChatController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="547.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.ChatController">
+   <children>
+      <ListView layoutX="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="696.0" prefWidth="573.0" style="-fx-background-color: #36393f;" visible="false" />
+      <TextField layoutX="32.0" layoutY="643.0" onKeyReleased="#sendMessage" prefHeight="34.0" prefWidth="492.0" promptText="Message" style="-fx-background-color: #40444b; -fx-text-fill: #FFFF;" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="23.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="482.0" layoutY="660.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="51.0" />
+   </children>
 </AnchorPane>
