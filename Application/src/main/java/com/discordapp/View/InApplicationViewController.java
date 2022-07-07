@@ -143,7 +143,7 @@ public class InApplicationViewController {
 
     @FXML
     void addServer(MouseEvent event) {
-        String severName = null;
+/*        String severName = null;
         try {
             Stage popupStage = new Stage(StageStyle.TRANSPARENT);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -159,14 +159,14 @@ public class InApplicationViewController {
             popupStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-/*        FXMLLoader loader = new FXMLLoader(getClass().getResource("add-server-view.fxml"));
+        }*/
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("add-server-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        DiscordApplication.loadNewScene(loader, stage);*/
-        GuildUser owner = new GuildUser(DiscordApplication.user, new Role("owner"));
+        DiscordApplication.loadNewScene(loader, stage);
+/*        GuildUser owner = new GuildUser(DiscordApplication.user, new Role("owner"));
         Guild guild = new Guild(severName, owner);
         DiscordApplication.appController.addServer(guild);
-        showGuilds();
+        showGuilds();*/
 
     }
 

@@ -7,28 +7,32 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="395.0" prefWidth="427.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.AddServerController">
+<AnchorPane prefHeight="708.0" prefWidth="760.0" style="-fx-background-color: #0A080F;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.AddServerController">
    <children>
-      <TextField fx:id="serverNameTF" layoutX="45.0" layoutY="259.0" prefHeight="42.0" prefWidth="300.0" promptText="Enter name" style="-fx-background-color: #e3e5e8;" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" />
-      <Label layoutX="45.0" layoutY="242.0" prefHeight="18.0" prefWidth="299.0" text="SERVER NAME" textFill="#7d8289" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="85.0" layoutY="29.0" prefHeight="88.0" prefWidth="219.0" text="Customize your sever" textFill="#0a0a0b" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="85.0">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Label>
-      <Button layoutX="45.0" layoutY="314.0" mnemonicParsing="false" onAction="#closeAddServerPop" prefHeight="28.0" prefWidth="52.0" style="-fx-background-color: #e3e5e8;" text="back" textFill="#777778">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="291.0" layoutY="314.0" mnemonicParsing="false" onAction="#createServer" prefHeight="28.0" prefWidth="90.0" style="-fx-background-color: #5865f2;" text="create" textFill="#e0e2fc" AnchorPane.rightAnchor="45.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
+      <AnchorPane layoutX="154.0" layoutY="164.0" prefHeight="419.0" prefWidth="458.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="150.0">
+         <children>
+            <TextField fx:id="serverNameTF" layoutX="45.0" layoutY="259.0" prefHeight="42.0" prefWidth="300.0" promptText="Enter name" style="-fx-background-color: #e3e5e8;" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" />
+            <Label layoutX="45.0" layoutY="242.0" prefHeight="18.0" prefWidth="299.0" text="SERVER NAME" textFill="#7d8289" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="85.0" layoutY="29.0" prefHeight="88.0" prefWidth="219.0" text="Customize your sever" textFill="#0a0a0b" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="85.0">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <Button layoutX="45.0" layoutY="314.0" mnemonicParsing="false" onAction="#closeAddServerPop" prefHeight="28.0" prefWidth="52.0" style="-fx-background-color: #e3e5e8;" text="back" textFill="#777778">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="291.0" layoutY="314.0" mnemonicParsing="false" onAction="#createServer" prefHeight="28.0" prefWidth="90.0" style="-fx-background-color: #5865f2;" text="create" textFill="#e0e2fc" AnchorPane.rightAnchor="45.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
