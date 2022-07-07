@@ -639,6 +639,7 @@ public class AppController {
             outputStream.flush();
             outputStream.writeObject(user);
             outputStream.flush();
+            outputStream.reset();
             String respone = inputStream.readUTF();
             if (respone.equals("success.")) {
                 return true;
