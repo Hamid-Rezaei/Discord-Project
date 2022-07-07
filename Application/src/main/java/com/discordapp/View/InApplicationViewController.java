@@ -73,7 +73,7 @@ public class InApplicationViewController {
         setDiscordIcon();
         setAddServerIcon();
         setSettingIcon();
-        showGuilds();
+        //showGuilds();
         setStatus();
         showAllFriends();
     }
@@ -514,9 +514,12 @@ public class InApplicationViewController {
     void goToDirectChat(User user) {
         try {
             AnchorPane chatPane = FXMLLoader.load(getClass().getResource("chat-view.fxml"));
-            chatPane.setManaged(false);
-            chatPane.setLayoutX(329);
-            inAppPane.getChildren().setAll(chatPane);
+            TabPane friendPane = (TabPane) friendTabPane.getChildren().get(0);
+            friendPane.setVisible(false);
+            friendPane.setDisable(true);
+            AnchorPane directChat = (AnchorPane) friendTabPane.getChildren().get(1);
+            directChat.setVisible(true);
+            directChat.setDisable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
