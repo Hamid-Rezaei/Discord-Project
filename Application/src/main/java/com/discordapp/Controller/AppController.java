@@ -123,6 +123,7 @@ public class AppController {
             return "IOException";
         }
     }
+
     public String signUp(String username, String password, String email) {
 
         try {
@@ -236,13 +237,14 @@ public class AppController {
      * @param username the username
      * @return the hash set
      */
-    public HashSet<String> friendRequestList(String username) {
+    public ArrayList<User> friendRequestList(String username) {
         try {
             outputStream.writeUTF("#RequestList");
             outputStream.flush();
             outputStream.writeUTF(username);
             outputStream.flush();
-            return (HashSet<String>) inputStream.readObject();
+            HashSet<User> names = (HashSet<User>) inputStream.readObject();
+            return new ArrayList<>(names);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -281,17 +283,38 @@ public class AppController {
      * @param username the username
      * @return the hash set
      */
-    public HashSet<String> friendList(String username) {
+    public HashSet<User> friendSet(String username) {
         try {
             outputStream.writeUTF("#FriendList");
             outputStream.flush();
             outputStream.writeUTF(username);
             outputStream.flush();
-            return (HashSet<String>) inputStream.readObject();
+            return (HashSet<User>) inputStream.readObject();
         } catch (IOException | ClassNotFoundException | ClassCastException e) {
             e.printStackTrace();
             return null;
         }
+    }
+    public ArrayList<User> friendList(String username) {
+        try {
+            outputStream.writeUTF("#FriendList");
+            outputStream.flush();
+            outputStream.writeUTF(username);
+            outputStream.flush();
+            HashSet<User> friendSet = (HashSet<User>) inputStream.readObject();
+            return new ArrayList<User>(friendSet);
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<User> friends(String username) {
+        HashSet<User> friendList = friendSet(username);
+        ArrayList<User> friends = friendList(username);
+//        for (String friend : friendList) {
+//            friends.add(getUser(friend));
+//        }
+        return friends;
     }
 
     /**
@@ -306,7 +329,8 @@ public class AppController {
             outputStream.flush();
             outputStream.writeUTF(username);
             outputStream.flush();
-            return (User) inputStream.readUnshared();
+            User user = (User) inputStream.readUnshared();
+            return user;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -362,14 +386,14 @@ public class AppController {
      *
      * @return the hash set
      */
-    public HashSet<String> blockedList() {
+    public ArrayList<User> blockedList(String username) {
         try {
             outputStream.writeUTF("#blockList");
             outputStream.flush();
-            outputStream.writeUTF(currentUser.getUsername());
+            outputStream.writeUTF(username);
             outputStream.flush();
-            HashSet<String> blockedList = (HashSet<String>) inputStream.readObject();
-            return blockedList;
+            HashSet<User> blockedList = (HashSet<User>) inputStream.readObject();
+            return new ArrayList<>(blockedList);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -710,7 +734,7 @@ public class AppController {
         String error;
         switch (errorCode) {
             case 1:
-                error = "Success";
+                error = "Success.";
                 break;
             case 2:
                 error = "This user already exists.";
@@ -722,7 +746,7 @@ public class AppController {
                 error = "There was a problem with database.";
                 break;
             case 5:
-                error = "you already have a friend request with this user.";
+                error = "this user doesnt exist or you already have a friend request with them.";
                 break;
             case 6:
                 error = "you are already friend of this user.";

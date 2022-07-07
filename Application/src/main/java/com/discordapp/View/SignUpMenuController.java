@@ -6,11 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class SignUpMenuController {
@@ -26,7 +28,8 @@ public class SignUpMenuController {
     private Label passErr;
     @FXML
     private Label emailErr;
-
+    @FXML
+    private Label resultLabel;
 
     private String email;
     private String password;
@@ -34,16 +37,24 @@ public class SignUpMenuController {
     private boolean canContinue = false;
 
     @FXML
+    private Button continueBtn;
+
+    @FXML
     public void initialize() {
+
     }
 
     @FXML
     void emailTFHandler(KeyEvent event) {
         emailErr.setText("");
         if (event.getCode() == KeyCode.ENTER) {
-            passTF.requestFocus();
             email = emailTF.getText();
-            checkValidation();
+            if (!(email == null || email.equals(""))) {
+                usernameTF.requestFocus();
+            } else {
+                emailErr.setText("THIS FIELD IS REQUIRED");
+            }
+
         }
     }
 
@@ -51,9 +62,13 @@ public class SignUpMenuController {
     void passTFHandler(KeyEvent event) {
         passErr.setText("");
         if (event.getCode() == KeyCode.ENTER) {
-            usernameTF.requestFocus();
             password = passTF.getText();
-            checkValidation();
+            if (!(password == null || password.equals(""))) {
+                continueBtn.fire();
+            } else {
+                emailErr.setText("THIS FIELD IS REQUIRED");
+            }
+
         }
     }
 
@@ -62,7 +77,11 @@ public class SignUpMenuController {
         nameErr.setText("");
         if (event.getCode() == KeyCode.ENTER) {
             username = usernameTF.getText();
-            checkValidation();
+            if (!(username == null || username.equals(""))) {
+                passTF.requestFocus();
+            } else {
+                nameErr.setText("THIS FIELD IS REQUIRED");
+            }
         }
     }
 
@@ -80,12 +99,21 @@ public class SignUpMenuController {
 
     @FXML
     void continueButton(ActionEvent event) {
-        if(DiscordApplication.appController == null)
+        if (DiscordApplication.appController == null)
             DiscordApplication.appController = new AppController();
+        username = usernameTF.getText();
+        email = emailTF.getText();
+        password = passTF.getText();
         checkValidation();
         if (canContinue) {
-            String result = DiscordApplication.appController.signUp(username,password,email);
-            System.out.println(result);
+            String result = DiscordApplication.appController.signUp(username, password, email);
+            if(result.equals("Success.")){
+                resultLabel.setTextFill(Color.GREEN);
+                resultLabel.setText("Successfully signed up. please login");
+            } else {
+                resultLabel.setTextFill(Color.RED);
+                resultLabel.setText(result);
+            }
             //TODO: sign up!
         }
     }

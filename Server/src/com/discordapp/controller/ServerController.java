@@ -301,7 +301,10 @@ public class ServerController implements Runnable {
     private void friendRequestList() {
         try {
             String username = inputStream.readUTF();
-            HashSet<String> reqList = Database.viewFriendRequestList(username);
+            HashSet<User> reqList = Database.viewFriendRequestList(username);
+            for(User user : reqList){
+                System.out.println(user.getUsername());
+            }
             outputStream.writeObject(reqList);
             outputStream.flush();
         } catch (Exception e) {
@@ -331,9 +334,10 @@ public class ServerController implements Runnable {
     public void friendList() {
         try {
             String username = inputStream.readUTF();
-            HashSet<String> friendList = Database.viewFriendList(username);
+            HashSet<User> friendList = Database.viewFriendList(username);
             outputStream.writeObject(friendList);
             outputStream.flush();
+            outputStream.reset();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -345,8 +349,10 @@ public class ServerController implements Runnable {
     private void getUserWithUsername() {
         try {
             String username = inputStream.readUTF();
-            outputStream.writeUnshared(Database.retrieveFromDB(username));
+            User friend = Database.retrieveFromDB(username);
+            outputStream.writeUnshared(friend);
             outputStream.flush();
+            outputStream.reset();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -572,7 +578,7 @@ public class ServerController implements Runnable {
     private void blockList() {
         try {
             String username = inputStream.readUTF();
-            HashSet<String> blockedList = Database.viewBlockedList(username);
+            HashSet<User> blockedList = Database.viewBlockedList(username);
             outputStream.writeObject(blockedList);
             outputStream.flush();
         } catch (IOException e) {

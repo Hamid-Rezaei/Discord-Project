@@ -123,8 +123,8 @@ public class Database {
             return user;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
 
@@ -160,7 +160,8 @@ public class Database {
             }
             default -> status = Status.INVISIBLE;
         }
-        return new User(username, password, email, phoneNumber, uId, avatar, status);
+        User user = new User(username, password, email, phoneNumber, uId, avatar, status);
+        return user;
 
     }
 
@@ -217,14 +218,14 @@ public class Database {
      * @param targetUser the target user
      * @return friend request list
      */
-    public static HashSet<String> viewFriendRequestList(String targetUser) {
-        HashSet<String> reqList = new HashSet<>();
+    public static HashSet<User> viewFriendRequestList(String targetUser) {
+        HashSet<User> reqList = new HashSet<>();
         try {
             Connection connection = connectToDB();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select from_user from requests where to_user = " + "'" + targetUser + "'");
             while (resultSet.next()) {
-                reqList.add(resultSet.getString(1));
+                reqList.add(retrieveFromDB(resultSet.getString(1)));
             }
             connection.close();
         } catch (SQLException e) {
@@ -239,15 +240,15 @@ public class Database {
      * @param username the username
      * @return friend list
      */
-    public static HashSet<String> viewFriendList(String username) {
-        HashSet<String> friendList = new HashSet<>();
+    public static HashSet<User> viewFriendList(String username) {
+        HashSet<User> friendList = new HashSet<>();
         try {
             Connection connection = connectToDB();
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select friends_id from friends where user_id = " + "'" + username + "'");
             while (resultSet.next()) {
-                friendList.add(retrieveFromDB(resultSet.getString(1)).toString());
+                friendList.add(retrieveFromDB(resultSet.getString(1)));
             }
 
             connection.close();
@@ -355,15 +356,15 @@ public class Database {
      * @param username the username
      * @return the block list hash set
      */
-    public static HashSet<String> viewBlockedList(String username) {
-        HashSet<String> blockedList = new HashSet<>();
+    public static HashSet<User> viewBlockedList(String username) {
+        HashSet<User> blockedList = new HashSet<>();
         try {
             Connection connection = connectToDB();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select blocked_person from blocked_users where blocker = " + "'" + username + "'");
 
             while (resultSet.next()) {
-                blockedList.add(resultSet.getString(1));
+                blockedList.add(Database.retrieveFromDB(resultSet.getString(1)));
             }
             connection.close();
             return blockedList;

@@ -11,12 +11,12 @@
    <center>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="430.0" prefWidth="366.0" style="-fx-background-color: #353841;">
          <children>
-            <Label layoutX="56.0" layoutY="238.0" prefHeight="29.0" prefWidth="274.0" text="USERNAME" textFill="#fffdfd" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <Label layoutX="50.0" layoutY="171.0" prefHeight="29.0" prefWidth="274.0" text="USERNAME" textFill="#fffdfd" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label layoutX="54.0" layoutY="162.0" prefHeight="30.0" prefWidth="243.0" text="PASSWORD" textFill="#fffdfd" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <Label layoutX="52.0" layoutY="237.0" prefHeight="30.0" prefWidth="243.0" text="PASSWORD" textFill="#fffdfd" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="48.0">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -26,21 +26,26 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="passTF" layoutX="54.0" layoutY="192.0" onKeyReleased="#passTFHandler" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #1f2025; -fx-text-fill: white;" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+            <TextField fx:id="passTF" layoutX="50.0" layoutY="267.0" onKeyReleased="#passTFHandler" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #1f2025; -fx-text-fill: white;" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
             <TextField fx:id="emailTF" layoutX="54.0" layoutY="126.0" onKeyReleased="#emailTFHandler" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: #1f2025; -fx-text-fill: white;" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-            <TextField fx:id="usernameTF" layoutX="54.0" layoutY="268.0" onKeyReleased="#UsernameTFHandler" prefHeight="26.0" prefWidth="277.0" style="-fx-background-color: #1f2025; -fx-text-fill: white;" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-            <Button layoutX="50.0" layoutY="321.0" mnemonicParsing="false" onAction="#continueButton" prefHeight="38.0" prefWidth="279.0" style="-fx-background-color: #5862fc;" text="Continue" textFill="#f1f4f7" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="50.0">
+            <TextField fx:id="usernameTF" layoutX="50.0" layoutY="202.0" onKeyReleased="#UsernameTFHandler" prefHeight="26.0" prefWidth="277.0" style="-fx-background-color: #1f2025; -fx-text-fill: white;" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+            <Button fx:id="continueBtn" layoutX="52.0" layoutY="346.0" mnemonicParsing="false" onAction="#continueButton" prefHeight="38.0" prefWidth="279.0" style="-fx-background-color: #5862fc;" text="Continue" textFill="#f1f4f7" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="52.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Label layoutX="53.0" layoutY="371.0" onMousePressed="#goToLogin" prefHeight="18.0" prefWidth="275.0" text="Already have an account?" textFill="#50c2ff" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+            <Label layoutX="50.0" layoutY="391.0" onMousePressed="#goToLogin" prefHeight="18.0" prefWidth="275.0" text="Already have an account?" textFill="#50c2ff" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
             <Label fx:id="emailErr" layoutX="52.0" layoutY="153.0" prefHeight="18.0" prefWidth="277.0" textFill="#ef0101" />
-            <Label fx:id="passErr" layoutX="52.0" layoutY="219.0" prefHeight="18.0" prefWidth="277.0" textFill="#ef0101" />
-            <Label fx:id="nameErr" layoutX="53.0" layoutY="295.0" prefHeight="18.0" prefWidth="276.0" textFill="#ef0101" />
+            <Label fx:id="passErr" layoutX="45.0" layoutY="293.0" prefHeight="18.0" prefWidth="277.0" textFill="#ef0101" />
+            <Label fx:id="nameErr" layoutX="45.0" layoutY="228.0" prefHeight="18.0" prefWidth="276.0" textFill="#ef0101" />
             <Label alignment="CENTER" layoutX="1.0" prefHeight="90.0" prefWidth="701.0" text="Create an account" textFill="#eaebec" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="resultLabel" alignment="CENTER" layoutX="60.0" layoutY="320.0" prefHeight="18.0" prefWidth="276.0" textAlignment="CENTER" textFill="#64c94f" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
                </font>
             </Label>
          </children>

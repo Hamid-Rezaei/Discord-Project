@@ -19,7 +19,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InApplicationViewController">
    <left>
-      <AnchorPane prefHeight="694.0" prefWidth="20.0" style="-fx-background-color: #2f3136;">
+      <AnchorPane prefHeight="736.0" prefWidth="329.0" style="-fx-background-color: #2f3136;">
          <children>
             <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="670.0" prefWidth="87.0" style="-fx-background-color: #202225;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="241.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -66,31 +66,44 @@
       </AnchorPane>
    </left>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="588.0" prefWidth="562.0" stylesheets="@../../../../../assets/tabPane.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab disable="true" text="Friends">
+          <Tab closable="false" disable="true" text="Friends">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-          <Tab text="Online">
+          <Tab onSelectionChanged="#onlineFriends" text="Online">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="486.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="486.0">
+                     <children>
+                        <ListView fx:id="onlineList" layoutX="115.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="All">
+            <Tab fx:id="friendsListTab" onSelectionChanged="#allFriends" text="All">
+               <content>
+                  <AnchorPane style="-fx-background-color: #36393f;">
+                     <children>
+                        <ListView fx:id="friendsList" editable="true" layoutY="-6.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-6.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#pendingRequests" text="Pending">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="pendingList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="Pendding">
+            <Tab onSelectionChanged="#blockedList" text="Blocked">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="Blocked">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="blockList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab text="Add Friend">
@@ -109,20 +122,15 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="45.0" layoutY="96.0" prefHeight="60.0" prefWidth="666.0" promptText="Enter a Username" style="-fx-background-color: #202225;" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="20.0" />
-                              <Button layoutX="507.0" layoutY="106.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="190.0" style="-fx-background-color: #5865f2;" text="Send Friend Request" textFill="WHITE" AnchorPane.rightAnchor="35.39999999999998">
+                              <TextField fx:id="friendIDTF" layoutX="45.0" layoutY="96.0" onKeyReleased="#sendFrReq" prefHeight="60.0" prefWidth="486.0" promptText="Enter a Username" style="-fx-background-color: #202225; -fx-text-fill: white;" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="31.0" />
+                              <Button fx:id="friendReqBtn" layoutX="507.0" layoutY="106.0" mnemonicParsing="false" onAction="#sendFriendReq" prefHeight="38.0" prefWidth="190.0" style="-fx-background-color: #5865f2;" text="Send Friend Request" textFill="WHITE" AnchorPane.rightAnchor="35.39999999999998">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Button>
-                              <Label fx:id="findFrd" layoutX="47.0" layoutY="156.0" prefHeight="24.0" prefWidth="666.0" text="Success, Your friend request was sent to him/her" textFill="#278e1e" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="20.0">
+                              <Label fx:id="frndReqResponse" layoutX="47.0" layoutY="156.0" prefHeight="24.0" prefWidth="666.0" textFill="#278e1e" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="20.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="findFrdErr" layoutX="45.0" layoutY="174.0" prefHeight="20.0" prefWidth="666.0" text="Hm, didn't work" textFill="#b41818" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="20.0">
-                                 <font>
-                                    <Font size="13.0" />
                                  </font>
                               </Label>
                            </children>
