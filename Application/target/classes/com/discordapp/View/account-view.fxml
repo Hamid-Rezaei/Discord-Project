@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="44.0" layoutY="130.0" mouseTransparent="true" prefHeight="33.0" prefWidth="150.0" promptText="My account" style="-fx-background-color: #42464f;">
+                  <TextField cacheShape="false" centerShape="false" editable="false" focusTraversable="false" layoutX="44.0" layoutY="129.0" pickOnBounds="false" prefHeight="33.0" prefWidth="150.0" scaleShape="false" style="-fx-background-color: #42464f; -fx-text-fill: #ffff;" text="My account">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -49,7 +49,7 @@
                               <Font name="System Bold" size="21.0" />
                            </font>
                         </Label>
-                        <Button layoutX="351.0" layoutY="12.0" mnemonicParsing="false" onAction="#changeAvatar" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #5963f1;" text="Change Avatar" textFill="#dfe3e6" AnchorPane.rightAnchor="6.599999999999994">
+                        <Button layoutX="481.0" layoutY="9.0" mnemonicParsing="false" onAction="#changeAvatar" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #5963f1;" text="Change Avatar" textFill="#dfe3e6" AnchorPane.rightAnchor="22.0">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
@@ -74,7 +74,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="400.0" layoutY="23.0" mnemonicParsing="false" onAction="#editUsername" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #4f525b;" text="Edit" textFill="#dfe3e6" AnchorPane.rightAnchor="15.0">
+                              <Button disable="true" layoutX="400.0" layoutY="23.0" mnemonicParsing="false" onAction="#editUsername" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #4f525b;" text="Edit" textFill="#dfe3e6" visible="false" AnchorPane.rightAnchor="15.0">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
@@ -125,7 +125,7 @@
       </AnchorPane>
    </center>
    <right>
-      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="175.0" BorderPane.alignment="CENTER">
+      <VBox focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="175.0" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane prefHeight="426.0" prefWidth="175.0">
                <children>

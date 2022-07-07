@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InApplicationViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InApplicationViewController">
    <left>
       <AnchorPane prefHeight="736.0" prefWidth="329.0" style="-fx-background-color: #2f3136;">
          <children>
@@ -68,7 +68,7 @@
    <center>
       <AnchorPane style="-fx-background-color: #36393f;">
          <children>
-            <TabPane disable="true" prefHeight="588.0" prefWidth="562.0" stylesheets="@../../../../../assets/tabPane.css" tabClosingPolicy="UNAVAILABLE" visible="false">
+            <TabPane prefHeight="588.0" prefWidth="562.0" stylesheets="@../../../../../assets/tabPane.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab closable="false" disable="true" text="Friends">
                   <content>
@@ -158,13 +158,17 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <ListView prefHeight="596.0" prefWidth="562.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <TextField layoutX="22.0" layoutY="633.0" prefHeight="34.0" prefWidth="514.0" promptText="Message" style="-fx-background-color: #40444b;" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="26.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <Circle fill="#9ea3ac" layoutX="506.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="45.0" />
+            <AnchorPane prefHeight="694.0" prefWidth="562.0">
+               <children>
+                  <ListView prefHeight="629.0" prefWidth="562.0" style="-fx-background-color: #36393f;" visible="false" />
+                  <TextField layoutX="22.0" layoutY="633.0" prefHeight="34.0" prefWidth="514.0" promptText="Message" style="-fx-background-color: #40444b;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="509.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </center>

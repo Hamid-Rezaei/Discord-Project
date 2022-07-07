@@ -69,8 +69,8 @@ public class LoginViewController {
     void onLoginButton(ActionEvent event) {
         username = userTF.getText();
         password = passTF.getText();
-        if(DiscordApplication.appController == null)
-            DiscordApplication.appController = new AppController();
+        DiscordApplication.appController = new AppController();
+        DiscordApplication.appController.connect();
         if (!(password == null || password.equals("")) && !(username == null || username.equals(""))) {
             DiscordApplication.user = DiscordApplication.appController.login(username, password);
             if (DiscordApplication.user != null) {

@@ -10,9 +10,13 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class AccountViewController {
 
@@ -58,7 +62,23 @@ public class AccountViewController {
 
     @FXML
     void changeAvatar(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        //fileChooser.selectedExtensionFilterProperty(new FileChooser.ExtensionFilter("IMAGE FILES (*.png)","*.png"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
 
+            try {
+                byte[] ava = new byte[(int) file.length()];
+                FileInputStream f1 = new FileInputStream(file);
+                f1.read(ava);
+                f1.close();
+                DiscordApplication.user.setAvatar(ava);
+                avatar.setFill(new ImagePattern(new Image(new ByteArrayInputStream(DiscordApplication.user.getAvatar()))));
+                DiscordApplication.appController.updateUser(DiscordApplication.user);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -93,7 +113,7 @@ public class AccountViewController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         DiscordApplication.appController.disconnect();
-        DiscordApplication.loadNewScene(loader,stage);
+        DiscordApplication.loadNewScene(loader, stage);
     }
 
 }

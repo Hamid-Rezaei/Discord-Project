@@ -99,13 +99,13 @@ public class SignUpMenuController {
 
     @FXML
     void continueButton(ActionEvent event) {
-        if (DiscordApplication.appController == null)
-            DiscordApplication.appController = new AppController();
         username = usernameTF.getText();
         email = emailTF.getText();
         password = passTF.getText();
         checkValidation();
         if (canContinue) {
+            DiscordApplication.appController = new AppController();
+            DiscordApplication.appController.connect();
             String result = DiscordApplication.appController.signUp(username, password, email);
             if(result.equals("Success.")){
                 resultLabel.setTextFill(Color.GREEN);
