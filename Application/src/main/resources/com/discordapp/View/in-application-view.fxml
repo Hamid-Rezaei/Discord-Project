@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
@@ -17,7 +19,8 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InApplicationViewController">
+
+<BorderPane fx:id="inAppPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InApplicationViewController">
    <left>
       <AnchorPane prefHeight="736.0" prefWidth="329.0" style="-fx-background-color: #2f3136;">
          <children>
@@ -62,11 +65,16 @@
                </font>
             </Button>
             <ListView layoutX="86.0" layoutY="116.0" prefHeight="490.0" prefWidth="242.0" style="-fx-background-color: #2f3136;" AnchorPane.bottomAnchor="64.0" AnchorPane.topAnchor="116.0" />
+            <ComboBox fx:id="directMessages" layoutX="98.0" layoutY="69.0" opacity="0.0" prefHeight="37.0" prefWidth="219.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ComboBox>
          </children>
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane style="-fx-background-color: #36393f;">
+      <AnchorPane fx:id="friendTabPane" style="-fx-background-color: #36393f;">
          <children>
             <TabPane prefHeight="588.0" prefWidth="562.0" stylesheets="@../../../../../assets/tabPane.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -158,17 +166,6 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <AnchorPane prefHeight="694.0" prefWidth="562.0">
-               <children>
-                   <ListView prefHeight="596.0" prefWidth="562.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                   <TextField layoutX="22.0" layoutY="633.0" prefHeight="34.0" prefWidth="514.0" promptText="Message" style="-fx-background-color: #40444b;" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="26.0">
-                       <font>
-                           <Font size="14.0" />
-                       </font>
-                   </TextField>
-                   <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="506.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="45.0" />
-               </children>
-            </AnchorPane>
          </children>
       </AnchorPane>
    </center>

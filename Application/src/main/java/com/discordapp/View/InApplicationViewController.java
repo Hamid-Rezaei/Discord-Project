@@ -40,8 +40,6 @@ public class InApplicationViewController {
     @FXML
     private Circle discordIcon;
     @FXML
-    private Circle paperclip;
-    @FXML
     private TextField friendIDTF;
     @FXML
     private Button friendReqBtn;
@@ -62,19 +60,24 @@ public class InApplicationViewController {
     @FXML
     private ListView<Guild> guildList;
 
+    @FXML
+    private ComboBox<User> directMessages;
+
+    @FXML
+    private AnchorPane friendTabPane;
+
+    @FXML
+    private BorderPane inAppPane;
     public void initialize() {
         setAvatar();
         setDiscordIcon();
         setAddServerIcon();
         setSettingIcon();
-        setPaperclipIcon();
         showGuilds();
         setStatus();
+        showAllFriends();
     }
 
-    private void setPaperclipIcon() {
-        paperclip.setFill(new ImagePattern(new Image("file:assets/plus.png", false)));
-    }
 
     private void setDiscordIcon() {
         discordIcon.setStroke(Color.GRAY);
@@ -250,6 +253,7 @@ public class InApplicationViewController {
                 setStyle("-fx-background-color: #36393f;" + "-fx-padding: 15px;");
             }
         });
+        newDirectChat(new ActionEvent());
     }
 
     @FXML
@@ -467,8 +471,55 @@ public class InApplicationViewController {
     }
 
     @FXML
-    void newDirectChatMessage(MouseEvent event) {
+    void newDirectChat(ActionEvent event) {
+        ObservableList<User> friendObs = FXCollections.observableArrayList(DiscordApplication.appController.friendList(DiscordApplication.user.getUsername()));
+        directMessages.setItems(friendObs);
+        directMessages.setCellFactory(param -> {
 
+            ListCell<User> cell = new ListCell<>() {
+                @Override
+                public void updateItem(User usr, boolean empty) {
+                    super.updateItem(usr, empty);
+                    setText(null);
+                    setGraphic(null);
+                    if (usr != null && !empty) {
+                        setText(usr.getUsername());
+                        setStyle("-fx-background-color: #36393f;" +
+                                "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold");
+                        setOnMouseClicked(e -> {
+                            goToDirectChat(getItem());
+                        });
+                    } else {
+                        setStyle("-fx-background-color: #36393f;" + "-fx-padding: 15px;");
+                    }
+                }
+            };
+            cell.setOnMouseReleased(e -> {
+                if(!cell.isEmpty()){
+                    goToDirectChat(cell.getItem());
+                    e.consume();
+                }
+            });
+            return cell;
+        });
     }
 
+    @FXML
+    void goToinApp(MouseEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        DiscordApplication.loadNewScene(loader, stage);
+    }
+
+    void goToDirectChat(User user) {
+        try {
+            AnchorPane chatPane = FXMLLoader.load(getClass().getResource("chat-view.fxml"));
+            chatPane.setManaged(false);
+            chatPane.setLayoutX(329);
+            inAppPane.getChildren().setAll(chatPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

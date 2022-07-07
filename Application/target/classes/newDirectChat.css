@@ -1,0 +1,6 @@
+.combo-box .cell:selected {
+    -fx-text-fill: red;
+}
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-text-fill: red;
+}
