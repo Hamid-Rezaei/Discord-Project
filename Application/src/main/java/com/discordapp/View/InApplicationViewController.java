@@ -1,7 +1,10 @@
 package com.discordapp.View;
 
 import com.discordapp.Model.Guild;
+import com.discordapp.Model.GuildUser;
+import com.discordapp.Model.Role;
 import com.discordapp.Model.User;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,15 +62,14 @@ public class InApplicationViewController {
     @FXML
     private ListView<Guild> guildList;
 
-
     public void initialize() {
         setAvatar();
         setDiscordIcon();
         setAddServerIcon();
         setSettingIcon();
         setPaperclipIcon();
-        setGuilds();
-        status.setFill(StatusViewController.color);
+        showGuilds();
+        setStatus();
     }
 
     private void setPaperclipIcon() {
@@ -141,10 +143,37 @@ public class InApplicationViewController {
 
     @FXML
     void addServer(MouseEvent event) {
+        String severName = null;
+        try {
+            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            popupStage.initOwner(stage);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setY(event.getScreenY() - 350);
+            popupStage.setX(event.getScreenX() + 20);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("add-server-view.fxml"));
+            Parent root = loader.load();
+            AddServerController asc = loader.getController();
+            //asc.initialize(newServerName);
+            popupStage.setScene(new Scene(root, Color.TRANSPARENT));
+            popupStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+/*        FXMLLoader loader = new FXMLLoader(getClass().getResource("add-server-view.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        DiscordApplication.loadNewScene(loader, stage);*/
+        GuildUser owner = new GuildUser(DiscordApplication.user, new Role("owner"));
+        Guild guild = new Guild(severName, owner);
+        DiscordApplication.appController.addServer(guild);
+        showGuilds();
 
     }
 
-    private void setGuilds() {
+
+
+
+    private void showGuilds() {
         ObservableList<Guild> guilds = FXCollections.observableArrayList(DiscordApplication.appController.listOfJoinedServers(DiscordApplication.user.getUsername()));
         guildList.setItems(guilds);
         guildList.setCellFactory(param -> new ListCell<>() {
