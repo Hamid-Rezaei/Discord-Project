@@ -580,6 +580,8 @@ public class InApplicationViewController {
                 if (message != null && !b) {
                     setText(message.toString());
                 }
+                setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+
             }
         });
     }

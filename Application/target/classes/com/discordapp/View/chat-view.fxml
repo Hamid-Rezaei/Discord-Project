@@ -1,20 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="547.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.ChatController">
-   <children>
-      <ListView layoutX="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="696.0" prefWidth="573.0" style="-fx-background-color: #36393f;" visible="false" />
-      <TextField layoutX="32.0" layoutY="643.0" onKeyReleased="#sendMessage" prefHeight="34.0" prefWidth="492.0" promptText="Message" style="-fx-background-color: #40444b; -fx-text-fill: #FFFF;" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="23.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
-      <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="482.0" layoutY="660.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="51.0" />
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InApplicationViewController">
+   <left>
+      <AnchorPane prefHeight="736.0" prefWidth="329.0" style="-fx-background-color: #2f3136;">
+         <children>
+            <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="670.0" prefWidth="87.0" style="-fx-background-color: #202225;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="241.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Circle fx:id="discordIcon" fill="#36393f" layoutX="54.0" layoutY="546.0" radius="30.0" stroke="#36393f" strokeType="INSIDE">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Circle>
+                  <Line endX="-44.907127380371094" endY="1.2516975402832031E-5" fill="#4b4c4e" layoutX="127.0" layoutY="565.0" startX="-100.0" stroke="#4b4c4e" />
+                  <ListView fx:id="guildList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="487.0" prefWidth="82.0" style="-fx-background-color: #202225;" VBox.vgrow="ALWAYS" />
+                  <Line endX="-44.907127380371094" endY="1.2516975402832031E-5" fill="#4b4c4e" startX="-100.0" stroke="#4b4c4e">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Line>
+                  <Circle fx:id="addServerIcon" fill="#36393f" onMouseClicked="#addServer" radius="30.0" stroke="#36393f" strokeType="INSIDE">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </VBox>
+            <Button layoutX="86.0" layoutY="8.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Friends" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <AnchorPane layoutX="86.0" layoutY="586.0" prefHeight="68.0" prefWidth="242.0" style="-fx-background-color: #292b2f;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="1.0">
+               <children>
+                  <Circle fx:id="settingIcon" fill="#36393f" layoutX="195.0" layoutY="34.0" onMouseClicked="#setting" radius="20.0" stroke="#36393f" strokeType="INSIDE" />
+                  <Circle fx:id="avatar" fill="#36393f" layoutX="39.0" layoutY="34.0" onMousePressed="#changeStatus" radius="25.0" stroke="#36393f" strokeType="INSIDE" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="177.8" />
+                  <Circle fx:id="status" fill="#36393f" layoutX="57.0" layoutY="54.0" onMousePressed="#changeStatus" radius="7.0" stroke="#36393f" strokeType="INSIDE" />
+               </children></AnchorPane>
+            <Button layoutX="86.0" layoutY="58.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="DIRECT MESSAGES    +" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <ListView layoutX="86.0" layoutY="116.0" prefHeight="490.0" prefWidth="242.0" style="-fx-background-color: #2f3136;" AnchorPane.bottomAnchor="64.0" AnchorPane.topAnchor="116.0" />
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane style="-fx-background-color: #36393f;">
+         <children>
+            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane prefHeight="694.0" prefWidth="562.0">
+                     <children>
+                        <ListView prefHeight="596.0" prefWidth="562.0" style="-fx-background-color: #36393f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextField layoutX="22.0" layoutY="633.0" prefHeight="34.0" prefWidth="514.0" promptText="Message" style="-fx-background-color: #40444b;" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="26.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="506.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.rightAnchor="45.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
