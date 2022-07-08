@@ -109,6 +109,7 @@ public class InApplicationViewController {
         } else {
             frndReqResponse.setTextFill(Color.RED);
             frndReqResponse.setText(respond);
+
         }
     }
 
@@ -164,7 +165,6 @@ public class InApplicationViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 
