@@ -19,11 +19,7 @@ public class AddServerController {
     ListView<Guild> guildList;
     @FXML
     private TextField serverNameTF;
-/*    private String serverName;
 
-    public void initialize(String serverName) {
-        this.serverName = serverName;
-    }*/
     @FXML
     public void initialize(ListView<Guild> guilds){
         guildList = guilds;
@@ -67,11 +63,7 @@ public class AddServerController {
         showGuilds();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //DiscordApplication.loadNewScene(loader, stage);
         stage.close();
-
-/*        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();*/
     }
 
 }
