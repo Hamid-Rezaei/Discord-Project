@@ -1,6 +1,7 @@
 package com.discordapp.Controller;
 
 import com.discordapp.Model.*;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import java.util.Scanner;
  */
 public class AppController {
     Scanner sc = new Scanner(System.in);
+
 
     /**
      * The enum Server error type.
@@ -295,6 +297,7 @@ public class AppController {
             return null;
         }
     }
+
     public ArrayList<User> friendList(String username) {
         try {
             outputStream.writeUTF("#FriendList");
@@ -308,6 +311,7 @@ public class AppController {
             return null;
         }
     }
+
     public ArrayList<User> friends(String username) {
         HashSet<User> friendList = friendSet(username);
         ArrayList<User> friends = friendList(username);
@@ -422,14 +426,47 @@ public class AppController {
                 Thread chatThread = new Thread(directChat);
                 chatThread.start();
                 chatThread.join();
-//                new Thread(directChat).start();// "You are in private chat with " + friend.getUsername();
             }
 
         } catch (IOException | ClassNotFoundException | InterruptedException e) {
             e.printStackTrace();
-            return;//"Could not open chat with " + friend.getUsername();
+            return;
         }
     }
+
+    public ArrayList<Message> loadDirectChatMessages(String user, String friend) {
+        try {
+            outputStream.writeUTF("#getDirectChatMessages");
+            outputStream.flush();
+            outputStream.writeUTF(user);
+            outputStream.flush();
+            outputStream.writeUTF(friend);
+            outputStream.flush();
+            ArrayList<Message> messages = (ArrayList<Message>) inputStream.readObject();
+            return messages;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public void sendMessageToDirectChat(String username, String friendName, Message message) {
+        try {
+            outputStream.writeUTF("#sendMsgToDirectChat");
+            outputStream.flush();
+            outputStream.writeUTF(username);
+            outputStream.flush();
+            outputStream.writeUTF(friendName);
+            outputStream.flush();
+            outputStream.writeObject(message);
+            outputStream.flush();
+            outputStream.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     /**
      * Remove from direct chat.
@@ -725,6 +762,14 @@ public class AppController {
         }
     }
 
+    public ObjectOutputStream getOutputStream() {
+        return outputStream;
+    }
+
+    public ObjectInputStream getInputStream() {
+        return inputStream;
+    }
+
     /**
      * Parse error.
      *
@@ -760,4 +805,8 @@ public class AppController {
         return error;
     }
 
+
+    public boolean isConnected(){
+        return socket.isConnected();
+    }
 }

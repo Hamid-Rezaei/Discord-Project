@@ -44,11 +44,11 @@ public class Connection {
         try {
             outputStream.writeObject(message);
             outputStream.flush();
-            if(index != -1) {
-                Integer ind = index;
-                outputStream.writeObject(ind);
-                outputStream.flush();
-            }
+//            if(index != -1) {
+//                Integer ind = index;
+//                outputStream.writeObject(ind);
+//                outputStream.flush();
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }

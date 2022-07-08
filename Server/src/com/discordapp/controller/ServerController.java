@@ -9,6 +9,7 @@ import com.discordapp.Model.Guild;
 import com.discordapp.Model.GuildUser;
 import com.discordapp.Model.TextChannel;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -89,15 +90,17 @@ public class ServerController implements Runnable {
                 case "#deleteGuild" -> deleteGuild();
                 case "#deleteTextChannel" -> deleteTextChannel();
                 case "#signUpNew" -> signUpNew();
+                case "#sendMsgToDirectChat" -> messageToDirectChat();
+                case "#getDirectChatMessages" -> getDirectChatMessages();
             }
 
         } catch (IOException e) {
             System.out.println("A user disconnected.");
             if (appUsername != null) {
                 Object user = Database.retrieveFromDB(appUsername);
-                if(user instanceof User)
-                    ((User)user).setStatus(Status.INVISIBLE);
-                Database.updateUser((User)user);
+                if (user instanceof User)
+                    ((User) user).setStatus(Status.INVISIBLE);
+                Database.updateUser((User) user);
             }
             try {
                 inputStream.close();
@@ -108,6 +111,40 @@ public class ServerController implements Runnable {
             }
         }
     }
+
+
+    private void messageToDirectChat() {
+        try {
+            String user = inputStream.readUTF();
+            String friend = inputStream.readUTF();
+            User currUser = Database.retrieveFromDB(user);
+            User friendUser = Database.retrieveFromDB(friend);
+
+            DirectChatController directChatController = getDirChatController(currUser, friendUser);
+            String chatHash = directChatHashCode(user, friend);
+            Message message = (Message) inputStream.readObject();
+            directChatController.addMessage(message);
+            directChatController.broadcastMessage(message);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getDirectChatMessages() {
+        try{
+            String username = inputStream.readUTF();
+            String friendName = inputStream.readUTF();
+            User user = Database.retrieveFromDB(username);
+            User friend = Database.retrieveFromDB(friendName);
+            outputStream.writeObject(getDirChatController(user,friend).getMessages());
+            outputStream.flush();
+            outputStream.reset();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
 
     private void signUpNew() {
         try {
@@ -124,7 +161,7 @@ public class ServerController implements Runnable {
             int answer = Database.insertToDB(username, pass, email, phoneNum, token, avatar).getCode();
             outputStream.writeInt(answer);
             outputStream.flush();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -141,7 +178,7 @@ public class ServerController implements Runnable {
             saveGuilds();
             outputStream.writeUTF("TextChannel " + textChannel.getName() + "removed successfully.");
             outputStream.flush();
-        } catch (IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -217,14 +254,14 @@ public class ServerController implements Runnable {
     public void login() {
         try {
             String[] parts = inputStream.readUTF().split(" ");
-            if(parts.length < 2){
+            if (parts.length < 2) {
                 outputStream.writeObject(null);
                 outputStream.flush();
                 return;
             }
             String username = parts[0];
             String pass = parts[1];
-            User answer =  Database.retrieveFromDB(username, pass);
+            User answer = Database.retrieveFromDB(username, pass);
             if (answer == null) {
                 outputStream.writeObject(answer);
                 outputStream.flush();
@@ -252,7 +289,7 @@ public class ServerController implements Runnable {
             outputStream.write(byteAvatar, 0, byteAvatar.length);
             outputStream.flush();
             outputStream.reset();
-            appUsername =  answer.getUsername();
+            appUsername = answer.getUsername();
             Connection connection = new Connection(this.socket, outputStream, inputStream, this.appUsername);
             connections.put(appUsername, connection);
         } catch (IOException e) {
@@ -374,8 +411,9 @@ public class ServerController implements Runnable {
 
     /**
      * creates/gets a direct chat between two friends
+     *
      * @param currentUser user that wants to enter a direct chat
-     * @param friend second user of the direct chat
+     * @param friend      second user of the direct chat
      * @return direct chat
      */
     private DirectChatController getDirChatController(User currentUser, User friend) {
@@ -522,7 +560,7 @@ public class ServerController implements Runnable {
     }
 
     /**
-     *  removes a user from direct chat whenever user input is #exit
+     * removes a user from direct chat whenever user input is #exit
      */
     private void removeFromDirectChat() {
         try {

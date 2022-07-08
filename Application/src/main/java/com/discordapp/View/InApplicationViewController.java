@@ -1,12 +1,11 @@
 package com.discordapp.View;
 
-import com.discordapp.Model.Guild;
-import com.discordapp.Model.GuildUser;
-import com.discordapp.Model.Role;
-import com.discordapp.Model.User;
+import com.discordapp.Model.*;
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,8 +26,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -60,15 +59,22 @@ public class InApplicationViewController {
     private ListView<User> pendingList;
     @FXML
     private ListView<Guild> guildList;
-
+    private Chat friendChat;
     @FXML
     private ComboBox<User> directMessages;
 
+
+    @FXML
+    private ListView<Message> messageList;
+
+    User friendInChat;
     @FXML
     private AnchorPane friendTabPane;
 
     @FXML
     private BorderPane inAppPane;
+    @FXML
+    private TextField messageTF;
 
     public void initialize() {
         setAvatar();
@@ -374,7 +380,7 @@ public class InApplicationViewController {
                         String username = DiscordApplication.user.getUsername();
                         HashSet<String> friend = new HashSet<>();
                         friend.add(user.getUsername());
-                        DiscordApplication.appController.revisedFriendRequests(username,friend,new HashSet<String>());
+                        DiscordApplication.appController.revisedFriendRequests(username, friend, new HashSet<String>());
                         pendingList.getItems().remove(this.getIndex());
                         e.consume();
                     });
@@ -382,7 +388,7 @@ public class InApplicationViewController {
                         String username = DiscordApplication.user.getUsername();
                         HashSet<String> reject = new HashSet<>();
                         reject.add(user.getUsername());
-                        DiscordApplication.appController.revisedFriendRequests(username,new HashSet<>(),reject);
+                        DiscordApplication.appController.revisedFriendRequests(username, new HashSet<>(), reject);
                         pendingList.getItems().remove(this.getIndex());
                         e.consume();
 
@@ -539,5 +545,56 @@ public class InApplicationViewController {
         circle.setFill(new ImagePattern(new Image("file:assets/plus.png")));
         directChat.setVisible(true);
         directChat.setDisable(false);
+        friendInChat = user;
+        loadDirectChatMessages();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(DiscordApplication.appController.isConnected()){
+                    try {
+                        Message message = (Message) DiscordApplication.appController.getInputStream().readObject();
+                        addMessage(message);
+                    } catch (IOException | ClassNotFoundException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+    }
+
+    public void addMessage(Message incomingMessage){
+        Platform.runLater(() -> {
+                    messageList.getItems().add(incomingMessage);
+        });
+    }
+
+    private void loadDirectChatMessages() {
+        ArrayList<Message> msgs = DiscordApplication.appController.loadDirectChatMessages(DiscordApplication.user.getUsername(), friendInChat.getUsername());
+        ObservableList<Message> obsMessage = FXCollections.observableArrayList(msgs);
+        messageList.setItems(obsMessage);
+        messageList.setCellFactory(e -> new ListCell<>() {
+            @Override
+            protected void updateItem(Message message, boolean b) {
+                super.updateItem(message, b);
+                if (message != null && !b) {
+                    setText(message.toString());
+                }
+            }
+        });
+    }
+
+    @FXML
+    void sendMessage(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            String content = messageTF.getText();
+            if (content != null && !content.equals("")) {
+                String author = DiscordApplication.user.getUsername();
+                Message message = new Message(content, author, LocalDateTime.now());
+                messageTF.clear();
+                DiscordApplication.appController.sendMessageToDirectChat(author, friendInChat.getUsername(), message);
+            }
+        }
+
     }
 }

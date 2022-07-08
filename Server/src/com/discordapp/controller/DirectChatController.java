@@ -59,7 +59,11 @@ public class DirectChatController implements Runnable {
     public synchronized void addMessage(Message message) {
         messages.add(message);
         saveMessages();
-        broadcastMessage(message);
+        //broadcastMessage(message); not usable in gui
+    }
+
+    public ArrayList<Message> getMessages() {
+        return messages;
     }
 
     /**

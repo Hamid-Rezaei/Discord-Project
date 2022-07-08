@@ -195,6 +195,11 @@ public class Database {
                 if (isFriend.next()) {
                     return ServerErrorType.ALREADY_FRIEND;
                 }
+                Statement checkIfUserExists = connection.createStatement();
+                ResultSet doesExist = checkIfAlreadyExists.executeQuery("select userName from users where userName = " +  "'" + targetUser + "'");
+                if(!doesExist.next()){
+                    return ServerErrorType.Duplicate_ERROR;
+                }
             }
             String insertQuery = "insert into requests (to_user, from_user) values(?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery);
