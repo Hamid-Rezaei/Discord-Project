@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -57,7 +58,7 @@
                   <Circle fx:id="avatar" fill="#36393f" layoutX="39.0" layoutY="34.0" onMousePressed="#changeStatus" radius="25.0" stroke="#36393f" strokeType="INSIDE" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="177.8" />
                   <Circle fx:id="status" fill="#36393f" layoutX="57.0" layoutY="54.0" onMousePressed="#changeStatus" radius="7.0" stroke="#36393f" strokeType="INSIDE" />
                </children></AnchorPane>
-            <Button layoutX="86.0" layoutY="58.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="DIRECT MESSAGES    +" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0">
+            <Button disable="true" layoutX="101.0" layoutY="58.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="228.0" style="-fx-background-color: #2f3136;" text="DIRECT MESSAGES    +" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -168,7 +169,10 @@
                            <Font size="14.0" />
                        </font>
                    </TextField>
-                   <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="506.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="45.0" />
+                   <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="506.0" layoutY="650.0" onMouseReleased="#sendFileMessage" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="45.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Circle>
                </children>
             </AnchorPane>
          </children>

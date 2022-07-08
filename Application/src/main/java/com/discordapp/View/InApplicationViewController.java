@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -76,7 +78,7 @@ public class InApplicationViewController {
     @FXML
     private TextField messageTF;
     User friendInChat;
-
+    Thread listenToMsg;
 
     public void initialize() {
         setAvatar();
@@ -130,22 +132,23 @@ public class InApplicationViewController {
 
     @FXML
     void changeStatus(MouseEvent event) {
-        try {
-            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            popupStage.initOwner(stage);
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-            popupStage.setY(event.getScreenY() - 270);
-            popupStage.setX(event.getScreenX() + 20);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("status-view.fxml"));
-            Parent root = loader.load();
-            StatusViewController svc = loader.getController();
-            svc.initialize(status);
-            popupStage.setScene(new Scene(root, Color.TRANSPARENT));
-            popupStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (!listenToMsg.isAlive())
+            try {
+                Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                popupStage.initOwner(stage);
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.setY(event.getScreenY() - 270);
+                popupStage.setX(event.getScreenX() + 20);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("status-view.fxml"));
+                Parent root = loader.load();
+                StatusViewController svc = loader.getController();
+                svc.initialize(status);
+                popupStage.setScene(new Scene(root, Color.TRANSPARENT));
+                popupStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
     }
@@ -157,6 +160,7 @@ public class InApplicationViewController {
 
     @FXML
     void addServer(MouseEvent event) {
+        exitFromDirectChat();
         try {
             Stage popupStage = new Stage(StageStyle.TRANSPARENT);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -353,7 +357,6 @@ public class InApplicationViewController {
                     accept.setText("ACCEPT");
                     reject.setText("REJECT");
                     status.setFill(StatusViewController.returnColor(usr.getStatus().toString(usr.getStatus())));
-
                     status.setRadius(8);
 
                     status.setManaged(false);
@@ -486,6 +489,7 @@ public class InApplicationViewController {
 
     @FXML
     void setting(MouseEvent event) {
+        exitFromDirectChat();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("account-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         DiscordApplication.loadNewScene(loader, stage);
@@ -527,6 +531,7 @@ public class InApplicationViewController {
 
     @FXML
     void goToinApp(MouseEvent event) {
+        exitFromDirectChat();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         TabPane friendPane = (TabPane) friendTabPane.getChildren().get(0);
@@ -539,30 +544,40 @@ public class InApplicationViewController {
     }
 
     void goToDirectChat(User user) {
-        TabPane friendPane = (TabPane) friendTabPane.getChildren().get(0);
-        friendPane.setVisible(false);
-        friendPane.setDisable(true);
-        AnchorPane directChat = (AnchorPane) friendTabPane.getChildren().get(1);
-        Circle circle = (Circle) directChat.getChildren().get(2);
-        circle.setFill(new ImagePattern(new Image("file:assets/plus.png")));
-        directChat.setVisible(true);
-        directChat.setDisable(false);
-        friendInChat = user;
-        loadDirectChatMessages();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (DiscordApplication.appController.isConnected()) {
-                    try {
-                        Message message = (Message) DiscordApplication.appController.getInputStream().readObject();
-                        addMessage(message);
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
+
+        if (!exitFromDirectChat()) {
+            TabPane friendPane = (TabPane) friendTabPane.getChildren().get(0);
+            friendPane.setVisible(false);
+            friendPane.setDisable(true);
+            AnchorPane directChat = (AnchorPane) friendTabPane.getChildren().get(1);
+            Circle circle = (Circle) directChat.getChildren().get(2);
+            circle.setFill(new ImagePattern(new Image("file:assets/plus.png")));
+            directChat.setVisible(true);
+            directChat.setDisable(false);
+            friendInChat = user;
+            loadDirectChatMessages();
+            listenToMsg = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Message message = new Message("", "", LocalDateTime.now());
+                    while (!message.getContent().equals("#exit")) {
+                        try {
+                            Object obj = DiscordApplication.appController.getInputStream().readObject();
+                            if (obj instanceof Message) {
+                                message = (Message) obj;
+                                addMessage(message);
+                            } else {
+                                //System.out.println(obj.toString());
+                                break;
+                            }
+                        } catch (IOException | ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        }).start();
-
+            });
+            listenToMsg.start();
+        }
     }
 
     public void addMessage(Message incomingMessage) {
@@ -580,12 +595,21 @@ public class InApplicationViewController {
             protected void updateItem(Message message, boolean b) {
                 super.updateItem(message, b);
                 if (message != null && !b) {
-                    setText(message.toString());
-                    setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+                    if (!message.isFile()) {
+                        setText(message.toString());
+                        setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+                    } else {
+                        setCursor(Cursor.HAND);
+                        setText(message.fileToString());
+                        setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(7,141,242,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+                        setOnMouseReleased(e -> {
+                            saveFileInDownloads(message);
+                        });
+                    }
                     setOnMousePressed(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            if(event.isSecondaryButtonDown()){
+                            if (event.isSecondaryButtonDown()) {
                                 VBox vBox = new VBox();
                                 vBox.setAlignment(Pos.CENTER);
                                 vBox.setPrefSize(50, 150);
@@ -598,7 +622,7 @@ public class InApplicationViewController {
 
                                 ImageView disLike = new ImageView();
                                 disLike.setImage(new Image("file:assets/dislike.png", false));
-                                disLike.setLayoutY(like.getLayoutY()+ 5);
+                                disLike.setLayoutY(like.getLayoutY() + 5);
 
                                 ImageView smile = new ImageView();
                                 smile.setImage(new Image("file:assets/smile.png", false));
@@ -647,7 +671,7 @@ public class InApplicationViewController {
                                     @Override
                                     public void handle(MouseEvent event) {
                                         messageList.getSelectionModel().getSelectedItem();
-                                        
+
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         stage.close();
                                     }
@@ -659,7 +683,8 @@ public class InApplicationViewController {
                             }
                         }
                     });
-                }else{
+
+                } else {
                     setStyle("-fx-background-color: #36393f;" + "-fx-padding: 15px;");
                 }
             }
@@ -679,5 +704,54 @@ public class InApplicationViewController {
             }
         }
 
+    }
+
+    @FXML
+    void sendFileMessage(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            String content = "#file>" + file.getAbsolutePath();
+            String author = DiscordApplication.user.getUsername();
+            Message fileMessage = new Message(content, author, LocalDateTime.now(), true);
+            DiscordApplication.appController.sendMessageToDirectChat(author, friendInChat.getUsername(), fileMessage);
+        }
+    }
+
+    public String saveFileInDownloads(Message message) {
+        try {
+            byte[] bytes = message.getFile();
+            String name = message.getFileName();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialFileName(name);
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+            File file = fileChooser.showSaveDialog(null);
+            OutputStream os = new FileOutputStream(file);
+            os.write(bytes);
+            os.close();
+            return "";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "couldn't save file.";
+        }
+
+    }
+
+    private boolean exitFromDirectChat() {
+        if (listenToMsg != null && listenToMsg.isAlive()) {
+            DiscordApplication.appController.sendMessageToDirectChat(
+                    DiscordApplication.user.getUsername(), friendInChat.getUsername(),
+                    new Message("#exit", DiscordApplication.user.getUsername(), LocalDateTime.now()));
+            TabPane friendPane = (TabPane) friendTabPane.getChildren().get(0);
+            friendPane.setVisible(true);
+            friendPane.setDisable(false);
+            AnchorPane directChat = (AnchorPane) friendTabPane.getChildren().get(1);
+            Circle circle = (Circle) directChat.getChildren().get(2);
+            circle.setFill(new ImagePattern(new Image("file:assets/plus.png")));
+            directChat.setVisible(false);
+            directChat.setDisable(true);
+            return true;
+        }
+        return false;
     }
 }

@@ -157,6 +157,9 @@ public class Message implements Serializable {
         reactions.put(reaction, names);
     }
 
+    public String getDate() {
+        return date.toString();
+    }
 
     @Override
     public String toString() {
@@ -165,6 +168,23 @@ public class Message implements Serializable {
                 "MMM-dd, HH:mm");
         StringBuilder stb = new StringBuilder();
         stb.append(String.format("[%s] %s: %s\n", date.format(formatter), authorName, content));
+        for (Reaction reaction : reactions.keySet()) {
+            StringBuilder tmp = new StringBuilder(reaction.getEmoji() + " -> ");
+            for(String name : reactions.get(reaction)) {
+                tmp.append(name).append(" ");
+            }
+            tmp.append("\n");
+            stb.append(tmp);
+        }
+        return stb.toString();
+    }
+
+    public String fileToString(){
+        DateTimeFormatter formatter
+                = DateTimeFormatter.ofPattern(
+                "MMM-dd, HH:mm");
+        StringBuilder stb = new StringBuilder();
+        stb.append(String.format("[%s] %s: %s\n", date.format(formatter), authorName, getFileName()));
         for (Reaction reaction : reactions.keySet()) {
             StringBuilder tmp = new StringBuilder(reaction.getEmoji() + " -> ");
             for(String name : reactions.get(reaction)) {

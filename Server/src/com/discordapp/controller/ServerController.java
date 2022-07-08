@@ -121,25 +121,29 @@ public class ServerController implements Runnable {
             User friendUser = Database.retrieveFromDB(friend);
 
             DirectChatController directChatController = getDirChatController(currUser, friendUser);
-            String chatHash = directChatHashCode(user, friend);
             Message message = (Message) inputStream.readObject();
-            directChatController.addMessage(message);
-            directChatController.broadcastMessage(message);
+            if (message.getContent().equals("#exit")) {
+                directChatController.broadcastExitMessage("you exited the chat", connections.get(currUser.getUsername()));
+                directChatController.removeConnection(currUser.getUsername());
+            } else {
+                directChatController.addMessage(message);
+                directChatController.broadcastMessage(message);
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     private void getDirectChatMessages() {
-        try{
+        try {
             String username = inputStream.readUTF();
             String friendName = inputStream.readUTF();
             User user = Database.retrieveFromDB(username);
             User friend = Database.retrieveFromDB(friendName);
-            outputStream.writeObject(getDirChatController(user,friend).getMessages());
+            outputStream.writeObject(getDirChatController(user, friend).getMessages());
             outputStream.flush();
             outputStream.reset();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -267,16 +271,7 @@ public class ServerController implements Runnable {
                 outputStream.flush();
                 return;
             }
-//            outputStream.writeUTF(answer.getUsername());
-//            outputStream.flush();
-//            outputStream.writeUTF(answer.getPassword());
-//            outputStream.flush();
-//            outputStream.writeUTF(answer.getEmail());
-//            outputStream.flush();
-//            outputStream.writeUTF(answer.getPhoneNumber());
-//            outputStream.flush();
-//            outputStream.writeUTF(answer.getToken());
-//            outputStream.flush();
+
             outputStream.writeObject(answer);
             outputStream.flush();
             byte[] byteAvatar = ((User) answer).getAvatar();

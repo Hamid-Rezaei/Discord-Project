@@ -96,6 +96,7 @@ public class Chat implements Runnable, Serializable {
             if (!theDir.exists()) {
                 theDir.mkdirs();
             }
+
             File file = new File(path + "/" + name);
             OutputStream os = new FileOutputStream(file);
             os.write(bytes);
