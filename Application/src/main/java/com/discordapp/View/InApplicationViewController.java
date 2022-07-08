@@ -606,81 +606,78 @@ public class InApplicationViewController {
                             saveFileInDownloads(message);
                         });
                     }
-                    setOnMousePressed(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            if (event.isSecondaryButtonDown()) {
-                                VBox vBox = new VBox();
-                                vBox.setAlignment(Pos.CENTER);
-                                vBox.setPrefSize(50, 150);
-                                vBox.setStyle("-fx-background-color: #202225");
+                    setOnMousePressed(event -> {
+                        if (event.isSecondaryButtonDown()) {
+                            VBox vBox = new VBox();
+                            vBox.setAlignment(Pos.CENTER);
+                            vBox.setPrefSize(50, 150);
+                            vBox.setStyle("-fx-background-color: #202225");
 
 
-                                ImageView like = new ImageView();
-                                like.setImage(new Image("file:assets/like.png", false));
+                            ImageView like = new ImageView();
+                            like.setImage(new Image("file:assets/like.png", false));
 
 
-                                ImageView disLike = new ImageView();
-                                disLike.setImage(new Image("file:assets/dislike.png", false));
-                                disLike.setLayoutY(like.getLayoutY() + 5);
+                            ImageView disLike = new ImageView();
+                            disLike.setImage(new Image("file:assets/dislike.png", false));
+                            disLike.setLayoutY(like.getLayoutY() + 5);
 
-                                ImageView smile = new ImageView();
-                                smile.setImage(new Image("file:assets/smile.png", false));
+                            ImageView smile = new ImageView();
+                            smile.setImage(new Image("file:assets/smile.png", false));
 
-                                ImageView pin = new ImageView();
-                                pin.setImage(new Image("file:assets/pin.png", false));
+                            ImageView pin = new ImageView();
+                            pin.setImage(new Image("file:assets/pin.png", false));
 
-                                Stage popupStage = new Stage(StageStyle.TRANSPARENT);
-                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                popupStage.initOwner(stage);
-                                popupStage.initModality(Modality.APPLICATION_MODAL);
-                                popupStage.setY(event.getScreenY() + 10);
-                                popupStage.setX(event.getScreenX() + 10);
-                                vBox.getChildren().addAll(like, disLike, smile, pin);
-                                Scene scene = new Scene(vBox);
-                                popupStage.setScene(scene);
-                                popupStage.show();
+                            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            popupStage.initOwner(stage);
+                            popupStage.initModality(Modality.APPLICATION_MODAL);
+                            popupStage.setY(event.getScreenY() + 10);
+                            popupStage.setX(event.getScreenX() + 10);
+                            vBox.getChildren().addAll(like, disLike, smile, pin);
+                            Scene scene = new Scene(vBox);
+                            popupStage.setScene(scene);
+                            popupStage.show();
 
-                                like.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        messageList.getSelectionModel().getSelectedItem().setReaction("like", DiscordApplication.user.getUsername());
-                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                        stage.close();
-                                    }
-                                });
-
-
-                                disLike.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                        stage.close();
-                                    }
-                                });
-
-                                smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                        stage.close();
-                                    }
-                                });
-
-                                pin.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        Message pinMsg = messageList.getSelectionModel().getSelectedItem();
-
-                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                        stage.close();
-                                    }
-                                });
+                            like.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                    messageList.getSelectionModel().getSelectedItem().setReaction("like", DiscordApplication.user.getUsername());
+                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                    stage.close();
+                                }
+                            });
 
 
-                                System.out.println("clicked on " + messageList.getSelectionModel().getSelectedItem());
-                                event.consume();
-                            }
+                            disLike.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                    stage.close();
+                                }
+                            });
+
+                            smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                    stage.close();
+                                }
+                            });
+
+                            pin.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                    Message pinMsg = messageList.getSelectionModel().getSelectedItem();
+
+                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                    stage.close();
+                                }
+                            });
+
+
+                            System.out.println("clicked on " + messageList.getSelectionModel().getSelectedItem());
+                            event.consume();
                         }
                     });
 
