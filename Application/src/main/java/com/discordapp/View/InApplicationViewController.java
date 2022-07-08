@@ -670,7 +670,7 @@ public class InApplicationViewController {
                                 pin.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
-                                        messageList.getSelectionModel().getSelectedItem();
+                                        Message pinMsg = messageList.getSelectionModel().getSelectedItem();
 
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         stage.close();
