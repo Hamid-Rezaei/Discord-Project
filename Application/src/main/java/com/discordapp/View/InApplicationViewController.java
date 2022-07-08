@@ -7,15 +7,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -62,19 +67,16 @@ public class InApplicationViewController {
     private Chat friendChat;
     @FXML
     private ComboBox<User> directMessages;
-
-
     @FXML
     private ListView<Message> messageList;
-
-    User friendInChat;
     @FXML
     private AnchorPane friendTabPane;
-
     @FXML
     private BorderPane inAppPane;
     @FXML
     private TextField messageTF;
+    User friendInChat;
+
 
     public void initialize() {
         setAvatar();
@@ -550,11 +552,11 @@ public class InApplicationViewController {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(DiscordApplication.appController.isConnected()){
+                while (DiscordApplication.appController.isConnected()) {
                     try {
                         Message message = (Message) DiscordApplication.appController.getInputStream().readObject();
                         addMessage(message);
-                    } catch (IOException | ClassNotFoundException e){
+                    } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                 }
@@ -563,9 +565,9 @@ public class InApplicationViewController {
 
     }
 
-    public void addMessage(Message incomingMessage){
+    public void addMessage(Message incomingMessage) {
         Platform.runLater(() -> {
-                    messageList.getItems().add(incomingMessage);
+            messageList.getItems().add(incomingMessage);
         });
     }
 
@@ -579,10 +581,89 @@ public class InApplicationViewController {
                 super.updateItem(message, b);
                 if (message != null && !b) {
                     setText(message.toString());
-                }
-                setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+                    setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+                    setOnMousePressed(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if(event.isSecondaryButtonDown()){
+                                VBox vBox = new VBox();
+                                vBox.setAlignment(Pos.CENTER);
+                                vBox.setPrefSize(50, 150);
+                                vBox.setStyle("-fx-background-color: #202225");
 
+
+                                ImageView like = new ImageView();
+                                like.setImage(new Image("file:assets/like.png", false));
+
+
+                                ImageView disLike = new ImageView();
+                                disLike.setImage(new Image("file:assets/dislike.png", false));
+                                disLike.setLayoutY(like.getLayoutY()+ 5);
+
+                                ImageView smile = new ImageView();
+                                smile.setImage(new Image("file:assets/smile.png", false));
+
+                                ImageView pin = new ImageView();
+                                pin.setImage(new Image("file:assets/pin.png", false));
+
+                                Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                popupStage.initOwner(stage);
+                                popupStage.initModality(Modality.APPLICATION_MODAL);
+                                popupStage.setY(event.getScreenY() + 10);
+                                popupStage.setX(event.getScreenX() + 10);
+                                vBox.getChildren().addAll(like, disLike, smile, pin);
+                                Scene scene = new Scene(vBox);
+                                popupStage.setScene(scene);
+                                popupStage.show();
+
+                                like.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        messageList.getSelectionModel().getSelectedItem().setReaction("like", DiscordApplication.user.getUsername());
+                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        stage.close();
+                                    }
+                                });
+
+
+                                disLike.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        stage.close();
+                                    }
+                                });
+
+                                smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        stage.close();
+                                    }
+                                });
+
+                                pin.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        messageList.getSelectionModel().getSelectedItem();
+                                        
+                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        stage.close();
+                                    }
+                                });
+
+
+                                System.out.println("clicked on " + messageList.getSelectionModel().getSelectedItem());
+                                event.consume();
+                            }
+                        }
+                    });
+                }else{
+                    setStyle("-fx-background-color: #36393f;" + "-fx-padding: 15px;");
+                }
             }
+
         });
     }
 
