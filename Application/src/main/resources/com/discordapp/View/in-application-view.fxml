@@ -24,13 +24,13 @@
          <children>
             <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="670.0" prefWidth="87.0" style="-fx-background-color: #202225;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="241.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Circle fx:id="discordIcon" fill="#36393f" layoutX="54.0" layoutY="546.0" radius="30.0" stroke="#36393f" strokeType="INSIDE">
+                  <Circle fx:id="discordIcon" fill="#36393f" layoutX="54.0" layoutY="546.0" onMouseReleased="#goToinApp" radius="30.0" stroke="#36393f" strokeType="INSIDE">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Circle>
                   <Line endX="-44.907127380371094" endY="1.2516975402832031E-5" fill="#4b4c4e" layoutX="127.0" layoutY="565.0" startX="-100.0" stroke="#4b4c4e" />
-                  <ListView maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="487.0" prefWidth="82.0" style="-fx-background-color: #202225;" VBox.vgrow="ALWAYS" />
+                  <ListView fx:id="guildList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="487.0" prefWidth="82.0" style="-fx-background-color: #202225;" VBox.vgrow="ALWAYS" />
                   <Line endX="-44.907127380371094" endY="1.2516975402832031E-5" fill="#4b4c4e" startX="-100.0" stroke="#4b4c4e">
                      <VBox.margin>
                         <Insets />
@@ -46,7 +46,7 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </VBox>
-            <Button layoutX="86.0" layoutY="8.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Friends" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="friendsIcon" layoutX="86.0" layoutY="8.0" mnemonicParsing="false" onMouseReleased="#goToinApp" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Friends" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

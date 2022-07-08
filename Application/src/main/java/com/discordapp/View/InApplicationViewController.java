@@ -30,6 +30,7 @@ import javafx.stage.StageStyle;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class InApplicationViewController {
 
@@ -68,12 +69,13 @@ public class InApplicationViewController {
 
     @FXML
     private BorderPane inAppPane;
+
     public void initialize() {
         setAvatar();
         setDiscordIcon();
         setAddServerIcon();
         setSettingIcon();
-        //showGuilds();
+        showGuilds();
         setStatus();
         showAllFriends();
     }
@@ -146,7 +148,6 @@ public class InApplicationViewController {
 
     @FXML
     void addServer(MouseEvent event) {
-/*        String severName = null;
         try {
             Stage popupStage = new Stage(StageStyle.TRANSPARENT);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -156,24 +157,16 @@ public class InApplicationViewController {
             popupStage.setX(event.getScreenX() + 20);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("add-server-view.fxml"));
             Parent root = loader.load();
-            AddServerController asc = loader.getController();
-            //asc.initialize(newServerName);
+            AddServerController aSC = loader.getController();
+            aSC.initialize(guildList);
             popupStage.setScene(new Scene(root, Color.TRANSPARENT));
             popupStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("add-server-view.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        DiscordApplication.loadNewScene(loader, stage);
-/*        GuildUser owner = new GuildUser(DiscordApplication.user, new Role("owner"));
-        Guild guild = new Guild(severName, owner);
-        DiscordApplication.appController.addServer(guild);
-        showGuilds();*/
+        }
+
 
     }
-
-
 
 
     private void showGuilds() {
@@ -189,9 +182,8 @@ public class InApplicationViewController {
                 if (guild != null && !empty) {
                     setEditable(false);
                     setText(guild.getName());
-
                 }
-                setStyle("-fx-background-color: #202225;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold;"+ "-fx-padding: 15px;");
+                setStyle("-fx-background-color: #202225;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
             }
         });
 
@@ -200,6 +192,7 @@ public class InApplicationViewController {
     @FXML
     void showAllFriends() {
         ObservableList<User> friendObs = FXCollections.observableArrayList(DiscordApplication.appController.friendList(DiscordApplication.user.getUsername()));
+
         friendsList.setItems(friendObs);
         friendsList.setCellFactory(param -> new ListCell<>() {
             TextField nameTF = new TextField();
@@ -320,6 +313,7 @@ public class InApplicationViewController {
     void showPendingRequests() {
         ArrayList<User> pendingReqs = DiscordApplication.appController.friendRequestList(DiscordApplication.user.getUsername());
         ObservableList<User> pendingObs = FXCollections.observableArrayList(pendingReqs);
+
         pendingList.setItems(pendingObs);
         pendingList.setCellFactory(param -> new ListCell<>() {
             TextField nameTF = new TextField();
@@ -341,13 +335,15 @@ public class InApplicationViewController {
                             "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold");
 
                     Circle status = new Circle();
+
                     status.setCenterX(circle.getCenterX() + 51);
                     status.setCenterY(circle.getCenterY() + 51);
                     accept = new Button();
                     reject = new Button();
+                    accept.setStyle("-fx-background-color: #0fc90c;" + " -fx-text-fill: #ffffff");
+                    reject.setStyle("-fx-background-color: #c90c0c;" + " -fx-text-fill: #ffffff");
                     accept.setText("ACCEPT");
                     reject.setText("REJECT");
-
                     status.setFill(StatusViewController.returnColor(usr.getStatus().toString(usr.getStatus())));
 
                     status.setRadius(8);
@@ -374,6 +370,23 @@ public class InApplicationViewController {
                     line.setLayoutX(hBox.getLayoutX() + 150);
                     line.setLayoutY(hBox.getLayoutY() + 75);
                     setGraphic(hBox);
+                    accept.setOnAction(e -> {
+                        String username = DiscordApplication.user.getUsername();
+                        HashSet<String> friend = new HashSet<>();
+                        friend.add(user.getUsername());
+                        DiscordApplication.appController.revisedFriendRequests(username,friend,new HashSet<String>());
+                        pendingList.getItems().remove(this.getIndex());
+                        e.consume();
+                    });
+                    reject.setOnAction(e -> {
+                        String username = DiscordApplication.user.getUsername();
+                        HashSet<String> reject = new HashSet<>();
+                        reject.add(user.getUsername());
+                        DiscordApplication.appController.revisedFriendRequests(username,new HashSet<>(),reject);
+                        pendingList.getItems().remove(this.getIndex());
+                        e.consume();
+
+                    });
                     setStyle("-fx-background-color: #36393f;" + "-fx-padding: 35px;");
                 }
                 setStyle("-fx-background-color: #36393f;" + "-fx-padding: 15px;");
@@ -495,7 +508,7 @@ public class InApplicationViewController {
                 }
             };
             cell.setOnMouseReleased(e -> {
-                if(!cell.isEmpty()){
+                if (!cell.isEmpty()) {
                     goToDirectChat(cell.getItem());
                     e.consume();
                 }
@@ -508,21 +521,23 @@ public class InApplicationViewController {
     void goToinApp(MouseEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        TabPane friendPane = (TabPane) friendTabPane.getChildren().get(0);
+        friendPane.setVisible(true);
+        friendPane.setDisable(false);
+        AnchorPane directChat = (AnchorPane) friendTabPane.getChildren().get(1);
+        directChat.setVisible(false);
+        directChat.setDisable(true);
         DiscordApplication.loadNewScene(loader, stage);
     }
 
     void goToDirectChat(User user) {
-        try {
-            AnchorPane chatPane = FXMLLoader.load(getClass().getResource("chat-view.fxml"));
-            TabPane friendPane = (TabPane) friendTabPane.getChildren().get(0);
-            friendPane.setVisible(false);
-            friendPane.setDisable(true);
-            AnchorPane directChat = (AnchorPane) friendTabPane.getChildren().get(1);
-            directChat.setVisible(true);
-            directChat.setDisable(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        TabPane friendPane = (TabPane) friendTabPane.getChildren().get(0);
+        friendPane.setVisible(false);
+        friendPane.setDisable(true);
+        AnchorPane directChat = (AnchorPane) friendTabPane.getChildren().get(1);
+        Circle circle = (Circle) directChat.getChildren().get(2);
+        circle.setFill(new ImagePattern(new Image("file:assets/plus.png")));
+        directChat.setVisible(true);
+        directChat.setDisable(false);
     }
 }
