@@ -144,8 +144,16 @@ public class DirectChatController implements Runnable {
      * @param index the index
      */
     public synchronized void pinMessage(int index) {
-        pinnedMessages.add(messages.get(index - 1));
+        pinnedMessages.add(messages.get(index));
         saveMessages();
+    }
+
+    /**
+     * returns arrayList of pinned messages
+     * @return array list of pinned messages
+     */
+    public ArrayList<Message> getPinnedMessages() {
+        return pinnedMessages;
     }
 
     /**

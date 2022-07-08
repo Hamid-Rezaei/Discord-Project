@@ -2,12 +2,12 @@ package com.discordapp.View;
 import com.discordapp.Controller.AppController;
 import com.discordapp.Model.User;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class DiscordApplication extends Application {
@@ -26,6 +26,7 @@ public class DiscordApplication extends Application {
     }
 
 
+
     public static void loadNewScene(FXMLLoader loader, Stage stage) {
         try {
             Scene scene = new Scene(loader.load());
@@ -38,4 +39,13 @@ public class DiscordApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+    @Override
+    public void stop() throws Exception {
+        Platform.setImplicitExit(true);
+        super.stop();
+        Platform.exit();
+        System.exit(0);
+    }
+
 }

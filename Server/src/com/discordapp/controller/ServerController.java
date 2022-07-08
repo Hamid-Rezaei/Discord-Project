@@ -92,6 +92,7 @@ public class ServerController implements Runnable {
                 case "#signUpNew" -> signUpNew();
                 case "#sendMsgToDirectChat" -> messageToDirectChat();
                 case "#getDirectChatMessages" -> getDirectChatMessages();
+                case "#getPinnedMessages" -> getPinnedMessages();
             }
 
         } catch (IOException e) {
@@ -125,6 +126,9 @@ public class ServerController implements Runnable {
             if (message.getContent().equals("#exit")) {
                 directChatController.broadcastExitMessage("you exited the chat", connections.get(currUser.getUsername()));
                 directChatController.removeConnection(currUser.getUsername());
+            } else if (message.getContent().split(">")[0].equals("#pin")) {
+                int index = Integer.parseInt(message.getContent().split(">")[1]);
+                directChatController.pinMessage(index);
             } else {
                 directChatController.addMessage(message);
                 directChatController.broadcastMessage(message);
@@ -149,6 +153,18 @@ public class ServerController implements Runnable {
 
     }
 
+    private void getPinnedMessages() {
+        try {
+            String username = inputStream.readUTF();
+            String friendName = inputStream.readUTF();
+            User user = Database.retrieveFromDB(username);
+            User friend = Database.retrieveFromDB(friendName);
+            outputStream.writeObject(getDirChatController(user, friend).getPinnedMessages());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void signUpNew() {
         try {

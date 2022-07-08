@@ -77,6 +77,14 @@ public class InApplicationViewController {
     private BorderPane inAppPane;
     @FXML
     private TextField messageTF;
+
+    @FXML
+    private ComboBox<Message> pinBox;
+
+    @FXML
+    private Circle pinIcon;
+
+
     User friendInChat;
     Thread listenToMsg;
 
@@ -87,9 +95,13 @@ public class InApplicationViewController {
         setSettingIcon();
         showGuilds();
         setStatus();
+        setPinIcon();
         showAllFriends();
     }
 
+    private void setPinIcon() {
+        pinIcon.setFill(new ImagePattern(new Image("file:assets/pin.png")));
+    }
 
     private void setDiscordIcon() {
         discordIcon.setStroke(Color.GRAY);
@@ -132,7 +144,7 @@ public class InApplicationViewController {
 
     @FXML
     void changeStatus(MouseEvent event) {
-        if (!listenToMsg.isAlive())
+        if (listenToMsg == null || !listenToMsg.isAlive())
             try {
                 Stage popupStage = new Stage(StageStyle.TRANSPARENT);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -386,7 +398,7 @@ public class InApplicationViewController {
                         HashSet<String> friend = new HashSet<>();
                         friend.add(user.getUsername());
                         DiscordApplication.appController.revisedFriendRequests(username, friend, new HashSet<String>());
-                        pendingList.getItems().remove(this.getIndex());
+                        Platform.runLater(() -> pendingList.getItems().remove(this.getIndex()));
                         e.consume();
                     });
                     reject.setOnAction(e -> {
@@ -394,7 +406,7 @@ public class InApplicationViewController {
                         HashSet<String> reject = new HashSet<>();
                         reject.add(user.getUsername());
                         DiscordApplication.appController.revisedFriendRequests(username, new HashSet<>(), reject);
-                        pendingList.getItems().remove(this.getIndex());
+                        Platform.runLater(() -> pendingList.getItems().remove(this.getIndex()));
                         e.consume();
 
                     });
@@ -556,6 +568,7 @@ public class InApplicationViewController {
             directChat.setDisable(false);
             friendInChat = user;
             loadDirectChatMessages();
+            showPinnedList();
             listenToMsg = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -606,78 +619,84 @@ public class InApplicationViewController {
                             saveFileInDownloads(message);
                         });
                     }
-                    setOnMousePressed(event -> {
-                        if (event.isSecondaryButtonDown()) {
-                            VBox vBox = new VBox();
-                            vBox.setAlignment(Pos.CENTER);
-                            vBox.setPrefSize(50, 150);
-                            vBox.setStyle("-fx-background-color: #202225");
+                    setOnMousePressed(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if (event.isSecondaryButtonDown()) {
+                                VBox vBox = new VBox();
+                                vBox.setAlignment(Pos.CENTER);
+                                vBox.setPrefSize(50, 150);
+                                vBox.setStyle("-fx-background-color: #202225");
 
 
-                            ImageView like = new ImageView();
-                            like.setImage(new Image("file:assets/like.png", false));
+                                ImageView like = new ImageView();
+                                like.setImage(new Image("file:assets/like.png", false));
 
 
-                            ImageView disLike = new ImageView();
-                            disLike.setImage(new Image("file:assets/dislike.png", false));
-                            disLike.setLayoutY(like.getLayoutY() + 5);
+                                ImageView disLike = new ImageView();
+                                disLike.setImage(new Image("file:assets/dislike.png", false));
+                                disLike.setLayoutY(like.getLayoutY() + 5);
 
-                            ImageView smile = new ImageView();
-                            smile.setImage(new Image("file:assets/smile.png", false));
+                                ImageView smile = new ImageView();
+                                smile.setImage(new Image("file:assets/smile.png", false));
 
-                            ImageView pin = new ImageView();
-                            pin.setImage(new Image("file:assets/pin.png", false));
+                                ImageView pin = new ImageView();
+                                pin.setImage(new Image("file:assets/pin.png", false));
 
-                            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
-                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            popupStage.initOwner(stage);
-                            popupStage.initModality(Modality.APPLICATION_MODAL);
-                            popupStage.setY(event.getScreenY() + 10);
-                            popupStage.setX(event.getScreenX() + 10);
-                            vBox.getChildren().addAll(like, disLike, smile, pin);
-                            Scene scene = new Scene(vBox);
-                            popupStage.setScene(scene);
-                            popupStage.show();
+                                Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                popupStage.initOwner(stage);
+                                popupStage.initModality(Modality.APPLICATION_MODAL);
+                                popupStage.setY(event.getScreenY() + 10);
+                                popupStage.setX(event.getScreenX() + 10);
+                                vBox.getChildren().addAll(like, disLike, smile, pin);
+                                Scene scene = new Scene(vBox);
+                                popupStage.setScene(scene);
+                                popupStage.show();
 
-                            like.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                @Override
-                                public void handle(MouseEvent event) {
-                                    messageList.getSelectionModel().getSelectedItem().setReaction("like", DiscordApplication.user.getUsername());
-                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                    stage.close();
-                                }
-                            });
-
-
-                            disLike.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                @Override
-                                public void handle(MouseEvent event) {
-                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                    stage.close();
-                                }
-                            });
-
-                            smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                @Override
-                                public void handle(MouseEvent event) {
-                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                    stage.close();
-                                }
-                            });
-
-                            pin.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                @Override
-                                public void handle(MouseEvent event) {
-                                    Message pinMsg = messageList.getSelectionModel().getSelectedItem();
-
-                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                    stage.close();
-                                }
-                            });
+                                like.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        messageList.getSelectionModel().getSelectedItem().setReaction("like", DiscordApplication.user.getUsername());
+                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        stage.close();
+                                    }
+                                });
 
 
-                            System.out.println("clicked on " + messageList.getSelectionModel().getSelectedItem());
-                            event.consume();
+                                disLike.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        stage.close();
+                                    }
+                                });
+
+                                smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        stage.close();
+                                    }
+                                });
+
+                                pin.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        Message messageToPin = messageList.getSelectionModel().getSelectedItem();
+                                        int index = msgs.indexOf(messageToPin);
+                                        Message pinCommand = new Message("#pin>" + index, DiscordApplication.user.getUsername(), LocalDateTime.now());
+                                        DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), pinCommand);
+                                        addToPins(messageToPin);
+                                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        stage.close();
+                                    }
+                                });
+
+
+                                System.out.println("clicked on " + messageList.getSelectionModel().getSelectedItem());
+                                event.consume();
+                            }
                         }
                     });
 
@@ -723,9 +742,11 @@ public class InApplicationViewController {
             fileChooser.setInitialFileName(name);
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
             File file = fileChooser.showSaveDialog(null);
-            OutputStream os = new FileOutputStream(file);
-            os.write(bytes);
-            os.close();
+            if (file != null) {
+                OutputStream os = new FileOutputStream(file);
+                os.write(bytes);
+                os.close();
+            }
             return "";
         } catch (IOException e) {
             e.printStackTrace();
@@ -750,5 +771,43 @@ public class InApplicationViewController {
             return true;
         }
         return false;
+    }
+
+    void showPinnedList() {
+        ArrayList<Message> pins = DiscordApplication.appController.getPinnedMessages(DiscordApplication.user.getUsername(), friendInChat.getUsername());
+        ObservableList<Message> ObsPins = FXCollections.observableArrayList(pins);
+        pinBox.setItems(ObsPins);
+        pinBox.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Message message, boolean b) {
+                super.updateItem(message, b);
+                if (message != null & !b) {
+
+                    if (!message.isFile()) {
+                        setText(message.toString());
+                        setStyle("-fx-background-color: #36393f;" +
+                                "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold");
+                    } else {
+                        setCursor(Cursor.HAND);
+                        setText(message.fileToString());
+
+                        setStyle("-fx-background-color: #36393f;" +
+                                "-fx-text-fill: rgba(7,141,242,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold");
+                        setOnMouseReleased(e -> {
+                            saveFileInDownloads(message);
+                        });
+                    }
+
+                } else {
+                    setStyle("-fx-background-color: #36393f;" +
+                            "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold");
+                }
+
+            }
+        });
+    }
+
+    void addToPins(Message messageToPin) {
+        Platform.runLater(() -> pinBox.getItems().add(messageToPin));
     }
 }

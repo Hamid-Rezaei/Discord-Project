@@ -770,6 +770,22 @@ public class AppController {
         return inputStream;
     }
 
+    public ArrayList<Message> getPinnedMessages(String username, String friendName){
+        try{
+            outputStream.writeUTF("#getPinnedMessages");
+            outputStream.flush();
+            outputStream.writeUTF(username);
+            outputStream.flush();
+            outputStream.writeUTF(friendName);
+            outputStream.flush();
+            ArrayList<Message> pinnedMessages = (ArrayList<Message>) inputStream.readObject();
+            return pinnedMessages;
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+    }
     /**
      * Parse error.
      *
