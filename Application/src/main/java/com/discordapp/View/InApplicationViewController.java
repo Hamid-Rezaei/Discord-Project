@@ -207,6 +207,14 @@ public class InApplicationViewController {
                 if (guild != null && !empty) {
                     setEditable(false);
                     setText(guild.getName());
+                    setOnMouseClicked(event ->{
+                        InGuildViewController.guild = guildList.getSelectionModel().getSelectedItem();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("in-guild-view.fxml"));
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        DiscordApplication.loadNewScene(loader, stage);
+
+                    });
+
                 }
                 setStyle("-fx-background-color: #202225;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
             }
@@ -612,12 +620,12 @@ public class InApplicationViewController {
                     if (!message.isFile()) {
                         if (!message.getContent().startsWith("#react")) {
                             setText(message.toString());
-                            setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" /* + "-fx-padding: 15px;"*/);
+                            setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;");
                         }
                     } else {
                         setCursor(Cursor.HAND);
                         setText(message.fileToString());
-                        setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(7,141,242,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" /* + "-fx-padding: 15px;"*/);
+                        setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(7,141,242,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;");
                         setOnMouseReleased(e -> {
                             saveFileInDownloads(message);
                         });
@@ -772,7 +780,7 @@ public class InApplicationViewController {
                     });
 
                 } else {
-                    setStyle("-fx-background-color: #36393f;" + "-fx-padding: 15px;");
+                    setStyle("-fx-background-color: #36393f;");
                 }
             }
 
