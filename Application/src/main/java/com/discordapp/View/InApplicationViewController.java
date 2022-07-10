@@ -610,13 +610,14 @@ public class InApplicationViewController {
                 super.updateItem(message, b);
                 if (message != null && !b) {
                     if (!message.isFile()) {
-                        if(!message.getContent().startsWith("#react"))
+                        if (!message.getContent().startsWith("#react")) {
                             setText(message.toString());
-                        setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+                            setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" /* + "-fx-padding: 15px;"*/);
+                        }
                     } else {
                         setCursor(Cursor.HAND);
                         setText(message.fileToString());
-                        setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(7,141,242,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+                        setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(7,141,242,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" /* + "-fx-padding: 15px;"*/);
                         setOnMouseReleased(e -> {
                             saveFileInDownloads(message);
                         });
@@ -724,7 +725,10 @@ public class InApplicationViewController {
                                 disLike.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
-                                        messageList.getSelectionModel().getSelectedItem().setReaction("dislike", DiscordApplication.user.getUsername());
+                                        Message selected = messageList.getSelectionModel().getSelectedItem();
+                                        int index = msgs.indexOf(selected);
+                                        Message disLikeCommand = new Message("#react>" + index + ">" + "dislike", DiscordApplication.user.getUsername(), LocalDateTime.now());
+                                        DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), disLikeCommand);
                                         disLikeR.setVisible(true);
                                         disLikeCount.setText(String.valueOf(disLikeCountInt + 1));
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -735,7 +739,11 @@ public class InApplicationViewController {
                                 smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
-                                        messageList.getSelectionModel().getSelectedItem().setReaction("smile", DiscordApplication.user.getUsername());
+                                        //messageList.getSelectionModel().getSelectedItem().setReaction("smile", DiscordApplication.user.getUsername());
+                                        Message selected = messageList.getSelectionModel().getSelectedItem();
+                                        int index = msgs.indexOf(selected);
+                                        Message smileCommand = new Message("#react>" + index + ">" + "smile", DiscordApplication.user.getUsername(), LocalDateTime.now());
+                                        DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), smileCommand);
                                         smileR.setVisible(true);
                                         smileCount.setText(String.valueOf(smileCountInt + 1));
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
