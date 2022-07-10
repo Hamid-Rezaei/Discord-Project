@@ -173,20 +173,12 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Circle>
-<<<<<<< Updated upstream
-                  <Circle fx:id="pinIcon" fill="#36393f" layoutX="460.0" layoutY="18.0" onMouseReleased="#sendFileMessage" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0">
-=======
                   <Circle fx:id="pinIcon" fill="#36393f" layoutX="460.0" layoutY="18.0"  radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0">
->>>>>>> Stashed changes
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Circle>
-<<<<<<< Updated upstream
-                  <ComboBox layoutX="499.0" layoutY="6.0" opacity="0.0" prefHeight="26.0" prefWidth="536.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="6.0" />
-=======
                   <ComboBox fx:id="pinBox" layoutX="499.0" layoutY="6.0" opacity="0.0" prefHeight="26.0" prefWidth="540.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="6.0" />
->>>>>>> Stashed changes
                </children>
             </AnchorPane>
          </children>

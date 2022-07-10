@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -609,7 +610,8 @@ public class InApplicationViewController {
                 super.updateItem(message, b);
                 if (message != null && !b) {
                     if (!message.isFile()) {
-                        setText(message.toString());
+                        if(!message.getContent().startsWith("#react"))
+                            setText(message.toString());
                         setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
                     } else {
                         setCursor(Cursor.HAND);
@@ -619,6 +621,56 @@ public class InApplicationViewController {
                             saveFileInDownloads(message);
                         });
                     }
+
+                    HBox hBox = new HBox();
+                    hBox.setPrefSize(150, 25);
+                    hBox.setAlignment(Pos.BASELINE_LEFT);
+
+
+                    Rectangle likeR = new Rectangle(25, 25);
+                    likeR.setFill(new ImagePattern(new Image("file:assets/like.png", false)));
+                    Label likeCount = new Label();
+                    likeCount.setPrefSize(25, 25);
+                    likeCount.setStyle("-fx-font-size: 15;");
+                    int likeCountInt = message.getReactCount("like");
+                    //System.out.println(likeCountInt);
+                    if (likeCountInt > 0) {
+                        likeR.setVisible(true);
+                        likeCount.setText(String.valueOf(likeCountInt));
+                    } else {
+                        likeR.setVisible(false);
+                    }
+
+                    Rectangle disLikeR = new Rectangle(25, 25);
+                    disLikeR.setFill(new ImagePattern(new Image("file:assets/dislike.png", false)));
+                    Label disLikeCount = new Label();
+                    disLikeCount.setPrefSize(25, 25);
+                    disLikeCount.setStyle("-fx-font-size: 15;");
+                    int disLikeCountInt = message.getReactCount("dislike");
+                    if (disLikeCountInt > 0) {
+                        disLikeR.setVisible(true);
+                        disLikeCount.setText(String.valueOf(disLikeCountInt));
+                    } else {
+                        disLikeR.setVisible(false);
+                    }
+
+                    Rectangle smileR = new Rectangle(25, 25);
+                    smileR.setFill(new ImagePattern(new Image("file:assets/smile.png", false)));
+                    Label smileCount = new Label();
+                    smileCount.setStyle("-fx-font-size: 15;");
+                    smileCount.setPrefSize(25, 25);
+                    int smileCountInt = message.getReactCount("smile");
+                    if (smileCountInt > 0) {
+                        smileR.setVisible(true);
+                        smileCount.setText(String.valueOf(smileCountInt));
+                    } else {
+                        smileR.setVisible(false);
+                    }
+
+                    hBox.getChildren().addAll(likeR, likeCount, disLikeR, disLikeCount, smileR, smileCount);
+
+                    setGraphic(hBox);
+
                     setOnMousePressed(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
@@ -657,7 +709,12 @@ public class InApplicationViewController {
                                 like.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
-                                        messageList.getSelectionModel().getSelectedItem().setReaction("like", DiscordApplication.user.getUsername());
+                                        Message selected = messageList.getSelectionModel().getSelectedItem();
+                                        int index = msgs.indexOf(selected);
+                                        Message likeCommand = new Message("#react>" + index + ">" + "like", DiscordApplication.user.getUsername(), LocalDateTime.now());
+                                        DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), likeCommand);
+                                        likeR.setVisible(true);
+                                        likeCount.setText(String.valueOf(likeCountInt + 1));
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         stage.close();
                                     }
@@ -667,6 +724,9 @@ public class InApplicationViewController {
                                 disLike.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
+                                        messageList.getSelectionModel().getSelectedItem().setReaction("dislike", DiscordApplication.user.getUsername());
+                                        disLikeR.setVisible(true);
+                                        disLikeCount.setText(String.valueOf(disLikeCountInt + 1));
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         stage.close();
                                     }
@@ -675,6 +735,9 @@ public class InApplicationViewController {
                                 smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
+                                        messageList.getSelectionModel().getSelectedItem().setReaction("smile", DiscordApplication.user.getUsername());
+                                        smileR.setVisible(true);
+                                        smileCount.setText(String.valueOf(smileCountInt + 1));
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         stage.close();
                                     }
@@ -694,7 +757,7 @@ public class InApplicationViewController {
                                 });
 
 
-                                System.out.println("clicked on " + messageList.getSelectionModel().getSelectedItem());
+                                //  System.out.println("clicked on " + messageList.getSelectionModel().getSelectedItem());
                                 event.consume();
                             }
                         }

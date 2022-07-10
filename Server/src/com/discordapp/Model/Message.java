@@ -125,15 +125,16 @@ public class Message implements Serializable {
 
     }
 
+
     /**
      * Set reaction.
      *
      * @param type the type
      * @param name the name
      */
-    public void setReaction(String type, String name){
+    public void setReaction(String type, String name) {
         Reaction reaction = new Reaction();
-        switch (type){
+        switch (type) {
             case "like" -> reaction.setLikeReact();
             case "dislike" -> reaction.setDisLikeReact();
             case "smile" -> reaction.setSmileReact();
@@ -157,6 +158,15 @@ public class Message implements Serializable {
         reactions.put(reaction, names);
     }
 
+    public int getReactCount(String type) {
+        for(Reaction reaction : reactions.keySet()){
+            if(reaction.getEmoji().equals(type))
+                return reactions.get(reaction).size();
+        }
+        return 0;
+    }
+
+
     public String getDate() {
         return date.toString();
     }
@@ -166,33 +176,13 @@ public class Message implements Serializable {
         DateTimeFormatter formatter
                 = DateTimeFormatter.ofPattern(
                 "MMM-dd, HH:mm");
-        StringBuilder stb = new StringBuilder();
-        stb.append(String.format("[%s] %s: %s\n", date.format(formatter), authorName, content));
-        for (Reaction reaction : reactions.keySet()) {
-            StringBuilder tmp = new StringBuilder(reaction.getEmoji() + " -> ");
-            for(String name : reactions.get(reaction)) {
-                tmp.append(name).append(" ");
-            }
-            tmp.append("\n");
-            stb.append(tmp);
-        }
-        return stb.toString();
+        return String.format("[%s] %s: %s\n", date.format(formatter), authorName, content);
     }
 
-    public String fileToString(){
+    public String fileToString() {
         DateTimeFormatter formatter
                 = DateTimeFormatter.ofPattern(
                 "MMM-dd, HH:mm");
-        StringBuilder stb = new StringBuilder();
-        stb.append(String.format("[%s] %s: %s\n", date.format(formatter), authorName, getFileName()));
-        for (Reaction reaction : reactions.keySet()) {
-            StringBuilder tmp = new StringBuilder(reaction.getEmoji() + " -> ");
-            for(String name : reactions.get(reaction)) {
-                tmp.append(name).append(" ");
-            }
-            tmp.append("\n");
-            stb.append(tmp);
-        }
-        return stb.toString();
+        return String.format("[%s] %s: %s\n", date.format(formatter), authorName, getFileName());
     }
 }
