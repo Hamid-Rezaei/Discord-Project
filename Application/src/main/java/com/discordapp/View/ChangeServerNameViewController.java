@@ -1,21 +1,21 @@
 package com.discordapp.View;
 
 import com.discordapp.Model.Guild;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class CreateChannelViewController {
+public class ChangeServerNameViewController {
 
     @FXML
-    private TextField channelNameTF;
+    private TextField nameTF;
 
     @FXML
-    private void cancel(ActionEvent event) {
+    void cancel(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = stage.getOwner().getScene().getRoot();
         root.setEffect(null);
@@ -25,11 +25,12 @@ public class CreateChannelViewController {
     }
 
     @FXML
-    private void createChannel(ActionEvent event) {
+    void changeName(MouseEvent event) {
         Guild currGuild = InGuildViewController.currGuild;
-        String respone = DiscordApplication.appController.addNewTextChannel(currGuild, channelNameTF.getText());
-        System.out.println(respone);
-        InGuildViewController.currGuild = DiscordApplication.appController.getGuild(currGuild.getOwnerName(), currGuild.getName());
+        String response = DiscordApplication.appController.changeGuildName(currGuild, nameTF.getText());
+        System.out.println(response);
+       // currGuild.setName(nameTF.getText());
+        InGuildViewController.currGuild = DiscordApplication.appController.getGuild(currGuild.getOwnerName(), nameTF.getText());
         cancel(event);
     }
 

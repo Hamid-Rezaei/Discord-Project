@@ -1,14 +1,11 @@
 package com.discordapp.View;
 
 
-import com.discordapp.Model.TextChannel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -20,9 +17,9 @@ import java.io.IOException;
 public class ServerSettingViewController {
 
     @FXML
-    private void changeName(ActionEvent event) {
-
-
+    private void changeName(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showPopUpStage(stage, "change-server-name-view.fxml");
     }
 
     @FXML

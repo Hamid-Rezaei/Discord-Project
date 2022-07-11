@@ -187,7 +187,7 @@ public class InGuildViewController {
         adj.setInput(blur);
         root.setEffect(adj);
 
-        Stage popupStage = new Stage(StageStyle.UTILITY);
+        Stage popupStage = new Stage(StageStyle.TRANSPARENT);
         popupStage.initOwner(stage);
         popupStage.initModality(Modality.APPLICATION_MODAL);
         //popupStage.setY(event.getScreenY() + 25);
