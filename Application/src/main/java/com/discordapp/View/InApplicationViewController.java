@@ -178,10 +178,7 @@ public class InApplicationViewController {
             popupStage.setY(event.getScreenY() - 350);
             popupStage.setX(event.getScreenX() + 20);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("add-server-view.fxml"));
-            Parent root = loader.load();
-            AddServerController aSC = loader.getController();
-            aSC.initialize(guildList);
-            popupStage.setScene(new Scene(root, Color.TRANSPARENT));
+            popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
             popupStage.show();
         } catch (IOException e) {
             e.printStackTrace();

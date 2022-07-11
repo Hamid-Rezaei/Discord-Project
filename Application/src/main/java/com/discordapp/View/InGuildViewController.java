@@ -198,11 +198,7 @@ public class InGuildViewController {
         //popupStage.setY(event.getScreenY() + 25);
         //popupStage.setX(event.getScreenX() + 5);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("server-setting-view.fxml"));
-        Parent rot = loader.load();
-        ServerSettingViewController sSc = loader.getController();
-        sSc.initialize(channelList);
-
-        popupStage.setScene(new Scene(rot, Color.TRANSPARENT));
+        popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
         popupStage.show();
 
     }

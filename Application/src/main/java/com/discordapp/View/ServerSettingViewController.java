@@ -16,15 +16,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.nio.channels.Channel;
 
 public class ServerSettingViewController {
-    private ListView<TextChannel> listTxtChannel;
-
-    @FXML
-    public void initialize(ListView<TextChannel> listTxtChannel){
-        this.listTxtChannel = listTxtChannel;
-    }
 
     @FXML
     void changeName(ActionEvent event) {
@@ -42,10 +35,7 @@ public class ServerSettingViewController {
        // popupStage.setY(event.getScreenY() - 200);
        // popupStage.setX(event.getScreenX() - 200);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("create-channel-view.fxml"));
-        Parent rot = loader.load();
-        CreateChannelViewController cChc = loader.getController();
-        cChc.initialize(listTxtChannel);
-        popupStage.setScene(new Scene(rot, Color.TRANSPARENT));
+        popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
         popupStage.show();
     }
 
