@@ -13,7 +13,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button layoutX="210.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#changeName" prefHeight="40.0" prefWidth="114.0" style="-fx-background-color: #5865f2;" text="Change" textFill="#dde0fc">
+      <Button layoutX="210.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#changeName" prefHeight="40.0" prefWidth="114.0" style="-fx-background-color: #5865f2;" text="Change Name" textFill="#dde0fc">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

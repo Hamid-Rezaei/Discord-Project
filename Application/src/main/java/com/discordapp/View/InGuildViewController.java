@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -68,6 +69,7 @@ public class InGuildViewController {
         setSettingIcon();
         showGuilds();
         setStatus();
+        setSendIcon();
         showGuildUsers();
         showTextChannel();
     }
@@ -94,6 +96,10 @@ public class InGuildViewController {
 
     public void setStatus() {
         status.setFill(StatusViewController.color);
+    }
+
+    private void setSendIcon() {
+        paperclip.setFill(new ImagePattern(new Image("file:assets/plus.png", false)));
     }
 
     private void showGuilds() {
@@ -178,11 +184,11 @@ public class InGuildViewController {
 
 
     @FXML
-    void serverSetting(MouseEvent event) throws IOException {
+    private void serverSetting(MouseEvent event) throws IOException {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = stage.getScene().getRoot();
-        ColorAdjust adj = new ColorAdjust(0, -0.9, -0.5, 0);
+        ColorAdjust adj = new ColorAdjust(0,0.1,-0.2,0);
         GaussianBlur blur = new GaussianBlur(5);
         adj.setInput(blur);
         root.setEffect(adj);
@@ -190,8 +196,6 @@ public class InGuildViewController {
         Stage popupStage = new Stage(StageStyle.TRANSPARENT);
         popupStage.initOwner(stage);
         popupStage.initModality(Modality.APPLICATION_MODAL);
-        //popupStage.setY(event.getScreenY() + 25);
-        //popupStage.setX(event.getScreenX() + 5);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("server-setting-view.fxml"));
         popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
         popupStage.show();
@@ -200,7 +204,7 @@ public class InGuildViewController {
 
 
     @FXML
-    void goToinApp(MouseEvent event) {
+    private void goToinApp(MouseEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         DiscordApplication.loadNewScene(loader, stage);

@@ -719,7 +719,7 @@ public class AppController {
      * @param textChannel the text channel
      * @return the string
      */
-    public String removeTextChannel(Guild guild, TextChannel textChannel) {
+    public String removeTextChannel(Guild guild, String textChannel) {
         String response = null;
         try {
             outputStream.writeUTF("#deleteTextChannel");
@@ -728,7 +728,7 @@ public class AppController {
             outputStream.flush();
             outputStream.writeUTF(guild.getName());
             outputStream.flush();
-            outputStream.writeObject(textChannel);
+            outputStream.writeUTF(textChannel);
             outputStream.flush();
             response = inputStream.readUTF();
             return response;

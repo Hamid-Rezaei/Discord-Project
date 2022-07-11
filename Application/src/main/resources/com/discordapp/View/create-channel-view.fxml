@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="350.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.CreateChannelViewController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="44.0" prefWidth="434.0" text="CreateChannel" textFill="#e5e5e6" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="44.0" prefWidth="434.0" text="Create Channel" textFill="#e5e5e6" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

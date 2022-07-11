@@ -7,30 +7,35 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="350.0" style="-fx-background-color: #18191c;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.ServerSettingViewController">
    <children>
-      <Button layoutX="20.0" layoutY="129.0" mnemonicParsing="false" onAction="#invitePeople" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Invite People" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <Button layoutX="14.0" layoutY="163.0" mnemonicParsing="false" onAction="#invitePeople" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Invite People" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="20.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#createChannel" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Create Channel" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <Button layoutX="20.0" layoutY="214.0" mnemonicParsing="false" onMouseClicked="#createChannel" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Create Channel" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="20.0" layoutY="235.0" mnemonicParsing="false" onAction="#changeName" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Change name" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <Button layoutX="21.0" layoutY="310.0" mnemonicParsing="false" onAction="#changeName" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Change name" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="20.0" layoutY="288.0" mnemonicParsing="false" onAction="#deleteServer" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Delete Server" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <Button layoutX="21.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteServer" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Delete Server" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="23.0" layoutY="45.0" prefHeight="72.0" prefWidth="305.0" text="Server Setting" textFill="#5865f2">
+      <Label alignment="CENTER" layoutX="20.0" layoutY="59.0" prefHeight="72.0" prefWidth="305.0" text="Server Setting" textFill="#5865f2" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
+      <Button layoutX="20.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#deleteChannel" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Delete Channel" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

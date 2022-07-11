@@ -197,12 +197,12 @@ public class ServerController implements Runnable {
         try {
             String gOwner = inputStream.readUTF();
             String gName = inputStream.readUTF();
-            TextChannel textChannel = (TextChannel) inputStream.readObject();
-            getGuild(gOwner, gName).removeTextChannel(textChannel.getName());
+            String textChannel = inputStream.readUTF();
+            getGuild(gOwner, gName).removeTextChannel(textChannel);
             saveGuilds();
-            outputStream.writeUTF("TextChannel " + textChannel.getName() + "removed successfully.");
+            outputStream.writeUTF("TextChannel " + textChannel + "removed successfully.");
             outputStream.flush();
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -17,7 +17,7 @@
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
-        <Button layoutX="175.0" layoutY="259.0" mnemonicParsing="false" onMouseClicked="#deleteServer" prefHeight="48.0" prefWidth="154.0" style="-fx-background-color: #f05959;" text="Delete" textFill="#dde0fc">
+        <Button layoutX="175.0" layoutY="259.0" mnemonicParsing="false" onMouseClicked="#deleteServer" prefHeight="48.0" prefWidth="154.0" style="-fx-background-color: #f05959;" text="Delete Server" textFill="#dde0fc">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>

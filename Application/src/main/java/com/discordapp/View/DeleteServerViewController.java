@@ -22,22 +22,17 @@ public class DeleteServerViewController {
     }
 
     @FXML
-    void cancel(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = stage.getOwner().getScene().getRoot();
-        root.setEffect(null);
-        stage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
-        DiscordApplication.loadNewScene(loader, (Stage) stage.getOwner());
+    private void cancel(MouseEvent event) {
+        closeStage(event, "in-guild-view.fxml");
     }
 
     @FXML
-    void deleteServer(MouseEvent event) {
+    private void deleteServer(MouseEvent event) {
         Guild currGuild = InGuildViewController.currGuild;
         if (DiscordApplication.user.getUsername().equals(currGuild.getOwnerName())) {
             String response = DiscordApplication.appController.deleteGuild(currGuild, currGuild.getOwnerName());
             System.out.println(response);
-            cancel(event);
+            closeStage(event, "in-application-view.fxml");
         } else {
             error.setText("Only the owner can delete server.");
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -46,4 +41,12 @@ public class DeleteServerViewController {
         }
     }
 
+    private void closeStage(MouseEvent event, String fxml) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = stage.getOwner().getScene().getRoot();
+        root.setEffect(null);
+        stage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        DiscordApplication.loadNewScene(loader, (Stage) stage.getOwner());
+    }
 }
