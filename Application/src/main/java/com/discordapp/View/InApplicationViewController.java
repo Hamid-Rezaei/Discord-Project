@@ -209,6 +209,7 @@ public class InApplicationViewController {
                     setText(guild.getName());
                     setOnMouseClicked(event ->{
                         InGuildViewController.guild = guildList.getSelectionModel().getSelectedItem();
+                        exitFromDirectChat();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-guild-view.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         DiscordApplication.loadNewScene(loader, stage);

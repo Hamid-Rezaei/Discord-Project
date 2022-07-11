@@ -176,13 +176,13 @@ public class Message implements Serializable {
         DateTimeFormatter formatter
                 = DateTimeFormatter.ofPattern(
                 "MMM-dd, HH:mm");
-        return String.format("[%s] %s: %s\n", date.format(formatter), authorName, content);
+        return String.format("[%s] %s: %s", date.format(formatter), authorName, content);
     }
 
     public String fileToString() {
         DateTimeFormatter formatter
                 = DateTimeFormatter.ofPattern(
                 "MMM-dd, HH:mm");
-        return String.format("[%s] %s: %s\n", date.format(formatter), authorName, getFileName());
+        return String.format("[%s] %s: %s", date.format(formatter), authorName, getFileName());
     }
 }
