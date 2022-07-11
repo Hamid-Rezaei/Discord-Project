@@ -9,6 +9,7 @@ import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -130,8 +132,10 @@ public class InGuildViewController {
                 setText(null);
                 setGraphic(null);
                 if (guildUser != null && !empty) {
+                    setAlignment(Pos.CENTER);
+                    setTextAlignment(TextAlignment.CENTER);
                     if (guildUser.getUsername().equals(currGuild.getOwnerName())) {
-                        setText("  <Owner>\n" + guildUser.getUsername());
+                        setText("<Owner>\n" + guildUser.getUsername());
                     } else {
                         setText(guildUser.getUsername());
                     }
@@ -158,8 +162,6 @@ public class InGuildViewController {
         GaussianBlur blur = new GaussianBlur(5);
         adj.setInput(blur);
         root.setEffect(adj);
-
-
 
         Stage popupStage = new Stage(StageStyle.UTILITY);
         popupStage.initOwner(stage);

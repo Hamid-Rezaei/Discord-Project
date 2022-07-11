@@ -29,7 +29,7 @@ public class ServerSettingViewController {
         stage.close();
 
         Stage popupStage = new Stage(StageStyle.UTILITY);
-        popupStage.initOwner(stage);
+        popupStage.initOwner(stage.getOwner());
         popupStage.initModality(Modality.APPLICATION_MODAL);
        // popupStage.setY(event.getScreenY() - 200);
        // popupStage.setX(event.getScreenX() - 200);
