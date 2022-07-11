@@ -2,12 +2,9 @@ package com.discordapp.View;
 
 import com.discordapp.Model.*;
 import javafx.application.Platform;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -208,7 +204,7 @@ public class InApplicationViewController {
                     setEditable(false);
                     setText(guild.getName());
                     setOnMouseClicked(event -> {
-                        InGuildViewController.guild = guildList.getSelectionModel().getSelectedItem();
+                        InGuildViewController.currGuild = guildList.getSelectionModel().getSelectedItem();
                         exitFromDirectChat();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-guild-view.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -725,6 +721,7 @@ public class InApplicationViewController {
                                     public void handle(MouseEvent event) {
                                         int index = messageList.getItems().indexOf(messageList.getSelectionModel().getSelectedItem());
                                         Message selected = messageList.getSelectionModel().getSelectedItem();
+                                        selected.setReaction("like", DiscordApplication.user.getUsername());
                                         Message likeCommand = new Message("#react>" + index + ">" + "like", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), likeCommand);
                                         likeR.setVisible(true);
@@ -740,6 +737,7 @@ public class InApplicationViewController {
                                     public void handle(MouseEvent event) {
                                         int index = messageList.getItems().indexOf(messageList.getSelectionModel().getSelectedItem());
                                         Message selected = messageList.getSelectionModel().getSelectedItem();
+                                        selected.setReaction("dislike", DiscordApplication.user.getUsername());
                                         Message disLikeCommand = new Message("#react>" + index + ">" + "dislike", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), disLikeCommand);
                                         disLikeR.setVisible(true);
@@ -752,9 +750,9 @@ public class InApplicationViewController {
                                 smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
-                                        //messageList.getSelectionModel().getSelectedItem().setReaction("smile", DiscordApplication.user.getUsername());
                                         int index = messageList.getItems().indexOf(messageList.getSelectionModel().getSelectedItem());
                                         Message selected = messageList.getSelectionModel().getSelectedItem();
+                                        selected.setReaction("smile", DiscordApplication.user.getUsername());
                                         Message smileCommand = new Message("#react>" + index + ">" + "smile", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), smileCommand);
                                         smileR.setVisible(true);

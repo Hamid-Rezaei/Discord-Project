@@ -5,15 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="374.0" prefWidth="345.0" style="-fx-background-color: #18191c;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.ServerSettingViewController">
+<AnchorPane prefHeight="440.0" prefWidth="350.0" style="-fx-background-color: #18191c;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.ServerSettingViewController">
    <children>
       <Button layoutX="20.0" layoutY="129.0" mnemonicParsing="false" onAction="#invitePeople" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Invite People" textFill="#7c7d80" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="20.0" layoutY="183.0" mnemonicParsing="false" onAction="#createChannel" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Create Channel" textFill="#7c7d80" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <Button layoutX="20.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#createChannel" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Create Channel" textFill="#7c7d80" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

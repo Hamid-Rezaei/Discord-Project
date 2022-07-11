@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InGuildViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InGuildViewController">
     <left>
         <AnchorPane prefHeight="694.0" prefWidth="302.0" style="-fx-background-color: #2f3136;">
             <children>
@@ -39,7 +39,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                     </padding>
                 </VBox>
-                <Button layoutX="86.0" layoutY="8.0" mnemonicParsing="false" onAction="#serverSetting" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Setting" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Button layoutX="86.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#serverSetting" prefHeight="58.0" prefWidth="241.0" style="-fx-background-color: #2f3136;" text="Setting" textFill="WHITE" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -50,27 +50,27 @@
                         <Circle fx:id="avatar" fill="#36393f" layoutX="39.0" layoutY="34.0" radius="25.0" stroke="#36393f" strokeType="INSIDE" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="177.8" />
                         <Circle fx:id="status" fill="#36393f" layoutX="57.0" layoutY="54.0" onMousePressed="#changeStatus" radius="7.0" stroke="#36393f" strokeType="INSIDE" />
                     </children></AnchorPane>
-                <ListView fx:id="channelList" layoutX="86.0" layoutY="116.0" prefHeight="490.0" prefWidth="242.0" style="-fx-background-color: #2f3136;" AnchorPane.bottomAnchor="64.0" AnchorPane.topAnchor="116.0" />
+                <ListView fx:id="channelList" layoutX="86.0" layoutY="55.0" prefHeight="575.0" prefWidth="242.0" style="-fx-background-color: #2f3136;" AnchorPane.bottomAnchor="64.0" AnchorPane.topAnchor="55.0" />
             </children>
         </AnchorPane>
     </left>
     <center>
         <AnchorPane style="-fx-background-color: #36393f;">
             <children>
-                <AnchorPane prefHeight="694.0" prefWidth="562.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane prefHeight="710.0" prefWidth="562.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ListView fx:id="serverMsgList" prefHeight="594.0" prefWidth="391.0" style="-fx-background-color: #36393f;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="serverMsgList" prefHeight="622.0" prefWidth="391.0" style="-fx-background-color: #36393f;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <TextField layoutX="22.0" layoutY="633.0" prefHeight="34.0" prefWidth="366.0" promptText="Message" style="-fx-background-color: #40444b;" AnchorPane.bottomAnchor="26.99999999999998" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="174.0">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
                         <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="359.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.399999999999977" AnchorPane.rightAnchor="189.39999999999998" />
-                  <VBox layoutX="395.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="694.0" prefWidth="164.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane layoutX="398.3999938964844" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="398.4" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="userList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="164.0" style="-fx-background-color: #36393f;" />
+                        <ListView fx:id="userList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="164.0" style="-fx-background-color: #2f3136;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
-                  </VBox>
+                  </AnchorPane>
                     </children>
                 </AnchorPane>
             </children>
