@@ -1,4 +1,4 @@
-package com.discordapp.controller;
+package com.discordapp.Controller;
 
 /**
  * The enum Server error type.

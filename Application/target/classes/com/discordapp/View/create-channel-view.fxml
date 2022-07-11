@@ -35,7 +35,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextField layoutX="20.0" layoutY="324.0" onAction="#getChannelName" prefHeight="58.0" prefWidth="417.0" promptText="#Channel Name" style="-fx-background-color: #202225;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <TextField fx:id="channelNameTF" layoutX="20.0" layoutY="324.0" prefHeight="58.0" prefWidth="417.0" promptText="#Channel Name" style="-fx-background-color: #202225;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

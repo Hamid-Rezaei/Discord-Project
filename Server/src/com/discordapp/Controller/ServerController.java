@@ -1,4 +1,4 @@
-package com.discordapp.controller;
+package com.discordapp.Controller;
 
 
 import com.discordapp.Database.Database;
@@ -9,7 +9,6 @@ import com.discordapp.Model.Guild;
 import com.discordapp.Model.GuildUser;
 import com.discordapp.Model.TextChannel;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.*;
 import java.util.*;

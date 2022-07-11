@@ -1,14 +1,10 @@
-//package model.guild;
-//
-//import model.Message;
-//
 package com.discordapp.Model;
 
-import com.discordapp.Controller.Connection;
-;
+
 
 import java.io.*;
 import java.util.HashSet;
+import com.discordapp.Controller.Connection;
 
 /**
  * The type Group chat.

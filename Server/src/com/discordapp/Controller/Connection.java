@@ -1,4 +1,4 @@
-package com.discordapp.controller;
+package com.discordapp.Controller;
 
 import com.discordapp.Model.Message;
 

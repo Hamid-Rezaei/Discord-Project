@@ -2,9 +2,11 @@ package com.discordapp.Model;
 
 import com.discordapp.Controller.Connection;
 
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+
 /**
  * The type Text channel.
  */
@@ -25,6 +27,7 @@ public class TextChannel extends Channel {
      * The Pinned messages.
      */
     ArrayList<Message> pinnedMessages;
+
     /**
      * Instantiates a new Text channel.
      *
@@ -82,11 +85,8 @@ public class TextChannel extends Channel {
      * @param message the message
      */
     public void broadcastMessage(Message message) {
-        int index = getMessageIndex(message);
-        if(message.isFile())
-            index = -2;
         for (Connection connection : usersInChat) {
-            connection.sendMessage(message, index + 1);
+            connection.sendMessage(message);
         }
     }
 
@@ -98,11 +98,11 @@ public class TextChannel extends Channel {
     public synchronized void broadcastMessages(Connection connection) {
         if (this.messages.size() > 15) {
             for (int i = messages.size() - 15; i < messages.size(); i++) {
-                connection.sendMessage(messages.get(i), i + 1);
+                connection.sendMessage(messages.get(i));
             }
         } else {
             for (int i = 0; i < messages.size(); i++) {
-                connection.sendMessage(messages.get(i), i + 1);
+                connection.sendMessage(messages.get(i));
 
             }
         }
@@ -140,7 +140,7 @@ public class TextChannel extends Channel {
      */
     public synchronized void showPinnedMessages(Connection connection) {
         for (int i = 0; i < pinnedMessages.size(); i++) {
-            connection.sendMessage(pinnedMessages.get(i), i + 1);
+            connection.sendMessage(pinnedMessages.get(i));
         }
     }
 

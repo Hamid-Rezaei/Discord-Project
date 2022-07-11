@@ -1,6 +1,6 @@
 package com.discordapp.Controller;
 
-import com.discordapp.Model.*;
+import com.discordapp.Model.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -38,17 +38,11 @@ public class Connection {
      * Send message.
      *
      * @param message the message
-     * @param index   the index
      */
-    public void sendMessage(Message message, int index) {
+    public void sendMessage(Message message) {
         try {
             outputStream.writeObject(message);
             outputStream.flush();
-            if(index != -1) {
-                Integer ind = index;
-                outputStream.writeObject(ind);
-                outputStream.flush();
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }

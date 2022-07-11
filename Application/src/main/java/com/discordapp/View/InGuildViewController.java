@@ -3,6 +3,7 @@ package com.discordapp.View;
 import com.discordapp.Model.Guild;
 import com.discordapp.Model.GuildUser;
 import com.discordapp.Model.Message;
+import com.discordapp.Model.TextChannel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -50,7 +51,7 @@ public class InGuildViewController {
     @FXML
     private Circle discordIcon;
     @FXML
-    private ListView<Channel> channelList;
+    private ListView<TextChannel> channelList;
     @FXML
     private ListView<Guild> guildList;
     @FXML
@@ -68,7 +69,10 @@ public class InGuildViewController {
         showGuilds();
         setStatus();
         showGuildUsers();
+        showTextChannel();
     }
+
+
 
     private void setDiscordIcon() {
         discordIcon.setStroke(Color.GRAY);
@@ -148,6 +152,31 @@ public class InGuildViewController {
         });
     }
 
+
+    private void showTextChannel() {
+        ArrayList<TextChannel> txtChannel = currGuild.getTextChannels();
+        ObservableList<TextChannel> txtChannelObL = FXCollections.observableList(txtChannel);
+        channelList.setItems(txtChannelObL);
+        channelList.setCellFactory(param -> new ListCell<>() {
+
+            @Override
+            public void updateItem(TextChannel textChannel, boolean empty) {
+                super.updateItem(textChannel, empty);
+                setText(null);
+                setGraphic(null);
+                if (textChannel != null && !empty) {
+                    setAlignment(Pos.CENTER);
+                    setTextAlignment(TextAlignment.CENTER);
+                    setText(textChannel.getName());
+                    setStyle("-fx-background-color: #2f3136;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 20;" + "-fx-font-weight: bold;");
+                } else {
+                    setStyle("-fx-background-color:  #2f3136;");
+                }
+            }
+        });
+    }
+
+
     @FXML
     void changeStatus(MouseEvent event) {
 
@@ -169,7 +198,11 @@ public class InGuildViewController {
         //popupStage.setY(event.getScreenY() + 25);
         //popupStage.setX(event.getScreenX() + 5);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("server-setting-view.fxml"));
-        popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
+        Parent rot = loader.load();
+        ServerSettingViewController sSc = loader.getController();
+        sSc.initialize(channelList);
+
+        popupStage.setScene(new Scene(rot, Color.TRANSPARENT));
         popupStage.show();
 
     }

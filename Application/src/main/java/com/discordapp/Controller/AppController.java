@@ -582,14 +582,12 @@ public class AppController {
      * @param guild the guild
      * @return the string
      */
-    public String addNewTextChannel(Guild guild) {
+    public String addNewTextChannel(Guild guild, String channelName) {
         String response = null;
         try {
-            System.out.print("Enter text channel name: ");
-            String name = sc.nextLine();
             outputStream.writeUTF("#addTextChannel");
             outputStream.flush();
-            outputStream.writeUTF(name);
+            outputStream.writeUTF(channelName);
             outputStream.flush();
             outputStream.writeUTF(guild.getOwnerName());
             outputStream.flush();

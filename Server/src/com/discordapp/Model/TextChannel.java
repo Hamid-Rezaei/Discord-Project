@@ -1,6 +1,6 @@
 package com.discordapp.Model;
 
-import com.discordapp.controller.Connection;
+import com.discordapp.Controller.Connection;
 
 import java.io.*;
 import java.util.ArrayList;

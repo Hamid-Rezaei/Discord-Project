@@ -1,4 +1,4 @@
-import com.discordapp.controller.ServerController;
+import com.discordapp.Controller.ServerController;
 
 import java.io.*;
 import java.net.*;

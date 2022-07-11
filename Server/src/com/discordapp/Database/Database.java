@@ -1,6 +1,6 @@
 package com.discordapp.Database;
 
-import com.discordapp.controller.ServerErrorType;
+import com.discordapp.Controller.ServerErrorType;
 import com.discordapp.Model.Status;
 import com.discordapp.Model.User;
 
