@@ -2,10 +2,10 @@ package com.discordapp.Model;
 
 import com.discordapp.Controller.Connection;
 
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * The type Text channel.
@@ -224,5 +224,18 @@ public class TextChannel extends Channel {
     public void reactToMessage(int index, String reactionType, String reactor) {
         messages.get(index).setReaction(reactionType,reactor);
         saveMessages();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TextChannel)) return false;
+        TextChannel that = (TextChannel) o;
+        return Objects.equals(messages, that.messages) && Objects.equals(usersInChat, that.usersInChat) && Objects.equals(guildName, that.guildName) && Objects.equals(pinnedMessages, that.pinnedMessages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(messages, usersInChat, guildName, pinnedMessages);
     }
 }

@@ -215,7 +215,7 @@ public class ServerController implements Runnable {
             String gOwner = inputStream.readUTF();
             Guild targetGuild = (Guild) inputStream.readObject();
             ArrayList<Guild> guilds = allGuilds.get(gOwner);
-            guilds.remove(targetGuild);
+            guilds.removeIf(guild -> guild.getName().equals(targetGuild.getName()));
             allGuilds.put(gOwner, guilds);
             saveGuilds();
             outputStream.writeUTF("Guild deleted successfully.");

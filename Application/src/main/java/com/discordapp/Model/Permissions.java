@@ -1,6 +1,7 @@
 package com.discordapp.Model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * The type Permissions.
@@ -185,5 +186,19 @@ public class Permissions implements Serializable {
      */
     public boolean isCAN_BAN_USER() {
         return CAN_BAN_USER;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Permissions)) return false;
+        Permissions that = (Permissions) o;
+        return isCAN_CREATE_CHANNEL() == that.isCAN_CREATE_CHANNEL() && isCAN_DELETE_CHANNEL() == that.isCAN_DELETE_CHANNEL() && isCAN_REMOVE_USER() == that.isCAN_REMOVE_USER() && isCAN_STRICT_CHANNEL() == that.isCAN_STRICT_CHANNEL() && isCAN_CHANGE_SERVERNAME() == that.isCAN_CHANGE_SERVERNAME() && isCAN_SEE_HISTORY() == that.isCAN_SEE_HISTORY() && isCAN_PIN_MESSAGE() == that.isCAN_PIN_MESSAGE() && isCAN_BAN_USER() == that.isCAN_BAN_USER() && isCAN_ADD_USER() == that.isCAN_ADD_USER();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isCAN_CREATE_CHANNEL(), isCAN_DELETE_CHANNEL(), isCAN_REMOVE_USER(), isCAN_STRICT_CHANNEL(), isCAN_CHANGE_SERVERNAME(), isCAN_SEE_HISTORY(), isCAN_PIN_MESSAGE(), isCAN_BAN_USER(), isCAN_ADD_USER());
     }
 }

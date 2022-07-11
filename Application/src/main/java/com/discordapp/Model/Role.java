@@ -1,6 +1,7 @@
 package com.discordapp.Model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * The type Role.
@@ -52,5 +53,18 @@ public class Role implements Serializable {
      */
     public Permissions getPermissions() {
         return permissions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Role)) return false;
+        Role role = (Role) o;
+        return Objects.equals(getPermissions(), role.getPermissions()) && Objects.equals(roleName, role.roleName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPermissions(), roleName);
     }
 }

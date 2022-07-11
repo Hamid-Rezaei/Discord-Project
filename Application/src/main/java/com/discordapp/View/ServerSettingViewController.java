@@ -29,8 +29,9 @@ public class ServerSettingViewController {
     }
 
     @FXML
-    private void deleteServer(ActionEvent event) {
-
+    private void deleteServer(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showPopUpStage(stage, "delete-server-view.fxml");
     }
 
     @FXML

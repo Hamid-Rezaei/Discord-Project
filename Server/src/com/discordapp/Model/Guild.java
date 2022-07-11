@@ -175,7 +175,7 @@ public class Guild implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Guild)) return false;
         Guild guild = (Guild) o;
-        return Objects.equals(getName(), guild.getName()) && Objects.equals(owner, guild.owner) && Objects.equals(getGuildUsers(), guild.getGuildUsers()) && Objects.equals(getTextChannels(), guild.getTextChannels()) && Objects.equals(getVoiceChannels(), guild.getVoiceChannels());
+        return Objects.equals(getName(), guild.getName()) && Objects.equals(owner, guild.owner);
     }
 
     @Override

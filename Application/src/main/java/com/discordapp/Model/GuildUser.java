@@ -1,7 +1,10 @@
 package com.discordapp.Model;
 
 
+
+
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * The type Guild user.
@@ -41,5 +44,19 @@ public class GuildUser extends User implements Serializable {
     @Override
     public String toString(){
         return super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GuildUser)) return false;
+        if (!super.equals(o)) return false;
+        GuildUser guildUser = (GuildUser) o;
+        return Objects.equals(getRole(), guildUser.getRole());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getRole());
     }
 }
