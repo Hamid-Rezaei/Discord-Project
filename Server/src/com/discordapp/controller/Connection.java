@@ -38,17 +38,11 @@ public class Connection {
      * Send message.
      *
      * @param message the message
-     * @param index   the index
      */
-    public void sendMessage(Message message, int index) {
+    public void sendMessage(Message message) {
         try {
             outputStream.writeObject(message);
             outputStream.flush();
-//            if(index != -1) {
-//                Integer ind = index;
-//                outputStream.writeObject(ind);
-//                outputStream.flush();
-//            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -129,6 +129,11 @@ public class ServerController implements Runnable {
             } else if (message.getContent().split(">")[0].equals("#pin")) {
                 int index = Integer.parseInt(message.getContent().split(">")[1]);
                 directChatController.pinMessage(index);
+            } else if (message.getContent().split(">")[0].equals("#react")) {
+                int index = Integer.parseInt(message.getContent().split(">")[1]);
+                String reactionType = message.getContent().split(">")[2].toLowerCase();
+                String reactor = message.getAuthorName();
+                directChatController.reactToMessage(index, reactionType, reactor);
             } else {
                 directChatController.addMessage(message);
                 directChatController.broadcastMessage(message);

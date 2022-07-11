@@ -96,12 +96,8 @@ public class DirectChatController implements Runnable {
      * @param message the message
      */
     public void broadcastMessage(Message message) {
-
-        int index = messages.indexOf(message);
-        if(message.isFile())
-            index = -2;
         for (Connection connection : usersInChatConnection) {
-            connection.sendMessage(message,index + 1);
+            connection.sendMessage(message);
         }
     }
 
@@ -163,7 +159,7 @@ public class DirectChatController implements Runnable {
      */
     public synchronized void showPinnedMessages(Connection connection) {
         for (int i = 0; i < pinnedMessages.size(); i++) {
-            connection.sendMessage(pinnedMessages.get(i), (i + 1));
+            connection.sendMessage(pinnedMessages.get(i));
         }
     }
 

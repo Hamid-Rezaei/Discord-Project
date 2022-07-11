@@ -207,7 +207,7 @@ public class InApplicationViewController {
                 if (guild != null && !empty) {
                     setEditable(false);
                     setText(guild.getName());
-                    setOnMouseClicked(event ->{
+                    setOnMouseClicked(event -> {
                         InGuildViewController.guild = guildList.getSelectionModel().getSelectedItem();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-guild-view.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -594,6 +594,7 @@ public class InApplicationViewController {
                             }
                         } catch (IOException | ClassNotFoundException e) {
                             e.printStackTrace();
+                            break;
                         }
                     }
                 }
@@ -617,6 +618,7 @@ public class InApplicationViewController {
             protected void updateItem(Message message, boolean b) {
                 super.updateItem(message, b);
                 if (message != null && !b) {
+
                     if (!message.isFile()) {
                         if (!message.getContent().startsWith("#react")) {
                             setText(message.toString());
@@ -641,6 +643,8 @@ public class InApplicationViewController {
                     Label likeCount = new Label();
                     likeCount.setPrefSize(25, 25);
                     likeCount.setStyle("-fx-font-size: 15;");
+                    likeR.setLayoutX(getLayoutX() + 100);
+                    likeR.setLayoutY(getLayoutY());
                     int likeCountInt = message.getReactCount("like");
                     //System.out.println(likeCountInt);
                     if (likeCountInt > 0) {
@@ -718,8 +722,8 @@ public class InApplicationViewController {
                                 like.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
+                                        int index = messageList.getItems().indexOf(messageList.getSelectionModel().getSelectedItem());
                                         Message selected = messageList.getSelectionModel().getSelectedItem();
-                                        int index = msgs.indexOf(selected);
                                         Message likeCommand = new Message("#react>" + index + ">" + "like", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), likeCommand);
                                         likeR.setVisible(true);
@@ -733,8 +737,8 @@ public class InApplicationViewController {
                                 disLike.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
+                                        int index = messageList.getItems().indexOf(messageList.getSelectionModel().getSelectedItem());
                                         Message selected = messageList.getSelectionModel().getSelectedItem();
-                                        int index = msgs.indexOf(selected);
                                         Message disLikeCommand = new Message("#react>" + index + ">" + "dislike", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), disLikeCommand);
                                         disLikeR.setVisible(true);
@@ -748,8 +752,8 @@ public class InApplicationViewController {
                                     @Override
                                     public void handle(MouseEvent event) {
                                         //messageList.getSelectionModel().getSelectedItem().setReaction("smile", DiscordApplication.user.getUsername());
+                                        int index = messageList.getItems().indexOf(messageList.getSelectionModel().getSelectedItem());
                                         Message selected = messageList.getSelectionModel().getSelectedItem();
-                                        int index = msgs.indexOf(selected);
                                         Message smileCommand = new Message("#react>" + index + ">" + "smile", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), smileCommand);
                                         smileR.setVisible(true);
@@ -762,13 +766,15 @@ public class InApplicationViewController {
                                 pin.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
+                                        int index = messageList.getItems().indexOf(messageList.getSelectionModel().getSelectedItem());
                                         Message messageToPin = messageList.getSelectionModel().getSelectedItem();
-                                        int index = msgs.indexOf(messageToPin);
+
                                         Message pinCommand = new Message("#pin>" + index, DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), pinCommand);
                                         addToPins(messageToPin);
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         stage.close();
+
                                     }
                                 });
 
@@ -889,4 +895,6 @@ public class InApplicationViewController {
     void addToPins(Message messageToPin) {
         Platform.runLater(() -> pinBox.getItems().add(messageToPin));
     }
+
+
 }
