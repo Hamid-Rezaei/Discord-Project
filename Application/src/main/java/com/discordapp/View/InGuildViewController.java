@@ -178,11 +178,6 @@ public class InGuildViewController {
 
 
     @FXML
-    void changeStatus(MouseEvent event) {
-
-    }
-
-    @FXML
     void serverSetting(MouseEvent event) throws IOException {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -20,33 +20,36 @@ import java.io.IOException;
 public class ServerSettingViewController {
 
     @FXML
-    void changeName(ActionEvent event) {
+    private void changeName(ActionEvent event) {
+
 
     }
 
     @FXML
-    void createChannel(MouseEvent event) throws IOException {
+    private void createChannel(MouseEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        showPopUpStage(stage, "create-channel-view.fxml");
+    }
 
+    @FXML
+    private void deleteServer(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void invitePeople(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showPopUpStage(stage, "invite-people-view.fxml");
+    }
+
+
+    private void showPopUpStage(Stage stage,String fxml) throws IOException {
+        stage.close();
         Stage popupStage = new Stage(StageStyle.UTILITY);
         popupStage.initOwner(stage.getOwner());
         popupStage.initModality(Modality.APPLICATION_MODAL);
-       // popupStage.setY(event.getScreenY() - 200);
-       // popupStage.setX(event.getScreenX() - 200);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("create-channel-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
         popupStage.show();
     }
-
-    @FXML
-    void deleteServer(ActionEvent event) {
-
-    }
-
-    @FXML
-    void invitePeople(ActionEvent event) {
-
-    }
-
 }

@@ -206,11 +206,10 @@ public class InApplicationViewController {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-guild-view.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         DiscordApplication.loadNewScene(loader, stage);
-
                     });
 
                 }
-                setStyle("-fx-background-color: #202225;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
+                setStyle("-fx-background-color: #202225;" + "-fx-text-fill: #af8fcc;" + "-fx-font-size: 25;" + "-fx-font-weight: bold;" + "-fx-padding: 15px;");
             }
         });
 
