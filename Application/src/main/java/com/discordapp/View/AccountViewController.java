@@ -97,13 +97,13 @@ public class AccountViewController {
     @FXML
     void editEmail(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        showPopupStage(stage, "edit-email-view");
+        showPopupStage(stage, "edit-email-view.fxml");
     }
 
     @FXML
     void editPhone(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        showPopupStage(stage, "edit-phone-view");
+        showPopupStage(stage, "edit-phone-view.fxml");
     }
 
     @FXML

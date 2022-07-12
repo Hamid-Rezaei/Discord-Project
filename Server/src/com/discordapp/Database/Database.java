@@ -61,7 +61,7 @@ public class Database {
             statement.setString(4, phoneNumber);
             statement.setString(5, token);
             statement.setBytes(6, avatar);
-            statement.setString(7,"offline");
+            statement.setString(7, "offline");
             statement.execute();
             connection.close();
             return ServerErrorType.NO_ERROR;
@@ -196,8 +196,8 @@ public class Database {
                     return ServerErrorType.ALREADY_FRIEND;
                 }
                 Statement checkIfUserExists = connection.createStatement();
-                ResultSet doesExist = checkIfAlreadyExists.executeQuery("select userName from users where userName = " +  "'" + targetUser + "'");
-                if(!doesExist.next()){
+                ResultSet doesExist = checkIfAlreadyExists.executeQuery("select userName from users where userName = " + "'" + targetUser + "'");
+                if (!doesExist.next()) {
                     return ServerErrorType.Duplicate_ERROR;
                 }
             }
@@ -389,14 +389,16 @@ public class Database {
     public static boolean updateUser(User user) {
         Connection connection = connectToDB();
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE Users SET password=?, status=?, avatar=? WHERE userName =?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE Users SET password=?, status=?, avatar=?,email=?,phoneNumber = ? WHERE userName =?");
             Status userStatus = user.getStatus();
             String status = userStatus.toString(userStatus);
             byte[] byteArr = user.getAvatar();
             statement.setString(1, user.getPassword());
             statement.setString(2, status);
             statement.setBytes(3, byteArr);
-            statement.setString(4, user.getUsername());
+            statement.setString(4,user.getEmail());
+            statement.setString(5,user.getPhoneNumber());
+            statement.setString(6, user.getUsername());
             statement.executeUpdate();
             connection.close();
             return true;
