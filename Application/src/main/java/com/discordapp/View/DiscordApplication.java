@@ -1,13 +1,19 @@
 package com.discordapp.View;
 import com.discordapp.Controller.AppController;
 import com.discordapp.Model.User;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.IOException;
 
 public class DiscordApplication extends Application {
@@ -24,8 +30,6 @@ public class DiscordApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-
 
     public static void loadNewScene(FXMLLoader loader, Stage stage) {
         try {
