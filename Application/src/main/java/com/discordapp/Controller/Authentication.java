@@ -4,6 +4,8 @@ package com.discordapp.Controller;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.discordapp.Controller.Handler.matchedInput;
+
 abstract class Handler {
     protected Handler nextHandler;
 
@@ -39,6 +41,7 @@ class UsernameHandler extends Handler {
         }
     }
 }
+
 
 class PasswordHandler extends Handler {
 
@@ -88,5 +91,13 @@ public class Authentication {
         return emailHandler.handle(username, password, email);
     }
 
+    public static boolean checkValidPass(String password) {
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d+]{8,}$";
+        return matchedInput(passwordRegex, password);
+    }
 
+    public static boolean checkValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\\.[a-zA-Z]+)*$";
+        return matchedInput(emailRegex, email);
+    }
 }

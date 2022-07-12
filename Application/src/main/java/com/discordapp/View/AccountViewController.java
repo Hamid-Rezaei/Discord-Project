@@ -5,13 +5,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -83,6 +89,24 @@ public class AccountViewController {
 
     @FXML
     void changePass(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root1 = stage.getScene().getRoot();
+            ColorAdjust adj = new ColorAdjust(0, 0.1, -0.2, 0);
+            GaussianBlur blur = new GaussianBlur(5);
+            adj.setInput(blur);
+            root1.setEffect(adj);
+
+            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+            popupStage.initOwner(stage);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("chage-password-view.fxml"));
+            Parent root = loader.load();
+            popupStage.setScene(new Scene(root, Color.TRANSPARENT));
+            popupStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
