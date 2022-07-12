@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -241,17 +243,7 @@ public class InApplicationViewController {
                     status.setCenterY(circle.getCenterY() + 51);
 
                     status.setFill(StatusViewController.returnColor(usr.getStatus().toString(usr.getStatus())));
-                    setOnMouseClicked(new EventHandler<MouseEvent>() { //TODO: block
-                        @Override
-                        public void handle(MouseEvent mouseEvent) {
-                            if(mouseEvent.isSecondaryButtonDown()){
-                                // DiscordApplication.appController.blockUser(getItem().getUsername());
-                                // + remove from friend list (from client side, server deletes automatically).
-                            }
-                        }
-                    });
                     status.setRadius(8);
-
                     status.setManaged(false);
                     user = usr;
                     profile = new Image(new ByteArrayInputStream(user.getAvatar()));
@@ -275,6 +267,35 @@ public class InApplicationViewController {
                     line.setLayoutY(hBox.getLayoutY() + 75);
                     setGraphic(hBox);
                     setStyle("-fx-background-color: #36393f;" + "-fx-padding: 35px;");
+
+                    hBox.setOnMouseReleased(new EventHandler<>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            if (mouseEvent.isSecondaryButtonDown()) {
+                                try {
+                                    Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+                                    Parent root1 = stage.getScene().getRoot();
+                                    ColorAdjust adj = new ColorAdjust(0, 0.1, -0.2, 0);
+                                    GaussianBlur blur = new GaussianBlur(5);
+                                    adj.setInput(blur);
+                                    root1.setEffect(adj);
+
+                                    Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+                                    popupStage.initOwner(stage);
+                                    popupStage.initModality(Modality.APPLICATION_MODAL);
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("block-user-view.fxml"));
+                                    Parent root = loader.load();
+                                    BlockUserViewController bUc = loader.getController();
+                                    bUc.initialize(getItem().getUsername());
+                                    popupStage.setScene(new Scene(root, Color.TRANSPARENT));
+                                    popupStage.show();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
+
                 }
                 setStyle("-fx-background-color: #36393f;" + "-fx-padding: 15px;");
             }
@@ -479,7 +500,7 @@ public class InApplicationViewController {
                     unBlockBtn.setOnMouseReleased(e -> {
                         DiscordApplication.appController.unblockUser(getItem().getUsername());
                         Platform.runLater(() ->
-                        blockList.getItems().remove(getItem()));
+                                blockList.getItems().remove(getItem()));
                     });
                     hBox.getChildren().addAll(circle, status, nameTF, line, pane, unBlockBtn);
                     pane.setStyle("-fx-background-color: #36393f;");
