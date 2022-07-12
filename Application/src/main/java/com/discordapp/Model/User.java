@@ -92,6 +92,25 @@ public class User implements Serializable {
         this.status = status;
     }
 
+
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Sets phone number.
+     *
+     * @param phoneNumber the phone number
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     /**
      * Sets password.
      *

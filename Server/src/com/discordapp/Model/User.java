@@ -1,6 +1,5 @@
 package com.discordapp.Model;
 
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
@@ -91,6 +90,25 @@ public class User implements Serializable {
      */
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Sets phone number.
+     *
+     * @param phoneNumber the phone number
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     /**

@@ -89,35 +89,21 @@ public class AccountViewController {
 
     @FXML
     void changePass(ActionEvent event) {
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Parent root1 = stage.getScene().getRoot();
-            ColorAdjust adj = new ColorAdjust(0, 0.1, -0.2, 0);
-            GaussianBlur blur = new GaussianBlur(5);
-            adj.setInput(blur);
-            root1.setEffect(adj);
-
-            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
-            popupStage.initOwner(stage);
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("chage-password-view.fxml"));
-            Parent root = loader.load();
-            popupStage.setScene(new Scene(root, Color.TRANSPARENT));
-            popupStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showPopupStage(stage, "chage-password-view.fxml");
 
     }
 
     @FXML
     void editEmail(ActionEvent event) {
-
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showPopupStage(stage, "edit-email-view");
     }
 
     @FXML
     void editPhone(ActionEvent event) {
-
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showPopupStage(stage, "edit-phone-view");
     }
 
     @FXML
@@ -138,6 +124,26 @@ public class AccountViewController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         DiscordApplication.appController.disconnect();
         DiscordApplication.loadNewScene(loader, stage);
+    }
+
+    private void showPopupStage(Stage stage, String fxml) {
+        try {
+            Parent root1 = stage.getScene().getRoot();
+            ColorAdjust adj = new ColorAdjust(0, 0.1, -0.2, 0);
+            GaussianBlur blur = new GaussianBlur(5);
+            adj.setInput(blur);
+            root1.setEffect(adj);
+
+            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+            popupStage.initOwner(stage);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+            popupStage.setScene(new Scene(root, Color.TRANSPARENT));
+            popupStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

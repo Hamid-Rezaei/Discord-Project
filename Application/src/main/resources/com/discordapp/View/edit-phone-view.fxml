@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="440.0" prefWidth="350.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.EditEmailViewController">
+<AnchorPane prefHeight="440.0" prefWidth="350.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.EditPhoneViewController">
     <children>
-        <TextField fx:id="emailTF" layoutX="20.0" layoutY="266.0" prefHeight="56.0" prefWidth="242.0" promptText="Enter email" style="-fx-background-color: #202225;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+        <TextField fx:id="phone" layoutX="20.0" layoutY="266.0" prefHeight="56.0" prefWidth="242.0" promptText="Enter Phone number" style="-fx-background-color: #202225;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
             <font>
                 <Font size="14.0" />
             </font>
         </TextField>
-        <Button layoutX="152.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#changeEmail" prefHeight="40.0" prefWidth="166.0" style="-fx-background-color: #5865f2;" text="Edit Email" textFill="#dde0fc">
+        <Button layoutX="152.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#changePhone" prefHeight="40.0" prefWidth="166.0" style="-fx-background-color: #5865f2;" text="Edit Phone" textFill="#dde0fc">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
@@ -23,7 +23,7 @@
                 <Font name="System Bold" size="14.0" />
             </font>
         </Button>
-        <Label alignment="CENTER" layoutX="27.0" layoutY="33.0" prefHeight="74.0" prefWidth="278.0" text="Edit Email" textFill="#e5e5e6" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+        <Label alignment="CENTER" layoutX="27.0" layoutY="33.0" prefHeight="74.0" prefWidth="278.0" text="Edit Phone number" textFill="#e5e5e6" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>

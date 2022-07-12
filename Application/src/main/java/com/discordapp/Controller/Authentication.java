@@ -100,4 +100,9 @@ public class Authentication {
         String emailRegex = "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\\.[a-zA-Z]+)*$";
         return matchedInput(emailRegex, email);
     }
+
+    public static boolean checkValidPhone(String phone) {
+        String phoneRegex = "^\\d{11}$";
+        return matchedInput(phoneRegex, phone);
+    }
 }
