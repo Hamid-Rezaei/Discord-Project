@@ -83,7 +83,7 @@ public class ServerController implements Runnable {
                 case "#removeMember" -> deleteMemberToServer();
                 case "#changeGuildName" -> changeGuildName();
                 case "#removeFromChat" -> removeFromDirectChat();
-                case "#getTextChannel" -> getTextChannel();
+                case "#getTextChannelMsg" -> getTextChannel();
                 case "#updateUser" -> updateUser();
                 case "#setStatus" -> changeStatus();
                 case "#deleteGuild" -> deleteGuild();
@@ -92,6 +92,8 @@ public class ServerController implements Runnable {
                 case "#sendMsgToDirectChat" -> messageToDirectChat();
                 case "#getDirectChatMessages" -> getDirectChatMessages();
                 case "#getPinnedMessages" -> getPinnedMessages();
+                case "#messageToGroupChat" -> messageToGroupChat();
+                case "#getGroupChatPinnedMessages" -> getGroupChatPinnedMessages();
             }
 
         } catch (IOException e) {
@@ -109,6 +111,27 @@ public class ServerController implements Runnable {
             } catch (IOException err) {
                 err.printStackTrace();
             }
+        }
+    }
+
+    private void getGroupChatPinnedMessages() {
+        try {
+            String gOwner = inputStream.readUTF();
+            String guildName = inputStream.readUTF();
+            String textChannelName = inputStream.readUTF();
+            Guild guild = getGuild(gOwner, guildName);
+            ArrayList<TextChannel> textChannels = guild.getTextChannels();
+            TextChannel textChannel = null;
+            for (TextChannel t : textChannels) {
+                if (t.getName().equals(textChannelName)) {
+                    textChannel = t;
+                    break;
+                }
+            }
+            outputStream.writeObject(textChannel.getPinnedMessages());
+            outputStream.flush();
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -134,6 +157,11 @@ public class ServerController implements Runnable {
                 String reactor = message.getAuthorName();
                 directChatController.reactToMessage(index, reactionType, reactor);
             } else {
+                if (!directChatController.getUsersInChatConnection().contains(connections.get(currUser.getUsername()))) {
+                    directChatController.addConnection(connections.get(currUser.getUsername()));
+                }
+
+                directChatController.addConnection(connections.get(currUser.getUsername()));
                 directChatController.addMessage(message);
                 directChatController.broadcastMessage(message);
             }
@@ -141,6 +169,46 @@ public class ServerController implements Runnable {
             e.printStackTrace();
         }
     }
+
+    private void messageToGroupChat() {
+        try {
+            String gOwner = inputStream.readUTF();
+            String guildName = inputStream.readUTF();
+            String textChannelName = inputStream.readUTF();
+            Message message = (Message) inputStream.readObject();
+            Guild guild = getGuild(gOwner, guildName);
+            ArrayList<TextChannel> textChannels = guild.getTextChannels();
+            TextChannel textChannel = null;
+            for (TextChannel t : textChannels) {
+                if (t.getName().equals(textChannelName)) {
+                    textChannel = t;
+                    break;
+                }
+            }
+            textChannel.addUser(connections.get(appUsername));
+            if (message.getContent().equals("#exit")) {
+                textChannel.broadcastExitMessage("you exited the chat", connections.get(appUsername));
+                textChannel.removeUser(connections.get(appUsername));
+            } else if (message.getContent().split(">")[0].equals("#pin")) {
+                int index = Integer.parseInt(message.getContent().split(">")[1]);
+                textChannel.pinMessage(index);
+            } else if (message.getContent().split(">")[0].equals("#react")) {
+                int index = Integer.parseInt(message.getContent().split(">")[1]);
+                String reactionType = message.getContent().split(">")[2].toLowerCase();
+                String reactor = message.getAuthorName();
+                textChannel.reactToMessage(index, reactionType, reactor);
+            } else {
+                if (!textChannel.getUsersInChat().contains(connections.get(appUsername))) {
+                    textChannel.addUser(connections.get(appUsername));
+                }
+                textChannel.addMessage(message);
+                textChannel.broadcastMessage(message);
+            }
+        } catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
 
     private void getDirectChatMessages() {
         try {
@@ -529,47 +597,51 @@ public class ServerController implements Runnable {
             if (textChannel != null) {
                 outputStream.writeUTF("success.");
                 outputStream.flush();
-                textChannel.addUser(connections.get(appUsername));
-                Message message = null;
-                boolean inChat = true;
-                while (inChat) {
-                    Object obj = inputStream.readObject();
-                    if (obj instanceof Message) {
-                        message = (Message) obj;
-                        String msgContent = message.getContent();
-                        if (message.getContent().equals("#exit")) {
-                            textChannel.broadcastExitMessage("you exited text channel.", connections.get(appUsername));
-                            textChannel.removeUser(connections.get(appUsername));
-                            break;
-                        } else if (message.getContent().split(">")[0].equals("#pin")) {
-                            int index = Integer.parseInt(message.getContent().split(">")[1]);
-                            textChannel.pinMessage(index);
-                            textChannel.broadcastExitMessage("message pinned successfully.", connections.get(appUsername));
-                        } else if (message.getContent().equals("#pins")) {
-                            textChannel.showPinnedMessages(connections.get(appUsername));
-                        } else if (message.getContent().split(">")[0].equals("#react")) {
-                            int index = Integer.parseInt(message.getContent().split(">")[1]) - 1;
-                            String reactionType = message.getContent().split(">")[2].toLowerCase();
-                            String reactor = message.getAuthorName();
-                            textChannel.reactToMessage(index, reactionType, reactor);
-                            textChannel.broadcastExitMessage("reacted to message with reaction of " + reactionType, connections.get(appUsername));
-                        } else if (msgContent.split(">")[0].equals("#music")) {
-                            textChannel.broadcastMessage(message);
-                        } else if (message.getContent().startsWith("#pause")) {
-                            textChannel.broadcastExitMessage("#pause", connections.get(appUsername));
-                        } else {
-                            textChannel.addMessage(message);
-                        }
 
-                    } else {
-                        inChat = false;
-                    }
-                }
-            } else {
-                outputStream.writeUTF("failed.");
+                outputStream.writeObject(textChannel.getMessages());
                 outputStream.flush();
+//                textChannel.addUser(connections.get(appUsername));
+//                Message message = null;
+//                boolean inChat = true;
+//                while (inChat) {
+//                    Object obj = inputStream.readObject();
+//                    if (obj instanceof Message) {
+//                        message = (Message) obj;
+//                        String msgContent = message.getContent();
+//                        if (message.getContent().equals("#exit")) {
+//                            textChannel.broadcastExitMessage("you exited text channel.", connections.get(appUsername));
+//                            textChannel.removeUser(connections.get(appUsername));
+//                            break;
+//                        } else if (message.getContent().split(">")[0].equals("#pin")) {
+//                            int index = Integer.parseInt(message.getContent().split(">")[1]);
+//                            textChannel.pinMessage(index);
+//                            textChannel.broadcastExitMessage("message pinned successfully.", connections.get(appUsername));
+//                        } else if (message.getContent().equals("#pins")) {
+//                            textChannel.showPinnedMessages(connections.get(appUsername));
+//                        } else if (message.getContent().split(">")[0].equals("#react")) {
+//                            int index = Integer.parseInt(message.getContent().split(">")[1]) - 1;
+//                            String reactionType = message.getContent().split(">")[2].toLowerCase();
+//                            String reactor = message.getAuthorName();
+//                            textChannel.reactToMessage(index, reactionType, reactor);
+//                            textChannel.broadcastExitMessage("reacted to message with reaction of " + reactionType, connections.get(appUsername));
+//                        } else if (msgContent.split(">")[0].equals("#music")) {
+//                            textChannel.broadcastMessage(message);
+//                        } else if (message.getContent().startsWith("#pause")) {
+//                            textChannel.broadcastExitMessage("#pause", connections.get(appUsername));
+//                        } else {
+//                            textChannel.addMessage(message);
+//                        }
+//
+//                    } else {
+//                        inChat = false;
+//                    }
+//                }
+//            } else {
+//                outputStream.writeUTF("failed.");
+//                outputStream.flush();
+//            }
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

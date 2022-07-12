@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InGuildViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="891.0" style="-fx-background-color: #36393f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.InGuildViewController">
     <left>
         <AnchorPane prefHeight="694.0" prefWidth="302.0" style="-fx-background-color: #2f3136;">
             <children>
@@ -46,7 +48,7 @@
                 </Button>
                 <AnchorPane layoutX="86.0" layoutY="586.0" prefHeight="68.0" prefWidth="242.0" style="-fx-background-color: #292b2f;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="1.0">
                     <children>
-                        <Circle fx:id="settingIcon" fill="#36393f" layoutX="195.0" layoutY="34.0" radius="20.0" stroke="#36393f" strokeType="INSIDE" />
+                        <Circle fx:id="settingIcon" fill="#36393f" layoutX="195.0" layoutY="34.0" onMouseReleased="#goToAccSettings" radius="20.0" stroke="#36393f" strokeType="INSIDE" />
                         <Circle fx:id="avatar" fill="#36393f" layoutX="39.0" layoutY="34.0" radius="25.0" stroke="#36393f" strokeType="INSIDE" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="177.8" />
                         <Circle fx:id="status" fill="#36393f" layoutX="57.0" layoutY="54.0" radius="7.0" stroke="#36393f" strokeType="INSIDE" />
                     </children></AnchorPane>
@@ -56,24 +58,34 @@
         </AnchorPane>
     </left>
     <center>
-        <AnchorPane style="-fx-background-color: #36393f;">
+        <AnchorPane prefHeight="854.0" prefWidth="563.0" style="-fx-background-color: #36393f;">
             <children>
-                <AnchorPane prefHeight="710.0" prefWidth="562.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <ListView fx:id="serverMsgList" prefHeight="622.0" prefWidth="391.0" style="-fx-background-color: #36393f;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <TextField layoutX="22.0" layoutY="633.0" prefHeight="34.0" prefWidth="366.0" promptText="Message" style="-fx-background-color: #40444b;" AnchorPane.bottomAnchor="26.99999999999998" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="174.0">
+            <AnchorPane prefWidth="396.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="167.0" AnchorPane.topAnchor="0.0">
+               <children>
+                        <ListView fx:id="serverMsgList" layoutY="52.0" prefHeight="559.0" prefWidth="396.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0" />
+                        <TextField fx:id="messageTF" layoutX="22.0" layoutY="636.0" onKeyReleased="#sendMessage" prefHeight="34.0" prefWidth="366.0" promptText="Message" style="-fx-background-color: #40444b; -fx-text-fill: white;" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="8.0">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </TextField>
-                        <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="359.0" layoutY="650.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.399999999999977" AnchorPane.rightAnchor="189.39999999999998" />
-                  <AnchorPane layoutX="398.3999938964844" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="398.4" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ListView fx:id="userList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="164.0" style="-fx-background-color: #2f3136;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                    </children>
-                </AnchorPane>
+                        <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="360.0" layoutY="653.0" onMouseReleased="#sendFileMessage" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="14.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Circle>
+                  <ComboBox fx:id="pinBox" layoutX="14.0" layoutY="14.0" opacity="0.0" prefHeight="25.0" prefWidth="376.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Circle fx:id="pinIcon" fill="#9ea3ac" layoutX="368.0" layoutY="27.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="13.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="398.3999938964844" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ListView fx:id="userList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="164.0" style="-fx-background-color: #2f3136;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.6000000000000227" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </center>

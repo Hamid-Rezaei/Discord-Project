@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The type Message.
@@ -16,7 +18,7 @@ public class Message implements Serializable {
     private boolean isFile;
     private int fileSize;
     private byte[] file;
-    private HashMap<Reaction, ArrayList<String>> reactions;
+    private HashMap<Reaction, HashSet<String>> reactions;
 
     /**
      * Instantiates a new Message.
@@ -133,11 +135,27 @@ public class Message implements Serializable {
      * @param name the name
      */
     public void setReaction(String type, String name) {
+        boolean isInKeySet = false;
+        Set<Reaction> allReactions = reactions.keySet();
+        for (Reaction reaction : allReactions) {
+            if (reaction.getEmoji().equals(type)) {
+                isInKeySet = true;
+                break;
+            }
+        }
         Reaction reaction = new Reaction();
-        switch (type) {
-            case "like" -> reaction.setLikeReact();
-            case "dislike" -> reaction.setDisLikeReact();
-            case "smile" -> reaction.setSmileReact();
+        if (!isInKeySet) {
+            switch (type) {
+                case "like" -> reaction.setLikeReact();
+                case "dislike" -> reaction.setDisLikeReact();
+                case "smile" -> reaction.setSmileReact();
+            }
+        } else {
+            for (Reaction reaction1 : allReactions) {
+                if (reaction1.getEmoji().equals(type)) {
+                    reaction = reaction1;
+                }
+            }
         }
         addReaction(reaction, name);
     }
@@ -150,17 +168,17 @@ public class Message implements Serializable {
      * @param name     the name
      */
     public void addReaction(Reaction reaction, String name) {
-        ArrayList<String> names = reactions.get(reaction);
+        HashSet<String> names = reactions.get(reaction);
         if (names == null) {
-            names = new ArrayList<>();
+            names = new HashSet<>();
         }
         names.add(name);
         reactions.put(reaction, names);
     }
 
     public int getReactCount(String type) {
-        for(Reaction reaction : reactions.keySet()){
-            if(reaction.getEmoji().equals(type))
+        for (Reaction reaction : reactions.keySet()) {
+            if (reaction.getEmoji().equals(type))
                 return reactions.get(reaction).size();
         }
         return 0;

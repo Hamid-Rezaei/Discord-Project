@@ -467,6 +467,24 @@ public class AppController {
 
     }
 
+    public void sendMessageToGroupChat(String owner, String guildName, String textChannelName, Message message) {
+        try {
+            outputStream.writeUTF("#messageToGroupChat");
+            outputStream.flush();
+            outputStream.writeUTF(owner);
+            outputStream.flush();
+            outputStream.writeUTF(guildName);
+            outputStream.flush();
+            outputStream.writeUTF(textChannelName);
+            outputStream.flush();
+            outputStream.writeObject(message);
+            outputStream.flush();
+            outputStream.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Remove from direct chat.
@@ -607,9 +625,9 @@ public class AppController {
      * @param guild       the guild
      * @param textChannel the text channel
      */
-    public void requestForGroupChat(Guild guild, TextChannel textChannel) {
+    public ArrayList<Message> getTextChannelMessages(Guild guild, TextChannel textChannel) {
         try {
-            outputStream.writeUTF("#getTextChannel");
+            outputStream.writeUTF("#getTextChannelMsg");
             outputStream.flush();
             outputStream.writeUTF(guild.getOwnerName());
             outputStream.flush();
@@ -617,22 +635,19 @@ public class AppController {
             outputStream.flush();
             outputStream.writeUTF(textChannel.getName());
             outputStream.flush();
+
             String answer = inputStream.readUTF();
             if (answer.equals("success.")) {
-
-                Chat groupChat = new Chat();
-                groupChat.setOutputStream(outputStream);
-                groupChat.setInputStream(inputStream);
-                groupChat.setCurrUser(currentUser);
-                Thread groupChatThread = new Thread(groupChat);
-                groupChatThread.start();
-                groupChatThread.join();
+                ArrayList<Message> messages = (ArrayList<Message>) inputStream.readObject();
+                return messages;
             } else {
                 System.out.println("something went wrong while requesting for group chat.");
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+
         }
+        return new ArrayList<>();
     }
 
     /**
@@ -768,8 +783,8 @@ public class AppController {
         return inputStream;
     }
 
-    public ArrayList<Message> getPinnedMessages(String username, String friendName){
-        try{
+    public ArrayList<Message> getPinnedMessages(String username, String friendName) {
+        try {
             outputStream.writeUTF("#getPinnedMessages");
             outputStream.flush();
             outputStream.writeUTF(username);
@@ -778,12 +793,32 @@ public class AppController {
             outputStream.flush();
             ArrayList<Message> pinnedMessages = (ArrayList<Message>) inputStream.readObject();
             return pinnedMessages;
-        }catch (IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
 
     }
+
+    public ArrayList<Message> getGroupChatPinnedMessages(String gOwner, String guildName, String textChannelName) {
+        try {
+            outputStream.writeUTF("#getGroupChatPinnedMessages");
+            outputStream.flush();
+            outputStream.writeUTF(gOwner);
+            outputStream.flush();
+            outputStream.writeUTF(guildName);
+            outputStream.flush();
+            outputStream.writeUTF(textChannelName);
+            outputStream.flush();
+            ArrayList<Message> pinnedMessages = (ArrayList<Message>) inputStream.readObject();
+            return pinnedMessages;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+    }
+
     /**
      * Parse error.
      *
@@ -820,7 +855,7 @@ public class AppController {
     }
 
 
-    public boolean isConnected(){
+    public boolean isConnected() {
         return socket.isConnected();
     }
 }

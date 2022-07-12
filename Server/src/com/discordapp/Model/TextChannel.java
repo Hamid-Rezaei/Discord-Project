@@ -5,6 +5,7 @@ import com.discordapp.Controller.Connection;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -66,7 +67,7 @@ public class TextChannel extends Channel {
     public synchronized void addMessage(Message message) {
         this.messages.add(message);
         saveMessages();
-        broadcastMessage(message);
+        //broadcastMessage(message);
     }
 
     /**
@@ -85,8 +86,14 @@ public class TextChannel extends Channel {
      * @param message the message
      */
     public void broadcastMessage(Message message) {
-        for (Connection connection : usersInChat) {
-            connection.sendMessage(message);
+        Iterator<Connection> it = usersInChat.iterator();
+        while (it.hasNext()) {
+            Connection connection = it.next();
+            if (!connection.isClosed()) {
+                connection.sendMessage(message);
+            } else {
+                it.remove();
+            }
         }
     }
 
@@ -116,9 +123,15 @@ public class TextChannel extends Channel {
      * @param userConnection the user connection
      */
     public void broadcastExitMessage(String message, Connection userConnection) {
-        for (Connection connection : usersInChat) {
-            if (connection.getUsername().equals(userConnection.getUsername())) {
-                connection.sendMessage(message);
+        Iterator<Connection> it = usersInChat.iterator();
+        while (it.hasNext()) {
+            Connection connection = it.next();
+            if (!connection.isClosed()) {
+                if (connection.getUsername().equals(userConnection.getUsername())) {
+                    connection.sendMessage(message);
+                }
+            } else {
+                it.remove();
             }
         }
     }
@@ -222,7 +235,7 @@ public class TextChannel extends Channel {
      * @param reactor      the reactor
      */
     public void reactToMessage(int index, String reactionType, String reactor) {
-        messages.get(index).setReaction(reactionType,reactor);
+        messages.get(index).setReaction(reactionType, reactor);
         saveMessages();
     }
 
@@ -232,6 +245,18 @@ public class TextChannel extends Channel {
         if (!(o instanceof TextChannel)) return false;
         TextChannel that = (TextChannel) o;
         return Objects.equals(messages, that.messages) && Objects.equals(usersInChat, that.usersInChat) && Objects.equals(guildName, that.guildName) && Objects.equals(pinnedMessages, that.pinnedMessages);
+    }
+
+    public ArrayList<Message> getMessages() {
+        return messages;
+    }
+
+    public ArrayList<Message> getPinnedMessages() {
+        return pinnedMessages;
+    }
+
+    public HashSet<Connection> getUsersInChat() {
+        return usersInChat;
     }
 
     @Override

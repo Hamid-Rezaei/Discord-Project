@@ -122,6 +122,9 @@ public class Connection {
         return Objects.equals(outputStream, that.outputStream) && Objects.equals(inputStream, that.inputStream) && Objects.equals(socket, that.socket) && Objects.equals(getUsername(), that.getUsername());
     }
 
+    public boolean isClosed(){
+        return socket.isClosed();
+    }
     @Override
     public int hashCode() {
         return Objects.hash(outputStream, inputStream, socket, getUsername());

@@ -63,7 +63,6 @@ public class InApplicationViewController {
     private ListView<User> pendingList;
     @FXML
     private ListView<Guild> guildList;
-    private Chat friendChat;
     @FXML
     private ComboBox<User> directMessages;
     @FXML
@@ -575,15 +574,18 @@ public class InApplicationViewController {
                 @Override
                 public void run() {
                     Message message = new Message("", "", LocalDateTime.now());
-                    while (!message.getContent().equals("#exit")) {
+                    while (!message.getContent().equals("you exited the chat")) {
                         try {
                             Object obj = DiscordApplication.appController.getInputStream().readObject();
                             if (obj instanceof Message) {
                                 message = (Message) obj;
                                 addMessage(message);
                             } else {
-                                //System.out.println(obj.toString());
-                                break;
+                                if (obj.toString().equals("you exited the chat")) {
+                                    break;
+                                } else {
+                                    System.out.println(obj);
+                                }
                             }
                         } catch (IOException | ClassNotFoundException e) {
                             e.printStackTrace();
@@ -610,22 +612,22 @@ public class InApplicationViewController {
             @Override
             protected void updateItem(Message message, boolean b) {
                 super.updateItem(message, b);
+                setText(null);
                 if (message != null && !b) {
-
+                    Label messageContent = new Label();
                     if (!message.isFile()) {
                         if (!message.getContent().startsWith("#react")) {
-                            setText(message.toString());
-                            setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;");
+                            messageContent.setText(message.toString());
+                            messageContent.setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 5px");
                         }
                     } else {
                         setCursor(Cursor.HAND);
-                        setText(message.fileToString());
-                        setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(7,141,242,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;");
-                        setOnMouseReleased(e -> {
+                        messageContent.setText(message.fileToString());
+                        messageContent.setStyle("-fx-background-color: #36393f;" + "-fx-text-fill: rgba(7,141,242,0.89) ;" + "-fx-font-size: 12;" + "-fx-font-weight: bold;" + "-fx-padding: 5px");
+                        messageContent.setOnMouseReleased(e -> {
                             saveFileInDownloads(message);
                         });
                     }
-
                     HBox hBox = new HBox();
                     hBox.setPrefSize(150, 25);
                     hBox.setAlignment(Pos.BASELINE_LEFT);
@@ -635,9 +637,10 @@ public class InApplicationViewController {
                     likeR.setFill(new ImagePattern(new Image("file:assets/like.png", false)));
                     Label likeCount = new Label();
                     likeCount.setPrefSize(25, 25);
-                    likeCount.setStyle("-fx-font-size: 15;");
-                    likeR.setLayoutX(getLayoutX() + 100);
-                    likeR.setLayoutY(getLayoutY());
+                    likeCount.setStyle("-fx-font-size: 15;" + "-fx-text-fill: white;");
+
+//                    likeR.setLayoutX(getLayoutX() + 100);
+//                    likeR.setLayoutY(getLayoutY());
                     int likeCountInt = message.getReactCount("like");
                     //System.out.println(likeCountInt);
                     if (likeCountInt > 0) {
@@ -651,7 +654,7 @@ public class InApplicationViewController {
                     disLikeR.setFill(new ImagePattern(new Image("file:assets/dislike.png", false)));
                     Label disLikeCount = new Label();
                     disLikeCount.setPrefSize(25, 25);
-                    disLikeCount.setStyle("-fx-font-size: 15;");
+                    disLikeCount.setStyle("-fx-font-size: 15;" + "-fx-text-fill: white;");
                     int disLikeCountInt = message.getReactCount("dislike");
                     if (disLikeCountInt > 0) {
                         disLikeR.setVisible(true);
@@ -663,7 +666,7 @@ public class InApplicationViewController {
                     Rectangle smileR = new Rectangle(25, 25);
                     smileR.setFill(new ImagePattern(new Image("file:assets/smile.png", false)));
                     Label smileCount = new Label();
-                    smileCount.setStyle("-fx-font-size: 15;");
+                    smileCount.setStyle("-fx-font-size: 15;" + "-fx-text-fill: white;");
                     smileCount.setPrefSize(25, 25);
                     int smileCountInt = message.getReactCount("smile");
                     if (smileCountInt > 0) {
@@ -673,8 +676,7 @@ public class InApplicationViewController {
                         smileR.setVisible(false);
                     }
 
-                    hBox.getChildren().addAll(likeR, likeCount, disLikeR, disLikeCount, smileR, smileCount);
-
+                    hBox.getChildren().addAll(messageContent, likeR, likeCount, disLikeR, disLikeCount, smileR, smileCount);
                     setGraphic(hBox);
 
                     setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -711,7 +713,6 @@ public class InApplicationViewController {
                                 Scene scene = new Scene(vBox);
                                 popupStage.setScene(scene);
                                 popupStage.show();
-
                                 like.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                     @Override
                                     public void handle(MouseEvent event) {
@@ -721,8 +722,9 @@ public class InApplicationViewController {
                                         Message likeCommand = new Message("#react>" + index + ">" + "like", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), likeCommand);
                                         likeR.setVisible(true);
-                                        likeCount.setText(String.valueOf(likeCountInt + 1));
+                                        likeCount.setText(String.valueOf(selected.getReactCount("like")));
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
                                         stage.close();
                                     }
                                 });
@@ -736,8 +738,9 @@ public class InApplicationViewController {
                                         selected.setReaction("dislike", DiscordApplication.user.getUsername());
                                         Message disLikeCommand = new Message("#react>" + index + ">" + "dislike", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), disLikeCommand);
+                                        messageList.getItems().get(index).setReaction("dislike", DiscordApplication.user.getUsername());
                                         disLikeR.setVisible(true);
-                                        disLikeCount.setText(String.valueOf(disLikeCountInt + 1));
+                                        disLikeCount.setText(String.valueOf(selected.getReactCount("dislike")));
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         stage.close();
                                     }
@@ -751,10 +754,13 @@ public class InApplicationViewController {
                                         selected.setReaction("smile", DiscordApplication.user.getUsername());
                                         Message smileCommand = new Message("#react>" + index + ">" + "smile", DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), smileCommand);
+                                        messageList.getItems().get(index).setReaction("smile", DiscordApplication.user.getUsername());
                                         smileR.setVisible(true);
-                                        smileCount.setText(String.valueOf(smileCountInt + 1));
+
+                                        smileCount.setText(String.valueOf(selected.getReactCount("smile")));
                                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         stage.close();
+
                                     }
                                 });
 
@@ -763,7 +769,6 @@ public class InApplicationViewController {
                                     public void handle(MouseEvent event) {
                                         int index = messageList.getItems().indexOf(messageList.getSelectionModel().getSelectedItem());
                                         Message messageToPin = messageList.getSelectionModel().getSelectedItem();
-
                                         Message pinCommand = new Message("#pin>" + index, DiscordApplication.user.getUsername(), LocalDateTime.now());
                                         DiscordApplication.appController.sendMessageToDirectChat(DiscordApplication.user.getUsername(), friendInChat.getUsername(), pinCommand);
                                         addToPins(messageToPin);
@@ -775,17 +780,21 @@ public class InApplicationViewController {
 
 
                                 //  System.out.println("clicked on " + messageList.getSelectionModel().getSelectedItem());
-                                event.consume();
+
                             }
+                            event.consume();
                         }
                     });
 
                 } else {
-                    setStyle("-fx-background-color: #36393f;");
+                    setStyle("-fx-background-color: #36393f;" + "-fx-padding: 10px;" + "-fx-text-fill: #36393f;");
                 }
+
             }
 
         });
+
+        // messageList.setStyle("-fx-background-color: #36393f;" + "-fx-padding: 10px;");
     }
 
     @FXML

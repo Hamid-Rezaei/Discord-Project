@@ -163,7 +163,7 @@
             </TabPane>
             <AnchorPane fx:id="directChatPane" disable="true" prefHeight="694.0" prefWidth="562.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                   <ListView fx:id="messageList" layoutY="32.0" prefHeight="562.0" prefWidth="562.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0" />
+                   <ListView fx:id="messageList" layoutY="32.0" prefHeight="571.0" prefWidth="562.0" style="-fx-background-color: #36393f;" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0" />
                    <TextField fx:id="messageTF" layoutX="22.0" layoutY="633.0" onKeyReleased="#sendMessage" prefHeight="34.0" prefWidth="514.0" promptText="Message" style="-fx-background-color: #40444b; -fx-text-fill: WHITE;" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="26.0">
                        <font>
                            <Font size="14.0" />
@@ -172,8 +172,9 @@
                    <Circle fx:id="paperclip" fill="#9ea3ac" layoutX="506.0" layoutY="650.0" onMouseReleased="#sendFileMessage" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="45.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Circle>
-                  <Circle fx:id="pinIcon" fill="#36393f" layoutX="460.0" layoutY="18.0"  radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0">
+                     </cursor>
+                  </Circle>
+                  <Circle fx:id="pinIcon" fill="#36393f" layoutX="460.0" layoutY="18.0" radius="14.0" stroke="#40444b" strokeType="INSIDE" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

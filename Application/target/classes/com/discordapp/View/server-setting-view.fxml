@@ -32,7 +32,7 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Button layoutX="20.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#deleteChannel" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Delete Channel" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <Button layoutX="20.0" layoutY="262.0" mnemonicParsing="false" onAction="#deleteChannel" prefHeight="40.0" prefWidth="302.0" style="-fx-background-color: #18191c;" text="Delete Channel" textFill="#8e3fbc" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

@@ -96,9 +96,22 @@ public class DirectChatController implements Runnable {
      * @param message the message
      */
     public void broadcastMessage(Message message) {
-        for (Connection connection : usersInChatConnection) {
-            connection.sendMessage(message);
+        Iterator<Connection> it = usersInChatConnection.iterator();
+        while(it.hasNext()){
+            Connection connection = it.next();
+            if(!connection.isClosed()){
+                connection.sendMessage(message);
+            }else{
+                it.remove();
+            }
         }
+//        for (Connection connection : usersInChatConnection) {
+//            if(!connection.isClosed()) {
+//                connection.sendMessage(message);
+//            } else{
+//
+//            }
+//        }
     }
 
     /**
@@ -285,5 +298,9 @@ public class DirectChatController implements Runnable {
     public void reactToMessage(int index, String reactionType, String reactor) {
         messages.get(index).setReaction(reactionType,reactor);
         saveMessages();
+    }
+
+    public HashSet<Connection> getUsersInChatConnection() {
+        return usersInChatConnection;
     }
 }
