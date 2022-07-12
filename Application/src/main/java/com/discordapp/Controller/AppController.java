@@ -368,7 +368,7 @@ public class AppController {
      * @param unblockTarget the unblock target
      * @return the string
      */
-    public String unblockUser(String unblockTarget) {
+    public void unblockUser(String unblockTarget) {
         try {
             outputStream.writeUTF("#unblockUser");
             outputStream.flush();
@@ -377,10 +377,9 @@ public class AppController {
             outputStream.writeUTF(unblockTarget);
             outputStream.flush();
             String respone = inputStream.readUTF();
-            return respone;
         } catch (IOException e) {
             e.printStackTrace();
-            return "something went wrong while unblocking user.";
+            return ;
         }
     }
 

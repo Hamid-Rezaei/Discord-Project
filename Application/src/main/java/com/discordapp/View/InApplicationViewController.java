@@ -241,7 +241,15 @@ public class InApplicationViewController {
                     status.setCenterY(circle.getCenterY() + 51);
 
                     status.setFill(StatusViewController.returnColor(usr.getStatus().toString(usr.getStatus())));
-
+                    setOnMouseClicked(new EventHandler<MouseEvent>() { //TODO: block
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            if(mouseEvent.isSecondaryButtonDown()){
+                                // DiscordApplication.appController.blockUser(getItem().getUsername());
+                                // + remove from friend list (from client side, server deletes automatically).
+                            }
+                        }
+                    });
                     status.setRadius(8);
 
                     status.setManaged(false);
@@ -428,6 +436,7 @@ public class InApplicationViewController {
             Image profile;
             Circle circle = new Circle();
             User user;
+            Button unBlockBtn;
 
             @Override
             public void updateItem(User usr, boolean empty) {
@@ -435,6 +444,7 @@ public class InApplicationViewController {
                 setText(null);
                 setGraphic(null);
                 if (usr != null && !empty) {
+
                     nameTF.setText(usr.getUsername());
                     nameTF.setEditable(false);
                     nameTF.setStyle("-fx-background-color: #36393f;" +
@@ -463,7 +473,15 @@ public class InApplicationViewController {
                     line.setScaleY(3);
                     line.setScaleZ(2);
                     line.setSmooth(true);
-                    hBox.getChildren().addAll(circle, status, nameTF, line, pane);
+                    unBlockBtn = new Button();
+                    unBlockBtn.setText("UNBLOCK");
+                    unBlockBtn.setStyle("-fx-background-color: #ff0000;" + "-fx-text-fill: #ffff");
+                    unBlockBtn.setOnMouseReleased(e -> {
+                        DiscordApplication.appController.unblockUser(getItem().getUsername());
+                        Platform.runLater(() ->
+                        blockList.getItems().remove(getItem()));
+                    });
+                    hBox.getChildren().addAll(circle, status, nameTF, line, pane, unBlockBtn);
                     pane.setStyle("-fx-background-color: #36393f;");
                     hBox.setHgrow(pane, Priority.ALWAYS);
                     hBox.setHgrow(line, Priority.ALWAYS);
