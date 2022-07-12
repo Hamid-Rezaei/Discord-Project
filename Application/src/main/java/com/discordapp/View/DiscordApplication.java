@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class DiscordApplication extends Application {
         stage.setTitle("Discord");
         stage.getIcons().add(new Image("file:assets/discord_icon.png"));
         stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
     }

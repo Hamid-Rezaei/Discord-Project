@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -49,8 +50,7 @@ public class AnimationViewController implements Initializable {
                                 stage.setTitle("Discord");
                                 stage.getIcons().add(new Image("file:assets/discord_icon.png"));
                                 stage.setScene(scene);
-                                stage.show();
-                                stage.setScene(scene);
+                                stage.initStyle(StageStyle.DECORATED);
                                 stage.show();
                                 stackPane.getScene().getWindow().hide();
                             } catch (IOException e) {
