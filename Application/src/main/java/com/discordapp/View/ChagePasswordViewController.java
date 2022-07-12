@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The type Chage password view controller.
+ */
 public class ChagePasswordViewController {
 
     @FXML
@@ -18,6 +21,11 @@ public class ChagePasswordViewController {
     private Label error;
 
 
+    /**
+     * Cancel.
+     *
+     * @param event the event
+     */
     @FXML
     void cancel(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -28,6 +36,11 @@ public class ChagePasswordViewController {
         DiscordApplication.loadNewScene(loader, stage);
     }
 
+    /**
+     * Change password.
+     *
+     * @param event the event
+     */
     @FXML
     void changePassword(MouseEvent event) {
         String newPass = passTF.getText();

@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The type Delete server view controller.
+ */
 public class DeleteServerViewController {
 
     @FXML
@@ -16,16 +19,29 @@ public class DeleteServerViewController {
     @FXML
     private Label error;
 
+    /**
+     * Initialize.
+     */
     @FXML
     public void initialize() {
         GuildNameLb.setText(InGuildViewController.currGuild.getName());
     }
 
+    /**
+     * Cancel.
+     *
+     * @param event the event
+     */
     @FXML
     private void cancel(MouseEvent event) {
         closeStage(event, "in-guild-view.fxml");
     }
 
+    /**
+     * Delete Server.
+     *
+     * @param event the event
+     */
     @FXML
     private void deleteServer(MouseEvent event) {
         Guild currGuild = InGuildViewController.currGuild;
@@ -41,6 +57,9 @@ public class DeleteServerViewController {
         }
     }
 
+    /**
+     * Close stage.
+     */
     private void closeStage(MouseEvent event, String fxml) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = stage.getOwner().getScene().getRoot();

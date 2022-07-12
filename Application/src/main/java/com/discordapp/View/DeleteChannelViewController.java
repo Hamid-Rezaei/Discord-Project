@@ -14,6 +14,11 @@ public class DeleteChannelViewController {
     @FXML
     private TextField channelNameTF;
 
+    /**
+     * Cancel.
+     *
+     * @param event the event
+     */
     @FXML
     void cancel(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -24,6 +29,11 @@ public class DeleteChannelViewController {
         DiscordApplication.loadNewScene(loader, (Stage) stage.getOwner());
     }
 
+    /**
+     * Delete Channel.
+     *
+     * @param event the event
+     */
     @FXML
     void deleteChannel(ActionEvent event) {
         Guild currGuild = InGuildViewController.currGuild;

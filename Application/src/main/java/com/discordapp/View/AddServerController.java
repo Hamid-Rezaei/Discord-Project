@@ -10,6 +10,9 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * The type Add server controller.
+ */
 public class AddServerController {
     @FXML
     private TextField serverNameTF;
@@ -19,6 +22,11 @@ public class AddServerController {
         closePopupStage(event);
     }
 
+    /**
+     * Create server.
+     *
+     * @param event the event
+     */
     @FXML
     public void createServer(ActionEvent event) {
         String serverName = serverNameTF.getText();
@@ -28,6 +36,9 @@ public class AddServerController {
         closePopupStage(event);
     }
 
+    /**
+     * close popup stage
+     */
     private void closePopupStage(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();

@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The type Edit email view controller.
+ */
 public class EditEmailViewController {
 
     @FXML
@@ -18,6 +21,11 @@ public class EditEmailViewController {
     @FXML
     private Label error;
 
+    /**
+     * Cancel.
+     *
+     * @param event the event
+     */
     @FXML
     void cancel(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -28,6 +36,11 @@ public class EditEmailViewController {
         DiscordApplication.loadNewScene(loader, stage);
     }
 
+    /**
+     * Change email.
+     *
+     * @param event the event
+     */
     @FXML
     void changeEmail(MouseEvent event) {
         String newEmail = emailTF.getText();

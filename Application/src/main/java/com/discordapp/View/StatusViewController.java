@@ -19,11 +19,29 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+/**
+ * The type Status view controller.
+ */
 public class StatusViewController {
+    /**
+     * The constant color.
+     */
     public static Color color = Color.GREEN;
+    /**
+     * The Circle.
+     */
     public Circle circle;
+    /**
+     * The Status.
+     */
     Status status = Status.INVISIBLE;
 
+    /**
+     * Return color color.
+     *
+     * @param status the status
+     * @return the color
+     */
     public static Color returnColor(String status) {
         switch (status) {
             case "offline" -> {
@@ -43,6 +61,11 @@ public class StatusViewController {
         return Color.WHITE;
     }
 
+    /**
+     * Initialize.
+     *
+     * @param circle the circle
+     */
     @FXML
     public void initialize(Circle circle) {
         this.circle = circle;
@@ -50,6 +73,11 @@ public class StatusViewController {
         status = Status.ONLINE;
     }
 
+    /**
+     * Disturb.
+     *
+     * @param event the event
+     */
     @FXML
     void disturb(MouseEvent event) {
         color = Color.RED;
@@ -57,6 +85,11 @@ public class StatusViewController {
         closePopupStage(event);
     }
 
+    /**
+     * Idle.
+     *
+     * @param event the event
+     */
     @FXML
     void idle(MouseEvent event) {
         color = Color.YELLOW;
@@ -64,6 +97,11 @@ public class StatusViewController {
         closePopupStage(event);
     }
 
+    /**
+     * Invisible.
+     *
+     * @param event the event
+     */
     @FXML
     void invisible(MouseEvent event) {
         color = Color.GRAY;
@@ -71,6 +109,11 @@ public class StatusViewController {
         closePopupStage(event);
     }
 
+    /**
+     * Online.
+     *
+     * @param event the event
+     */
     @FXML
     void online(MouseEvent event) {
         color = Color.GREEN;
@@ -78,6 +121,11 @@ public class StatusViewController {
         closePopupStage(event);
     }
 
+    /**
+     * Close popup stage.
+     *
+     * @param event the event
+     */
     @FXML
     public void closePopupStage(MouseEvent event) {
         circle.setFill(color);

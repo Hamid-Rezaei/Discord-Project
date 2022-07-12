@@ -38,6 +38,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * The type In application view controller.
+ */
 public class InApplicationViewController {
 
     @FXML
@@ -84,9 +87,18 @@ public class InApplicationViewController {
     private Circle pinIcon;
 
 
+    /**
+     * The Friend in chat.
+     */
     User friendInChat;
+    /**
+     * The Listen to msg.
+     */
     Thread listenToMsg;
 
+    /**
+     * Initialize.
+     */
     public void initialize() {
         setAvatar();
         setDiscordIcon();
@@ -120,6 +132,11 @@ public class InApplicationViewController {
         settingIcon.setFill(new ImagePattern(new Image("file:assets/setting_icon.png", false)));
     }
 
+    /**
+     * Send friend req.
+     *
+     * @param event the event
+     */
     @FXML
     void sendFriendReq(ActionEvent event) {
         String friendName = friendIDTF.getText();
@@ -134,6 +151,11 @@ public class InApplicationViewController {
         }
     }
 
+    /**
+     * Send fr req.
+     *
+     * @param event the event
+     */
     @FXML
     void sendFrReq(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -141,6 +163,11 @@ public class InApplicationViewController {
         }
     }
 
+    /**
+     * Change status.
+     *
+     * @param event the event
+     */
     @FXML
     void changeStatus(MouseEvent event) {
         if (listenToMsg == null || !listenToMsg.isAlive())
@@ -164,11 +191,19 @@ public class InApplicationViewController {
 
     }
 
+    /**
+     * Sets status.
+     */
     public void setStatus() {
         status.setFill(StatusViewController.color);
     }
 
 
+    /**
+     * Add server.
+     *
+     * @param event the event
+     */
     @FXML
     void addServer(MouseEvent event) {
         exitFromDirectChat();
@@ -217,6 +252,9 @@ public class InApplicationViewController {
 
     }
 
+    /**
+     * Show all friends.
+     */
     @FXML
     void showAllFriends() {
         ObservableList<User> friendObs = FXCollections.observableArrayList(DiscordApplication.appController.friendList(DiscordApplication.user.getUsername()));
@@ -304,6 +342,9 @@ public class InApplicationViewController {
         newDirectChat(new ActionEvent());
     }
 
+    /**
+     * Show online friends.
+     */
     @FXML
     void showOnlineFriends() {
         ArrayList<User> friends = DiscordApplication.appController.friends(DiscordApplication.user.getUsername());
@@ -364,6 +405,9 @@ public class InApplicationViewController {
         });
     }
 
+    /**
+     * Show pending requests.
+     */
     @FXML
     void showPendingRequests() {
         ArrayList<User> pendingReqs = DiscordApplication.appController.friendRequestList(DiscordApplication.user.getUsername());
@@ -448,6 +492,9 @@ public class InApplicationViewController {
         });
     }
 
+    /**
+     * Show blocked list.
+     */
     @FXML
     void showBlockedList() {
         ArrayList<User> blocked = DiscordApplication.appController.blockedList(DiscordApplication.user.getUsername());
@@ -517,29 +564,46 @@ public class InApplicationViewController {
         });
     }
 
+    /**
+     * All friends.
+     */
     @FXML
     void allFriends() {
         showAllFriends();
     }
 
 
+    /**
+     * Online friends.
+     */
     @FXML
     void onlineFriends() {
         showOnlineFriends();
     }
 
 
+    /**
+     * Pending requests.
+     */
     @FXML
     void pendingRequests() {
         showPendingRequests();
     }
 
+    /**
+     * Blocked list.
+     */
     @FXML
     void blockedList() {
         showBlockedList();
     }
 
 
+    /**
+     * Sets .
+     *
+     * @param event the event
+     */
     @FXML
     void setting(MouseEvent event) {
         exitFromDirectChat();
@@ -548,6 +612,11 @@ public class InApplicationViewController {
         DiscordApplication.loadNewScene(loader, stage);
     }
 
+    /**
+     * New direct chat.
+     *
+     * @param event the event
+     */
     @FXML
     void newDirectChat(ActionEvent event) {
         ObservableList<User> friendObs = FXCollections.observableArrayList(DiscordApplication.appController.friendList(DiscordApplication.user.getUsername()));
@@ -582,6 +651,11 @@ public class InApplicationViewController {
         });
     }
 
+    /**
+     * Go toin app.
+     *
+     * @param event the event
+     */
     @FXML
     void goToinApp(MouseEvent event) {
         exitFromDirectChat();
@@ -596,6 +670,11 @@ public class InApplicationViewController {
         DiscordApplication.loadNewScene(loader, stage);
     }
 
+    /**
+     * Go to direct chat.
+     *
+     * @param user the user
+     */
     void goToDirectChat(User user) {
 
         if (!exitFromDirectChat()) {
@@ -638,6 +717,11 @@ public class InApplicationViewController {
         }
     }
 
+    /**
+     * Add message.
+     *
+     * @param incomingMessage the incoming message
+     */
     public void addMessage(Message incomingMessage) {
         Platform.runLater(() -> {
             messageList.getItems().add(incomingMessage);
@@ -837,6 +921,11 @@ public class InApplicationViewController {
         // messageList.setStyle("-fx-background-color: #36393f;" + "-fx-padding: 10px;");
     }
 
+    /**
+     * Send message.
+     *
+     * @param event the event
+     */
     @FXML
     void sendMessage(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -851,6 +940,11 @@ public class InApplicationViewController {
 
     }
 
+    /**
+     * Send file message.
+     *
+     * @param event the event
+     */
     @FXML
     void sendFileMessage(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -863,6 +957,12 @@ public class InApplicationViewController {
         }
     }
 
+    /**
+     * Save file in downloads string.
+     *
+     * @param message the message
+     * @return the string
+     */
     public String saveFileInDownloads(Message message) {
         try {
             byte[] bytes = message.getFile();
@@ -902,6 +1002,9 @@ public class InApplicationViewController {
         return false;
     }
 
+    /**
+     * Show pinned list.
+     */
     void showPinnedList() {
         ArrayList<Message> pins = DiscordApplication.appController.getPinnedMessages(DiscordApplication.user.getUsername(), friendInChat.getUsername());
         ObservableList<Message> ObsPins = FXCollections.observableArrayList(pins);
@@ -936,6 +1039,11 @@ public class InApplicationViewController {
         });
     }
 
+    /**
+     * Add to pins.
+     *
+     * @param messageToPin the message to pin
+     */
     void addToPins(Message messageToPin) {
         Platform.runLater(() -> pinBox.getItems().add(messageToPin));
     }

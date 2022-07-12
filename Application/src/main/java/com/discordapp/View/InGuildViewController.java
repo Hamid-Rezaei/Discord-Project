@@ -45,8 +45,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * The type In guild view controller.
+ */
 public class InGuildViewController {
 
+    /**
+     * The constant currGuild.
+     */
     public static Guild currGuild;
 
     @FXML
@@ -78,9 +84,18 @@ public class InGuildViewController {
     private ComboBox<Message> pinBox;
     @FXML
     private TextField messageTF;
+    /**
+     * The Listen to msg.
+     */
     Thread listenToMsg;
+    /**
+     * The Curr text channel.
+     */
     TextChannel currTextChannel;
 
+    /**
+     * Initialize.
+     */
     @FXML
     public void initialize() {
         setAvatar();
@@ -118,6 +133,9 @@ public class InGuildViewController {
         settingIcon.setFill(new ImagePattern(new Image("file:assets/setting_icon.png", false)));
     }
 
+    /**
+     * Sets status.
+     */
     public void setStatus() {
         status.setFill(StatusViewController.color);
     }
@@ -432,6 +450,11 @@ public class InGuildViewController {
         });
     }
 
+    /**
+     * Send message.
+     *
+     * @param event the event
+     */
     @FXML
     void sendMessage(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -475,6 +498,11 @@ public class InGuildViewController {
         }
     }
 
+    /**
+     * Go to acc settings.
+     *
+     * @param event the event
+     */
     @FXML
     void goToAccSettings(MouseEvent event) {
         exitFromGroupChat();
@@ -493,6 +521,12 @@ public class InGuildViewController {
         return false;
     }
 
+    /**
+     * Save file in downloads string.
+     *
+     * @param message the message
+     * @return the string
+     */
     public String saveFileInDownloads(Message message) {
         try {
             byte[] bytes = message.getFile();
@@ -514,12 +548,20 @@ public class InGuildViewController {
 
     }
 
+    /**
+     * Add message.
+     *
+     * @param incomingMessage the incoming message
+     */
     public void addMessage(Message incomingMessage) {
         Platform.runLater(() -> {
             serverMsgList.getItems().add(incomingMessage);
         });
     }
 
+    /**
+     * Show pinned list.
+     */
     void showPinnedList() {
         ArrayList<Message> pins = DiscordApplication.appController.getGroupChatPinnedMessages(currGuild.getOwnerName(), currGuild.getName(), currTextChannel.getName());
         ObservableList<Message> ObsPins = FXCollections.observableArrayList(pins);
@@ -554,6 +596,11 @@ public class InGuildViewController {
         });
     }
 
+    /**
+     * Send file message.
+     *
+     * @param event the event
+     */
     @FXML
     void sendFileMessage(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -566,6 +613,11 @@ public class InGuildViewController {
         }
     }
 
+    /**
+     * Add to pins.
+     *
+     * @param messageToPin the message to pin
+     */
     void addToPins(Message messageToPin) {
         Platform.runLater(() -> pinBox.getItems().add(messageToPin));
     }

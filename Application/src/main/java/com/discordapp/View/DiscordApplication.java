@@ -17,9 +17,18 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+/**
+ * The type Discord application.
+ */
 public class DiscordApplication extends Application {
 
+    /**
+     * The constant appController.
+     */
     public static AppController appController;
+    /**
+     * The constant user.
+     */
     public static User user;
 
     @Override
@@ -34,6 +43,12 @@ public class DiscordApplication extends Application {
         stage.show();
     }
 
+    /**
+     * Load new scene.
+     *
+     * @param loader the loader
+     * @param stage  the stage
+     */
     public static void loadNewScene(FXMLLoader loader, Stage stage) {
         try {
             Scene scene = new Scene(loader.load());
@@ -43,6 +58,11 @@ public class DiscordApplication extends Application {
         }
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch();
     }
