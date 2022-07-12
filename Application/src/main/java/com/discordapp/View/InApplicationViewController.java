@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -222,19 +223,19 @@ public class InApplicationViewController {
 
         friendsList.setItems(friendObs);
         friendsList.setCellFactory(param -> new ListCell<>() {
-            TextField nameTF = new TextField();
+            Label nameTF = new Label();
             Image profile;
             Circle circle = new Circle();
             User user;
 
             @Override
             public void updateItem(User usr, boolean empty) {
+
                 super.updateItem(user, empty);
                 setText(null);
                 setGraphic(null);
                 if (usr != null && !empty) {
                     nameTF.setText(usr.getUsername());
-                    nameTF.setEditable(false);
                     nameTF.setStyle("-fx-background-color: #36393f;" +
                             "-fx-text-fill: rgba(234,238,238,0.89) ;" + "-fx-font-size: 25;" + "-fx-font-weight: bold");
 
@@ -268,10 +269,10 @@ public class InApplicationViewController {
                     setGraphic(hBox);
                     setStyle("-fx-background-color: #36393f;" + "-fx-padding: 35px;");
 
-                    hBox.setOnMouseReleased(new EventHandler<>() {
+                    param.setOnMouseReleased(new EventHandler<>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            if (mouseEvent.isSecondaryButtonDown()) {
+                            if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                                 try {
                                     Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
                                     Parent root1 = stage.getScene().getRoot();
