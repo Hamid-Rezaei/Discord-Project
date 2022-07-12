@@ -4,11 +4,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="343.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.AnimationViewController">
+
+<AnchorPane fx:id="stackPane" maxHeight="330.0" minHeight="330.0" prefHeight="330.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.discordapp.View.AnimationViewController">
    <children>
-      <ImageView fx:id="gif" fitHeight="168.0" fitWidth="210.0" layoutX="70.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="gif" fitHeight="380.0" fitWidth="440.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@pngs/discord.png" />
-         </image></ImageView>
+            <Image url="@../../../../../../assets/gif.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
