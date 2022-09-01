@@ -38,7 +38,7 @@ users can change their Avatar,Email,Phone Number and status.
 ![image](https://user-images.githubusercontent.com/88323819/187967326-931d8ef8-00f0-4859-ab9d-a7ed9a3cdec9.png)    ![image](https://user-images.githubusercontent.com/88323819/187967070-9d61e83e-daa0-47f0-bb3c-f053c407a57b.png)
 
 
-## **COLABORATORS**
+## **COLLABORATORS**
 
 [Hossein Fakharzadeh](https://github.com/FakharzadehH)
 
