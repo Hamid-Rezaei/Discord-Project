@@ -1,4 +1,10 @@
 A messaging platform based on Discord. This is the Second phase of the Advanced Programming(AP) project at Amirkabir University of Thechnology during Spring 2022.
+
+**Thechnologies Used:**
+- Java: backend 
+- JavaFX: Desktop GUI
+- MySQL: database
+
 ## **SIGNUP & LOGIN SECTION** 
 ![image](https://user-images.githubusercontent.com/88323819/187940615-f37f22c3-dcb7-42e1-85a9-5032039f8be0.png)
 
