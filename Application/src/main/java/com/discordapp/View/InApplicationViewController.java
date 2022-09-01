@@ -307,8 +307,16 @@ public class InApplicationViewController {
     @FXML
     void showOnlineFriends() {
         ArrayList<User> friends = DiscordApplication.appController.friends(DiscordApplication.user.getUsername());
-        friends.removeIf(param -> param.getStatus().toString(param.getStatus()).equals("offline"));
-        ObservableList<User> onlineObs = FXCollections.observableArrayList(friends);
+        ArrayList<User> onlineFriends = new ArrayList<>();
+        if(friends.size() > 0) {
+            for(User friend : friends){
+                if(friend.getStatus().toString(friend.getStatus()).equals("online")){
+                    onlineFriends.add(friend);
+                }
+            }
+            //friends.removeIf(param -> param.getStatus().toString(param.getStatus()).equals("offline"));
+        }
+        ObservableList<User> onlineObs = FXCollections.observableArrayList(onlineFriends);
         onlineList.setItems(onlineObs);
         onlineList.setCellFactory(param -> new ListCell<>() {
             TextField nameTF = new TextField();

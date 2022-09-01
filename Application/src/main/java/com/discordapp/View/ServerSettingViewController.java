@@ -42,7 +42,7 @@ public class ServerSettingViewController {
 
 
     @FXML
-    void deleteChannel(MouseEvent event) throws IOException {
+    void deleteChannel(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showPopUpStage(stage, "delete-channel-view.fxml");
     }

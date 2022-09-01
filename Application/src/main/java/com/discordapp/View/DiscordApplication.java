@@ -27,7 +27,7 @@ public class DiscordApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(DiscordApplication.class.getResource("animation-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Discord");
-        stage.getIcons().add(new Image("file:assets/discord_icon.png"));
+        stage.getIcons().add(new Image("file:/assets/discord_icon.png"));
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);

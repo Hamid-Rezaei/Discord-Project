@@ -3,15 +3,18 @@ package com.discordapp.Controller;
 import com.discordapp.Model.*;
 import javafx.application.Platform;
 
+import java.math.BigInteger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
-
+import java.security.MessageDigest;
+//import org.apache.commons.codec;
 
 /**
  * The type App controller.
@@ -131,7 +134,8 @@ public class AppController {
         try {
             outputStream.writeUTF("#signUpNew");
             outputStream.flush();
-            outputStream.writeUTF(username + " " + password + " " + email + " " + "");
+            String passHash = passEncrypt(password);
+            outputStream.writeUTF(username + " " + passHash + " " + email + " " + "");
             outputStream.flush();
             outputStream.reset();
             return parseError(inputStream.readInt());
@@ -153,7 +157,8 @@ public class AppController {
         try {
             outputStream.writeUTF("#login");
             outputStream.flush();
-            outputStream.writeUTF(username + " " + password);
+            String passHash = passEncrypt(password);
+            outputStream.writeUTF(username + " " + passHash);
             outputStream.flush();
             User user = (User) inputStream.readObject();
             if (user == null) {
@@ -304,8 +309,8 @@ public class AppController {
             outputStream.flush();
             outputStream.writeUTF(username);
             outputStream.flush();
-            HashSet<User> friendSet = (HashSet<User>) inputStream.readObject();
-            return new ArrayList<User>(friendSet);
+            HashSet<User> friendSet = new HashSet<>((HashSet<User>) inputStream.readObject());
+            return new ArrayList<>(friendSet);
         } catch (IOException | ClassNotFoundException | ClassCastException e) {
             e.printStackTrace();
             return null;
@@ -313,7 +318,6 @@ public class AppController {
     }
 
     public ArrayList<User> friends(String username) {
-        HashSet<User> friendList = friendSet(username);
         ArrayList<User> friends = friendList(username);
 //        for (String friend : friendList) {
 //            friends.add(getUser(friend));
@@ -379,7 +383,7 @@ public class AppController {
             String respone = inputStream.readUTF();
         } catch (IOException e) {
             e.printStackTrace();
-            return ;
+            return;
         }
     }
 
@@ -776,6 +780,26 @@ public class AppController {
 
     public ObjectOutputStream getOutputStream() {
         return outputStream;
+    }
+
+    public static String passEncrypt(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            String hashtext = no.toString(16);
+
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+
+            return hashtext;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public ObjectInputStream getInputStream() {

@@ -34,7 +34,7 @@ public class AnimationViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Image load = new Image(new File("assets/gif.gif").toURI().toString());
         gif.setImage(load);
-
+        
         new Thread(new Runnable() {
             @Override
             public void run() {

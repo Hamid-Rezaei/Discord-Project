@@ -396,8 +396,8 @@ public class Database {
             statement.setString(1, user.getPassword());
             statement.setString(2, status);
             statement.setBytes(3, byteArr);
-            statement.setString(4,user.getEmail());
-            statement.setString(5,user.getPhoneNumber());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, user.getPhoneNumber());
             statement.setString(6, user.getUsername());
             statement.executeUpdate();
             connection.close();
