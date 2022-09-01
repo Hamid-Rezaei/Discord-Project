@@ -15,6 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
+/**
+ * The type Login view controller.
+ */
 public class LoginViewController {
 
     @FXML
@@ -30,12 +33,23 @@ public class LoginViewController {
     private String password;
     private String email;
     private String phoneNum;
+    /**
+     * The Username.
+     */
     public String username;
 
+    /**
+     * Initialize.
+     */
     @FXML
     public void initialize() {
     }
 
+    /**
+     * Em ph user tf handler.
+     *
+     * @param event the event
+     */
     @FXML
     void emPhUserTFHandler(KeyEvent event) {
         emailPhoneErr.setText("");
@@ -51,6 +65,11 @@ public class LoginViewController {
     }
 
 
+    /**
+     * Pass tf handler.
+     *
+     * @param event the event
+     */
     @FXML
     void passTFHandler(KeyEvent event) {
         passErr.setText("");
@@ -65,6 +84,11 @@ public class LoginViewController {
         }
     }
 
+    /**
+     * On login button.
+     *
+     * @param event the event
+     */
     @FXML
     void onLoginButton(ActionEvent event) {
         username = userTF.getText();
@@ -90,6 +114,11 @@ public class LoginViewController {
         }
     }
 
+    /**
+     * Go to sign up.
+     *
+     * @param event the event
+     */
     @FXML
     void goToSignUp(MouseEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("signup-view.fxml"));

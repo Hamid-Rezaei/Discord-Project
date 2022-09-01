@@ -24,6 +24,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * The type Account view controller.
+ */
 public class AccountViewController {
 
     @FXML
@@ -39,12 +42,23 @@ public class AccountViewController {
     @FXML
     private Circle status;
 
+    /**
+     * The constant user.
+     */
     public static User user;
 
+    /**
+     * Sets user.
+     *
+     * @param user the user
+     */
     public static void setUser(User user) {
         AccountViewController.user = user;
     }
 
+    /**
+     * Initialize.
+     */
     @FXML
     public void initialize() {
         setUser(DiscordApplication.user);
@@ -58,6 +72,9 @@ public class AccountViewController {
         }
     }
 
+    /**
+     * Sets avatar.
+     */
     public void setAvatar() {
         if (avatar != null) {
             avatar.setStroke(Color.SEAGREEN);
@@ -66,6 +83,11 @@ public class AccountViewController {
     }
 
 
+    /**
+     * Change avatar.
+     *
+     * @param event the event
+     */
     @FXML
     void changeAvatar(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -87,6 +109,11 @@ public class AccountViewController {
         }
     }
 
+    /**
+     * Change pass.
+     *
+     * @param event the event
+     */
     @FXML
     void changePass(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -94,23 +121,43 @@ public class AccountViewController {
 
     }
 
+    /**
+     * Edit email.
+     *
+     * @param event the event
+     */
     @FXML
     void editEmail(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showPopupStage(stage, "edit-email-view.fxml");
     }
 
+    /**
+     * Edit phone.
+     *
+     * @param event the event
+     */
     @FXML
     void editPhone(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showPopupStage(stage, "edit-phone-view.fxml");
     }
 
+    /**
+     * Edit username.
+     *
+     * @param event the event
+     */
     @FXML
     void editUsername(ActionEvent event) {
 
     }
 
+    /**
+     * Esc button.
+     *
+     * @param event the event
+     */
     @FXML
     void escButton(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("in-application-view.fxml"));
@@ -118,6 +165,11 @@ public class AccountViewController {
         DiscordApplication.loadNewScene(loader, stage);
     }
 
+    /**
+     * Log out.
+     *
+     * @param event the event
+     */
     @FXML
     void logOut(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
@@ -126,6 +178,9 @@ public class AccountViewController {
         DiscordApplication.loadNewScene(loader, stage);
     }
 
+    /**
+     * show popup stage
+     */
     private void showPopupStage(Stage stage, String fxml) {
         try {
             Parent root1 = stage.getScene().getRoot();
@@ -138,8 +193,7 @@ public class AccountViewController {
             popupStage.initOwner(stage);
             popupStage.initModality(Modality.APPLICATION_MODAL);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            Parent root = loader.load();
-            popupStage.setScene(new Scene(root, Color.TRANSPARENT));
+            popupStage.setScene(new Scene(loader.load(), Color.TRANSPARENT));
             popupStage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -14,6 +14,9 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+/**
+ * The type Server setting view controller.
+ */
 public class ServerSettingViewController {
 
     @FXML
@@ -41,6 +44,12 @@ public class ServerSettingViewController {
     }
 
 
+    /**
+     * Delete channel.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void deleteChannel(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -48,6 +57,9 @@ public class ServerSettingViewController {
     }
 
 
+    /**
+     * Show popup stage.
+     */
     private void showPopUpStage(Stage stage,String fxml) throws IOException {
         stage.close();
         Stage popupStage = new Stage(StageStyle.TRANSPARENT);

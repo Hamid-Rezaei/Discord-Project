@@ -9,11 +9,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The type Change server name view controller.
+ */
 public class ChangeServerNameViewController {
 
     @FXML
     private TextField nameTF;
 
+    /**
+     * Cancel.
+     *
+     * @param event the event
+     */
     @FXML
     void cancel(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -24,12 +32,16 @@ public class ChangeServerNameViewController {
         DiscordApplication.loadNewScene(loader, (Stage) stage.getOwner());
     }
 
+    /**
+     * Change name.
+     *
+     * @param event the event
+     */
     @FXML
     void changeName(MouseEvent event) {
         Guild currGuild = InGuildViewController.currGuild;
         String response = DiscordApplication.appController.changeGuildName(currGuild, nameTF.getText());
         System.out.println(response);
-       // currGuild.setName(nameTF.getText());
         InGuildViewController.currGuild = DiscordApplication.appController.getGuild(currGuild.getOwnerName(), nameTF.getText());
         cancel(event);
     }

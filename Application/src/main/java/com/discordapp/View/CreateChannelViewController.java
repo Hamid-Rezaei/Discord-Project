@@ -9,11 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * The type Create channel view controller.
+ */
 public class CreateChannelViewController {
 
     @FXML
     private TextField channelNameTF;
 
+    /**
+     * Cancel.
+     *
+     * @param event the event
+     */
     @FXML
     private void cancel(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -24,6 +32,11 @@ public class CreateChannelViewController {
         DiscordApplication.loadNewScene(loader, (Stage) stage.getOwner());
     }
 
+    /**
+     * Create channel
+     *
+     * @param event the event
+     */
     @FXML
     private void createChannel(ActionEvent event) {
         Guild currGuild = InGuildViewController.currGuild;

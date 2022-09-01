@@ -22,6 +22,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
+/**
+ * The type Animation view controller.
+ */
 public class AnimationViewController implements Initializable {
 
     @FXML

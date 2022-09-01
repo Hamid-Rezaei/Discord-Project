@@ -15,6 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * The type Sign up menu controller.
+ */
 public class SignUpMenuController {
     @FXML
     private TextField emailTF;
@@ -39,11 +42,19 @@ public class SignUpMenuController {
     @FXML
     private Button continueBtn;
 
+    /**
+     * Initialize.
+     */
     @FXML
     public void initialize() {
 
     }
 
+    /**
+     * Email tf handler.
+     *
+     * @param event the event
+     */
     @FXML
     void emailTFHandler(KeyEvent event) {
         emailErr.setText("");
@@ -58,6 +69,11 @@ public class SignUpMenuController {
         }
     }
 
+    /**
+     * Pass tf handler.
+     *
+     * @param event the event
+     */
     @FXML
     void passTFHandler(KeyEvent event) {
         passErr.setText("");
@@ -72,6 +88,11 @@ public class SignUpMenuController {
         }
     }
 
+    /**
+     * Username tf handler.
+     *
+     * @param event the event
+     */
     @FXML
     void UsernameTFHandler(KeyEvent event) {
         nameErr.setText("");
@@ -85,6 +106,9 @@ public class SignUpMenuController {
         }
     }
 
+    /**
+     * Check validation.
+     */
     public void checkValidation() {
         String result = Authentication.checkValidationOfInfo(username, password, email);
         if (result.startsWith("Success")) {
@@ -97,6 +121,11 @@ public class SignUpMenuController {
     }
 
 
+    /**
+     * Continue button.
+     *
+     * @param event the event
+     */
     @FXML
     void continueButton(ActionEvent event) {
         username = usernameTF.getText();
@@ -118,6 +147,11 @@ public class SignUpMenuController {
         }
     }
 
+    /**
+     * Go to login.
+     *
+     * @param event the event
+     */
     @FXML
     void goToLogin(MouseEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));

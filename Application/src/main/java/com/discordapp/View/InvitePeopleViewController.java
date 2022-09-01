@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The type Invite people view controller.
+ */
 public class InvitePeopleViewController {
 
     @FXML
@@ -18,11 +21,19 @@ public class InvitePeopleViewController {
     @FXML
     private TextField friendNameTB;
 
+    /**
+     * Initialize.
+     */
     @FXML
     public void initialize(){
         GuildNameLb.setText(InGuildViewController.currGuild.getName());
     }
 
+    /**
+     * Cancel.
+     *
+     * @param event the event
+     */
     @FXML
     private void cancel(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -33,6 +44,11 @@ public class InvitePeopleViewController {
         DiscordApplication.loadNewScene(loader, (Stage) stage.getOwner());
     }
 
+    /**
+     * Invite Friend.
+     *
+     * @param event the event
+     */
     @FXML
     private void invite(MouseEvent event) {
         Guild currGuild = InGuildViewController.currGuild;
